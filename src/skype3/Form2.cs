@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SQLite;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace SkypeDBReader
 {
@@ -17,22 +18,24 @@ namespace SkypeDBReader
         public Form2()
         {
             InitializeComponent();
+
             MaximizeBox = false;
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridView1.Columns.Add("ID", "会話ID");
-            dataGridView1.Columns.Add("name", "発言者");
-            dataGridView1.Columns.Add("message", "内容");
-            dataGridView1.Columns["ID"].DefaultCellStyle.WrapMode =
+
+            dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridView.Columns.Add("ID", "会話ID");
+            dataGridView.Columns.Add("name", "発言者");
+            dataGridView.Columns.Add("message", "内容");
+            dataGridView.Columns["ID"].DefaultCellStyle.WrapMode =
             DataGridViewTriState.True;
-            dataGridView1.RowHeadersVisible = false;
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.Columns[0].Width = 120;
-            dataGridView1.Columns[1].Width = 70;
+            dataGridView.RowHeadersVisible = false;
+            dataGridView.AllowUserToAddRows = false;
+            dataGridView.Columns[0].Width = 120;
+            dataGridView.Columns[1].Width = 70;
 
         }
 
-        private void readlog()
+        private void readlog()//ログを開いて目的のものを抜き出してグリッドビューに表示
         {
             {
                 string databaseFilePath = "main.db";
@@ -42,8 +45,9 @@ namespace SkypeDBReader
                 SQLiteCommand command = null;
                 SQLiteDataReader reader = null;
 
-                try
+                try//エラー発生の可能性あり
                 {
+                    //データベースを開いてSQL文を実行
                     connection = new SQLiteConnection();
                     connection.ConnectionString = "Data Source=" + databaseFilePath + ";Version=3;";
                     connection.Open();
@@ -52,9 +56,10 @@ namespace SkypeDBReader
                     command.CommandText = commandText;
                     reader = command.ExecuteReader();
                 }
-                catch (Exception ex)
+                catch (Exception ex)//エラー出たら
                 {
-                    MessageBox.Show(ex.Message, "コマンドの実行");
+                    //エラーを見える形にしておく
+                    MessageBox.Show(ex.Message, "コマンドエラー");
                 }
                 finally
                 {
@@ -65,44 +70,41 @@ namespace SkypeDBReader
                 if (reader == null)
                     return;
 
-                var sb = new StringBuilder();
-                var sb2 = new StringBuilder();
+                var DataString = new StringBuilder();
                 int n = 0;
-                var columnList = new List<string>();
+                int Row = 0;
 
-                if (reader.HasRows)
+
+                if (reader.HasRows) // コマンドの実行後、行データを持つとき
                 {
-                    dataGridView1.Rows.Clear();
+                    dataGridView.Rows.Clear();
 
                     while (reader.Read())
                     {
-                        if (reader.FieldCount > n)
-                        {
-                            columnList.Add(reader.GetName(n));
-                            ++n;
-                        }
-
-                        for (int j = 0; j < reader.FieldCount; ++j)
+                        for (int j = 0; j < reader.FieldCount; ++j) // 行データのフィールド数だけ繰り返す
                         {
                             object obj = reader.GetValue(j);
-
                             if (obj == null)
-                                sb2.Append("null,");
+                                DataString.Append("null,");
                             else if (obj.ToString() == "")
-                                sb2.Append("empty,");
-                            else if (obj.ToString().StartsWith("<URIObject type="))
-                                sb2.Append(string.Format("<System>なにかを送信したようです,"));
+                                DataString.Append(string.Format("<SDBR>削除されたようです。,"));
+                            else if (Regex.IsMatch(obj.ToString(), @"<URIObject\s+[^>]*type=""Picture.1""\s*uri\s*="))//この形は画像
+                                DataString.Append(string.Format("<SDBR>画像のようです。,"));
+                            else if (Regex.IsMatch(obj.ToString(), @"<URIObject\s+[^>]*type=""File.1""\s*uri\s*="))//この形はファイル
+                                DataString.Append(string.Format("<SDBR>なにかのファイルのようです。,"));
+                            else if (Regex.IsMatch(obj.ToString(), @"<a\s+[^>]*href\s*=\s*(?:(?<quot>[""'])(?<url>.*?)\k<quot>|" + @"(?<url>[^\s>]+))[^>]*>(?<text>.*?)</a>"))
+                                DataString.Append(string.Format("<SDBR>URLのようです。,"));//この形はURL
                             else if (obj is string)
-                                sb2.Append(string.Format("{0},", reader.GetString(j)));
+                                DataString.Append(string.Format("{0},", reader.GetString(j)));
                             else
-                                sb2.Append(String.Format("{0},", obj));
+                                DataString.Append(String.Format("{0},", obj));
                         }
 
                         //リスト項目の設定
-                        string linedate = sb2.ToString();
+                        string linedate = DataString.ToString();
                         string[] row = linedate.Split(',');
-                        dataGridView1.Rows.Add(row);
-                        sb2.Clear();
+                        dataGridView.Rows.Add(row);
+                        DataString.Clear();
                     }
 
                     if (reader != null)
@@ -117,18 +119,21 @@ namespace SkypeDBReader
         private void copylog()//ログをSkypeのとこから手元にコピペ
         {
             string skypeID = Properties.Settings.Default.SkypeID;//DB探すのにIDいる&設定から持ってくる
-//string databaseFilePath = System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Skype\\" + skypeID + "\\Main.db"; // データベースファイル
-            try
+            try//エラー発生する可能性あり
             {
+                //ファイルの場所
                 System.IO.FileInfo fi = new System.IO.FileInfo(@System.Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Skype\\" + skypeID + "\\Main.db");
+                //手元にコピー
                 System.IO.FileInfo copyFile = fi.CopyTo(@"main.db", true);
             }
-            catch (Exception ex)
+            catch (Exception ex)//エラー出たら
             {
+                //表示
                 MessageBox.Show(ex.Message, "ファイル探査エラー");
             }
         }
-        private void button1_Click(object sender, EventArgs e)
+
+        private void LoadButton_Click(object sender, EventArgs e)
         {
             copylog();
             readlog();
