@@ -25,7 +25,6 @@ namespace SkypeDBReader
             System.Reflection.AssemblyCopyrightAttribute asmcpy =(System.Reflection.AssemblyCopyrightAttribute)Attribute.
                 GetCustomAttribute(System.Reflection.Assembly.GetExecutingAssembly(),typeof(System.Reflection.AssemblyCopyrightAttribute));
 
-            label5.Text = asmcpy.Copyright.ToString();
 
         }
     }
