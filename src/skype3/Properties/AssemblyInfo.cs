@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SkypeDBReader")]
 [assembly: AssemblyProduct("SkypeDBReader")]
-[assembly: AssemblyCopyright("Copyright ©  2017 Tobitti.")]
+[assembly: AssemblyCopyright("Copyright ©  2017 tobitti0.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

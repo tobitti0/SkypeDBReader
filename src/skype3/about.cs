@@ -25,7 +25,14 @@ namespace SkypeDBReader
             System.Reflection.AssemblyCopyrightAttribute asmcpy =(System.Reflection.AssemblyCopyrightAttribute)Attribute.
                 GetCustomAttribute(System.Reflection.Assembly.GetExecutingAssembly(),typeof(System.Reflection.AssemblyCopyrightAttribute));
 
+            label5.Text = asmcpy.Copyright.ToString();
+            linkLabel1.Text="Released under the MIT license";
+            //
+        }
 
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/tobitti0/SkypeDBReader/blob/master/LICENSE");
         }
     }
 }
