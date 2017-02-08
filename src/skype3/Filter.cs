@@ -46,7 +46,11 @@ namespace SkypeDBReader
 
         private void FilterCheck_CheckedChanged(object sender, EventArgs e)
         {
+            FSkypeCheck.Enabled = FilterCheck.Checked;
             FilterSkypeID.Enabled = FilterCheck.Checked;
+            FStringCheck.Enabled = FilterCheck.Checked;
+            FilterString.Enabled = FilterCheck.Checked;
+
         }
     }
 }

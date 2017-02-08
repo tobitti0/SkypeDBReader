@@ -30,13 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(about));
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.VersionLabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
+            this.NameLabel = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.CRLabel = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.MITLabel = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,14 +49,14 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "About";
             // 
-            // label2
+            // VersionLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(91, 52);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 12);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "label2";
+            this.VersionLabel.AutoSize = true;
+            this.VersionLabel.Location = new System.Drawing.Point(91, 52);
+            this.VersionLabel.Name = "VersionLabel";
+            this.VersionLabel.Size = new System.Drawing.Size(44, 12);
+            this.VersionLabel.TabIndex = 1;
+            this.VersionLabel.Text = "Version";
             // 
             // label3
             // 
@@ -67,14 +67,14 @@
             this.label3.TabIndex = 2;
             this.label3.Text = "本アプリケーションを利用したことによる損失について\r\n製作者はいかなる責任を負いかねます。\r\n";
             // 
-            // label4
+            // NameLabel
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(91, 30);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 12);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "label4";
+            this.NameLabel.AutoSize = true;
+            this.NameLabel.Location = new System.Drawing.Point(91, 30);
+            this.NameLabel.Name = "NameLabel";
+            this.NameLabel.Size = new System.Drawing.Size(34, 12);
+            this.NameLabel.TabIndex = 3;
+            this.NameLabel.Text = "Name";
             // 
             // pictureBox1
             // 
@@ -86,14 +86,14 @@
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
             // 
-            // label5
+            // CRLabel
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(91, 72);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 12);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "label5";
+            this.CRLabel.AutoSize = true;
+            this.CRLabel.Location = new System.Drawing.Point(91, 72);
+            this.CRLabel.Name = "CRLabel";
+            this.CRLabel.Size = new System.Drawing.Size(35, 12);
+            this.CRLabel.TabIndex = 5;
+            this.CRLabel.Text = "label5";
             // 
             // label6
             // 
@@ -103,29 +103,29 @@
             this.label6.Size = new System.Drawing.Size(250, 2);
             this.label6.TabIndex = 6;
             // 
-            // linkLabel1
+            // MITLabel
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(91, 84);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(56, 12);
-            this.linkLabel1.TabIndex = 7;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "linkLabel1";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.MITLabel.AutoSize = true;
+            this.MITLabel.Location = new System.Drawing.Point(91, 84);
+            this.MITLabel.Name = "MITLabel";
+            this.MITLabel.Size = new System.Drawing.Size(56, 12);
+            this.MITLabel.TabIndex = 7;
+            this.MITLabel.TabStop = true;
+            this.MITLabel.Text = "linkLabel1";
+            this.MITLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.MITLabel_LinkClicked);
             // 
             // about
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(289, 150);
-            this.Controls.Add(this.linkLabel1);
+            this.Controls.Add(this.MITLabel);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.CRLabel);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.NameLabel);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.VersionLabel);
             this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "about";
@@ -139,12 +139,12 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label VersionLabel;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label NameLabel;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label CRLabel;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.LinkLabel MITLabel;
     }
 }

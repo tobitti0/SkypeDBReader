@@ -80,6 +80,7 @@
             // FSkypeCheck
             // 
             this.FSkypeCheck.AutoSize = true;
+            this.FSkypeCheck.Enabled = false;
             this.FSkypeCheck.Location = new System.Drawing.Point(33, 32);
             this.FSkypeCheck.Name = "FSkypeCheck";
             this.FSkypeCheck.Size = new System.Drawing.Size(66, 16);
@@ -90,6 +91,7 @@
             // FStringCheck
             // 
             this.FStringCheck.AutoSize = true;
+            this.FStringCheck.Enabled = false;
             this.FStringCheck.Location = new System.Drawing.Point(33, 55);
             this.FStringCheck.Name = "FStringCheck";
             this.FStringCheck.Size = new System.Drawing.Size(105, 16);
@@ -99,6 +101,7 @@
             // 
             // FilterString
             // 
+            this.FilterString.Enabled = false;
             this.FilterString.Location = new System.Drawing.Point(144, 53);
             this.FilterString.Name = "FilterString";
             this.FilterString.Size = new System.Drawing.Size(138, 19);

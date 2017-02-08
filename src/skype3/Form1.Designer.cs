@@ -31,71 +31,71 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.button4 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.LoadButton = new System.Windows.Forms.Button();
+            this.MonitoringStartButton = new System.Windows.Forms.Button();
+            this.MonitoringEndButton = new System.Windows.Forms.Button();
+            this.StatusLabel = new System.Windows.Forms.Label();
+            this.dataGridView = new System.Windows.Forms.DataGridView();
             this.check_scroll = new System.Windows.Forms.CheckBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.メインToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ロードToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.そんな機能はないToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.終了ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.フィルターToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.設定ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.会話ID調査ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.設定ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.フィルターToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.FilterStatus = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.FilterStatusLabel = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // button4
+            // LoadButton
             // 
-            this.button4.Location = new System.Drawing.Point(116, 297);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(114, 23);
-            this.button4.TabIndex = 0;
-            this.button4.Text = "読み込み";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.LoadButton.Location = new System.Drawing.Point(116, 297);
+            this.LoadButton.Name = "LoadButton";
+            this.LoadButton.Size = new System.Drawing.Size(114, 23);
+            this.LoadButton.TabIndex = 0;
+            this.LoadButton.Text = "読み込み";
+            this.LoadButton.UseVisualStyleBackColor = true;
+            this.LoadButton.Click += new System.EventHandler(this.button4_Click);
             // 
-            // button1
+            // MonitoringStartButton
             // 
-            this.button1.Location = new System.Drawing.Point(236, 297);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(114, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "監視開始";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.MonitoringStartButton.Location = new System.Drawing.Point(236, 297);
+            this.MonitoringStartButton.Name = "MonitoringStartButton";
+            this.MonitoringStartButton.Size = new System.Drawing.Size(114, 23);
+            this.MonitoringStartButton.TabIndex = 2;
+            this.MonitoringStartButton.Text = "監視開始";
+            this.MonitoringStartButton.UseVisualStyleBackColor = true;
+            this.MonitoringStartButton.Click += new System.EventHandler(this.button1_Click_1);
             // 
-            // button2
+            // MonitoringEndButton
             // 
-            this.button2.Enabled = false;
-            this.button2.Location = new System.Drawing.Point(356, 297);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(122, 23);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "監視終了";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            this.MonitoringEndButton.Enabled = false;
+            this.MonitoringEndButton.Location = new System.Drawing.Point(356, 297);
+            this.MonitoringEndButton.Name = "MonitoringEndButton";
+            this.MonitoringEndButton.Size = new System.Drawing.Size(122, 23);
+            this.MonitoringEndButton.TabIndex = 3;
+            this.MonitoringEndButton.Text = "監視終了";
+            this.MonitoringEndButton.UseVisualStyleBackColor = true;
+            this.MonitoringEndButton.Click += new System.EventHandler(this.button2_Click_1);
             // 
-            // label1
+            // StatusLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 34);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(101, 12);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "たいきちゅう(´・ω・｀)";
+            this.StatusLabel.AutoSize = true;
+            this.StatusLabel.Location = new System.Drawing.Point(13, 34);
+            this.StatusLabel.Name = "StatusLabel";
+            this.StatusLabel.Size = new System.Drawing.Size(101, 12);
+            this.StatusLabel.TabIndex = 4;
+            this.StatusLabel.Text = "たいきちゅう(´・ω・｀)";
             // 
-            // dataGridView1
+            // dataGridView
             // 
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllHeaders;
+            this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllHeaders;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
@@ -103,8 +103,8 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.PaleTurquoise;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
@@ -112,15 +112,15 @@
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Aquamarine;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView1.Location = new System.Drawing.Point(15, 49);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 21;
-            this.dataGridView1.Size = new System.Drawing.Size(683, 242);
-            this.dataGridView1.TabIndex = 12;
-            this.dataGridView1.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridView1_CellBeginEdit);
-            this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
-            this.dataGridView1.MouseLeave += new System.EventHandler(this.dataGridView1_MouseLeave);
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridView.Location = new System.Drawing.Point(15, 49);
+            this.dataGridView.Name = "dataGridView";
+            this.dataGridView.RowTemplate.Height = 21;
+            this.dataGridView.Size = new System.Drawing.Size(683, 242);
+            this.dataGridView.TabIndex = 12;
+            this.dataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridView1_CellBeginEdit);
+            this.dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
+            this.dataGridView.MouseLeave += new System.EventHandler(this.dataGridView1_MouseLeave);
             // 
             // check_scroll
             // 
@@ -160,7 +160,7 @@
             this.ロードToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.そんな機能はないToolStripMenuItem});
             this.ロードToolStripMenuItem.Name = "ロードToolStripMenuItem";
-            this.ロードToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.ロードToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
             this.ロードToolStripMenuItem.Text = "ロード";
             // 
             // そんな機能はないToolStripMenuItem
@@ -172,9 +172,16 @@
             // 終了ToolStripMenuItem
             // 
             this.終了ToolStripMenuItem.Name = "終了ToolStripMenuItem";
-            this.終了ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.終了ToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
             this.終了ToolStripMenuItem.Text = "終了";
             this.終了ToolStripMenuItem.Click += new System.EventHandler(this.終了ToolStripMenuItem_Click);
+            // 
+            // フィルターToolStripMenuItem
+            // 
+            this.フィルターToolStripMenuItem.Name = "フィルターToolStripMenuItem";
+            this.フィルターToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
+            this.フィルターToolStripMenuItem.Text = "フィルター";
+            this.フィルターToolStripMenuItem.Click += new System.EventHandler(this.フィルターToolStripMenuItem_Click);
             // 
             // 設定ToolStripMenuItem
             // 
@@ -189,56 +196,49 @@
             // 会話ID調査ToolStripMenuItem
             // 
             this.会話ID調査ToolStripMenuItem.Name = "会話ID調査ToolStripMenuItem";
-            this.会話ID調査ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.会話ID調査ToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.会話ID調査ToolStripMenuItem.Text = "会話ID調査";
             this.会話ID調査ToolStripMenuItem.Click += new System.EventHandler(this.会話ID調査ToolStripMenuItem_Click);
             // 
             // 設定ToolStripMenuItem1
             // 
             this.設定ToolStripMenuItem1.Name = "設定ToolStripMenuItem1";
-            this.設定ToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.設定ToolStripMenuItem1.Size = new System.Drawing.Size(133, 22);
             this.設定ToolStripMenuItem1.Text = "設定";
             this.設定ToolStripMenuItem1.Click += new System.EventHandler(this.設定ToolStripMenuItem1_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // フィルターToolStripMenuItem
+            // FilterStatusLabel
             // 
-            this.フィルターToolStripMenuItem.Name = "フィルターToolStripMenuItem";
-            this.フィルターToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
-            this.フィルターToolStripMenuItem.Text = "フィルター";
-            this.フィルターToolStripMenuItem.Click += new System.EventHandler(this.フィルターToolStripMenuItem_Click);
-            // 
-            // FilterStatus
-            // 
-            this.FilterStatus.AutoSize = true;
-            this.FilterStatus.Location = new System.Drawing.Point(234, 34);
-            this.FilterStatus.Name = "FilterStatus";
-            this.FilterStatus.Size = new System.Drawing.Size(0, 12);
-            this.FilterStatus.TabIndex = 16;
+            this.FilterStatusLabel.AutoSize = true;
+            this.FilterStatusLabel.Location = new System.Drawing.Point(234, 34);
+            this.FilterStatusLabel.Name = "FilterStatusLabel";
+            this.FilterStatusLabel.Size = new System.Drawing.Size(0, 12);
+            this.FilterStatusLabel.TabIndex = 16;
             // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(710, 327);
-            this.Controls.Add(this.FilterStatus);
+            this.Controls.Add(this.FilterStatusLabel);
             this.Controls.Add(this.check_scroll);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.button4);
+            this.Controls.Add(this.dataGridView);
+            this.Controls.Add(this.StatusLabel);
+            this.Controls.Add(this.MonitoringEndButton);
+            this.Controls.Add(this.MonitoringStartButton);
+            this.Controls.Add(this.LoadButton);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "SkypeDBReader";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -248,11 +248,11 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button LoadButton;
+        private System.Windows.Forms.Button MonitoringStartButton;
+        private System.Windows.Forms.Button MonitoringEndButton;
+        private System.Windows.Forms.Label StatusLabel;
+        private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.CheckBox check_scroll;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem メインToolStripMenuItem;
@@ -264,7 +264,7 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem そんな機能はないToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem フィルターToolStripMenuItem;
-        private System.Windows.Forms.Label FilterStatus;
+        private System.Windows.Forms.Label FilterStatusLabel;
     }
 }
 

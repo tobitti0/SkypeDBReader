@@ -16,23 +16,28 @@ namespace SkypeDBReader
         public about()
         {
             InitializeComponent();
+            //-----Windowの設定--------ここから
             MaximizeBox = false;
             MinimizeBox = false;
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            label4.Text = Application.ProductName;
-            label2.Text = ("Version:" + Application.ProductVersion );
+            //-------------------------ここまで
 
+            NameLabel.Text = Application.ProductName;//NameLabelに製品名を入れる
+            VersionLabel.Text = ("Version:" + Application.ProductVersion );//VarsionLabelにバージョンを入れる
+
+            //--------------コピーライトを取得-----------ここから
             System.Reflection.AssemblyCopyrightAttribute asmcpy =(System.Reflection.AssemblyCopyrightAttribute)Attribute.
                 GetCustomAttribute(System.Reflection.Assembly.GetExecutingAssembly(),typeof(System.Reflection.AssemblyCopyrightAttribute));
+            //-------------------------------------------ここまで
 
-            label5.Text = asmcpy.Copyright.ToString();
-            linkLabel1.Text="Released under the MIT license";
-            //
+            CRLabel.Text = asmcpy.Copyright.ToString();//CRLabelに取得したコピーライトを入れる
+            MITLabel.Text="Released under the MIT license";//MITLabelに定型文
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void MITLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)//MITLabelがクリックされたとき
         {
-            System.Diagnostics.Process.Start("https://github.com/tobitti0/SkypeDBReader/blob/master/LICENSE");
+            System.Diagnostics.Process.Start("https://github.com/tobitti0/SkypeDBReader/blob/master/LICENSE");//LICENSE開く
+
         }
     }
 }
