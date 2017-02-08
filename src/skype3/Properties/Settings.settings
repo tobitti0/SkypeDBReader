@@ -1,0 +1,36 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SkypeDBReader.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="SkypeID" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SkypeID</Value>
+    </Setting>
+    <Setting Name="ChatID" Type="System.String" Scope="User">
+      <Value Profile="(Default)">ChatID</Value>
+    </Setting>
+    <Setting Name="MessageRow" Type="System.String" Scope="User">
+      <Value Profile="(Default)">11</Value>
+    </Setting>
+    <Setting Name="FirstRun" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="MyColor" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="FilterCheck" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="FilterSkypeID" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SkypeID</Value>
+    </Setting>
+    <Setting Name="FSkypeCheck" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="FStringCheck" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="FilterString" Type="System.String" Scope="User">
+      <Value Profile="(Default)">特定文字</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
