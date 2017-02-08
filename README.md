@@ -1,0 +1,2 @@
+# SkypeDBReader
+SkypeのDBをリアルタイムで見る
