@@ -54,10 +54,9 @@ namespace SkypeDBReader
                 FirstSetUP FSUP = new FirstSetUP();
                 FSUP.StartPosition = FormStartPosition.CenterParent;
                 DialogResult dlgRet = FSUP.ShowDialog(this);
-            }else
-            {
-                updatecheck_BW();//バージョンチェック(初期フォームがあるとき実行するとエラー出る)
             }
+            updatecheck_BW();//バージョンチェック
+            
         }
 
 
@@ -577,24 +576,25 @@ namespace SkypeDBReader
             else
             {//NewVersion
                 NewLink.Text = ("新しいバージョンがあります" + version[0]);
+                string message = null;
+                for (int count = 0; count < version.Length - 1; count++)
+                {//複数行あった場合開業してバルーンに表示する形式にする
+                    if (count != 0) { message += "\r\n"; };
+                    message += version[count];
+                }
+
+                //バルーンウィンドウにする
+                toolTip1.IsBalloon = true;
+
+                //タイトル
+                toolTip1.ToolTipTitle = "更新内容";
+                //アイコン
+                toolTip1.ToolTipIcon = ToolTipIcon.Info;
+                //対象ととメッセージ
+                toolTip1.SetToolTip(NewLink, "Version " + message);
             }
 
-            string message = null;
-            for (int count=0; count< version.Length-1; count++)
-            {//複数行あった場合開業してバルーンに表示する形式にする
-                if (count != 0) { message += "\r\n"; };
-                message += version[count];
-            }
 
-            //バルーンウィンドウにする
-            toolTip1.IsBalloon = true;
-
-            //タイトル
-            toolTip1.ToolTipTitle = "更新内容";
-            //アイコン
-            toolTip1.ToolTipIcon = ToolTipIcon.Info;
-            //対象ととメッセージ
-            toolTip1.SetToolTip(NewLink, "Version " + message);
         }
     }
 
