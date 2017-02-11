@@ -71,9 +71,6 @@ namespace SkypeDBReader
                     return;
 
                 var DataString = new StringBuilder();
-                int n = 0;
-                int Row = 0;
-
 
                 if (reader.HasRows) // コマンドの実行後、行データを持つとき
                 {
