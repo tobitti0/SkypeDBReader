@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.LoadButton = new System.Windows.Forms.Button();
             this.MonitoringStartButton = new System.Windows.Forms.Button();
@@ -48,6 +49,8 @@
             this.設定ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FilterStatusLabel = new System.Windows.Forms.Label();
+            this.NewLink = new System.Windows.Forms.LinkLabel();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -96,23 +99,23 @@
             // 
             this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllHeaders;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.PaleTurquoise;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.PaleTurquoise;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Aquamarine;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.Aquamarine;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridView.Location = new System.Drawing.Point(15, 49);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowTemplate.Height = 21;
@@ -223,9 +226,27 @@
             this.FilterStatusLabel.Size = new System.Drawing.Size(0, 12);
             this.FilterStatusLabel.TabIndex = 16;
             // 
+            // NewLink
+            // 
+            this.NewLink.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.NewLink.Location = new System.Drawing.Point(470, 34);
+            this.NewLink.Name = "NewLink";
+            this.NewLink.Size = new System.Drawing.Size(228, 12);
+            this.NewLink.TabIndex = 17;
+            this.NewLink.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.NewLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.NewLink_LinkClicked);
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.AutomaticDelay = 0;
+            this.toolTip1.AutoPopDelay = 1000000;
+            this.toolTip1.InitialDelay = 0;
+            this.toolTip1.ReshowDelay = 0;
+            // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(710, 326);
+            this.Controls.Add(this.NewLink);
             this.Controls.Add(this.FilterStatusLabel);
             this.Controls.Add(this.check_scroll);
             this.Controls.Add(this.dataGridView);
@@ -266,6 +287,8 @@
         private System.Windows.Forms.ToolStripMenuItem そんな機能はないToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem フィルターToolStripMenuItem;
         private System.Windows.Forms.Label FilterStatusLabel;
+        private System.Windows.Forms.LinkLabel NewLink;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 
