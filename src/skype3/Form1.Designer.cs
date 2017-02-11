@@ -54,7 +54,7 @@
             // 
             // LoadButton
             // 
-            this.LoadButton.Location = new System.Drawing.Point(116, 297);
+            this.LoadButton.Location = new System.Drawing.Point(102, 297);
             this.LoadButton.Name = "LoadButton";
             this.LoadButton.Size = new System.Drawing.Size(114, 23);
             this.LoadButton.TabIndex = 0;
@@ -64,7 +64,7 @@
             // 
             // MonitoringStartButton
             // 
-            this.MonitoringStartButton.Location = new System.Drawing.Point(236, 297);
+            this.MonitoringStartButton.Location = new System.Drawing.Point(222, 297);
             this.MonitoringStartButton.Name = "MonitoringStartButton";
             this.MonitoringStartButton.Size = new System.Drawing.Size(114, 23);
             this.MonitoringStartButton.TabIndex = 2;
@@ -75,7 +75,7 @@
             // MonitoringEndButton
             // 
             this.MonitoringEndButton.Enabled = false;
-            this.MonitoringEndButton.Location = new System.Drawing.Point(356, 297);
+            this.MonitoringEndButton.Location = new System.Drawing.Point(342, 297);
             this.MonitoringEndButton.Name = "MonitoringEndButton";
             this.MonitoringEndButton.Size = new System.Drawing.Size(122, 23);
             this.MonitoringEndButton.TabIndex = 3;
@@ -116,10 +116,11 @@
             this.dataGridView.Location = new System.Drawing.Point(15, 49);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowTemplate.Height = 21;
-            this.dataGridView.Size = new System.Drawing.Size(683, 242);
+            this.dataGridView.Size = new System.Drawing.Size(683, 243);
             this.dataGridView.TabIndex = 12;
             this.dataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridView1_CellBeginEdit);
             this.dataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEndEdit);
+            this.dataGridView.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dataGridView_CellPainting);
             this.dataGridView.MouseLeave += new System.EventHandler(this.dataGridView1_MouseLeave);
             // 
             // check_scroll
@@ -127,7 +128,7 @@
             this.check_scroll.AutoSize = true;
             this.check_scroll.Checked = true;
             this.check_scroll.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.check_scroll.Location = new System.Drawing.Point(484, 301);
+            this.check_scroll.Location = new System.Drawing.Point(470, 301);
             this.check_scroll.Name = "check_scroll";
             this.check_scroll.Size = new System.Drawing.Size(94, 16);
             this.check_scroll.TabIndex = 13;
@@ -224,7 +225,7 @@
             // 
             // Form1
             // 
-            this.ClientSize = new System.Drawing.Size(710, 327);
+            this.ClientSize = new System.Drawing.Size(710, 326);
             this.Controls.Add(this.FilterStatusLabel);
             this.Controls.Add(this.check_scroll);
             this.Controls.Add(this.dataGridView);

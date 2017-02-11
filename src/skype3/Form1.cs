@@ -28,20 +28,25 @@ namespace SkypeDBReader
             dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridView.Columns.Add("ID", "なまえ");
             dataGridView.Columns.Add("message", "ないよう");
+            dataGridView.Columns.Add("timestamp", "");
             dataGridView.Columns.Add("status", "ステータス");
             dataGridView.Columns["status"].Visible = false;//statusの列は非表示に
             dataGridView.Columns["message"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dataGridView.Columns["timestamp"].DefaultCellStyle.Alignment =DataGridViewContentAlignment.MiddleRight;
             dataGridView.RowHeadersVisible = false;//一番左のはいらないので非表示
+            dataGridView.ColumnHeadersVisible = false;
             dataGridView.AllowUserToAddRows = false;//データを追加する必要がないので追加させない
-            dataGridView.Columns[0].Width = 70;//IDの列の幅（設定で変えれるべきか？)
+            dataGridView.AllowUserToResizeColumns = false;
             dataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            DanySort();
+            DataGridViewClear();
             //------------------------------ここまで
 
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.FirstRun == true)
+            if (Properties.Settings.Default.FirstRun == true)//初回起動の時の処理
             {
                 FirstSetUP FSUP = new FirstSetUP();
                 FSUP.StartPosition = FormStartPosition.CenterParent;
@@ -57,6 +62,7 @@ namespace SkypeDBReader
             //いったん読み込まないと画面が寂しい
             copylog();
             readlog();
+
 
             //DB探すのにIDいる&設定から持ってくる
             string skypeID = Properties.Settings.Default.SkypeID;
@@ -103,7 +109,7 @@ namespace SkypeDBReader
             MonitoringStartButton.Enabled = true;
         }
 
-        private void watcher_Changed(System.Object source,System.IO.FileSystemEventArgs e)//ファイルの変更があった時
+        private void watcher_Changed(System.Object source, System.IO.FileSystemEventArgs e)//ファイルの変更があった時
         {
             switch (e.ChangeType)
             {
@@ -123,6 +129,9 @@ namespace SkypeDBReader
 
         public void readlog()//ログを開いて目的のものを抜き出してグリッドビューに表示
         {
+            //UNIX-Timestampで現在のtimestampを得る
+            uint _nowTimestamp = (uint)((DateTime.UtcNow.Ticks - DateTime.Parse("1970-01-01 00:00:00").Ticks) / 10000000);
+
             //目当ての会話IDを設定から持ってくる
             string target = Properties.Settings.Default.ChatID; ;
 
@@ -138,7 +147,7 @@ namespace SkypeDBReader
                 FilterStatusLabel.Text = "フィルターが有効(｀・д・´)";
 
                 if (Properties.Settings.Default.FSkypeCheck)//IDフィルターが有効の時
-                    filter = ("author = '" + Properties.Settings.Default.FilterSkypeID +"' AND ");//検索条件を作成
+                    filter = ("author = '" + Properties.Settings.Default.FilterSkypeID + "' AND ");//検索条件を作成
                 else
                     filter = "";//無効だったら検索条件は作らない
             }
@@ -147,16 +156,20 @@ namespace SkypeDBReader
                 //フィルターがOFFの時
                 filter = "";
                 //情報を表示
-                FilterStatusLabel.Text="";
+                FilterStatusLabel.Text = "";
             }
             //------------------------------ここまで
 
             //データベースファイル名
-            string databaseFilePath = "main.db"; 
+            string databaseFilePath = "main.db";
 
             //データベースから抽出するためのSQL文
             string commandText =
-                "SELECT from_dispname,body_xml,chatmsg_status FROM Messages WHERE "+ filter +"(chatname = '" + target + "' OR dialog_partner = '" + target + "') ORDER BY id DESC limit " + line + ";";
+                "SELECT from_dispname,body_xml,timestamp__ms,chatmsg_status FROM Messages WHERE " + filter + "(chatname = '" + target + "' OR dialog_partner = '" + target + "') ORDER BY id DESC limit " + line + ";";
+            //from_dispname =ID[送信者]
+            //body_xml      =massage[本文]
+            //timestamp__ms =timestamp[時間]
+            //chatmsg_status=status[メッセステータス（1=不明,2=自分メッセ,3=未読,4=既読）]
 
             SQLiteConnection connection = null;
             SQLiteCommand command = null;
@@ -188,13 +201,13 @@ namespace SkypeDBReader
                 return;
 
             var DataString = new StringBuilder();
-            int n = 0;
-            int Row = 0;
+            int Row = 1;
 
 
             if (reader.HasRows) // コマンドの実行後、行データを持つとき
             {
-                dataGridView.Rows.Clear();
+                DataGridViewClear();
+
 
                 while (reader.Read())
                 {
@@ -205,7 +218,7 @@ namespace SkypeDBReader
                         if (obj == null)
                             DataString.Append("null,");
                         else if (obj.ToString() == "")
-                            DataString.Append(string.Format("<SDBR>削除されたようです。,")); 
+                            DataString.Append(string.Format("<SDBR>削除されたようです。,"));
                         else if (Regex.IsMatch(obj.ToString(), @"<URIObject\s+[^>]*type=""Picture.1""\s*uri\s*="))//この形は画像
                         {
                             DataString.Append(string.Format("<SDBR>画像のようです。,"));
@@ -216,7 +229,7 @@ namespace SkypeDBReader
                             DataString.Append(string.Format("<SDBR>なにかのファイルのようです。,"));
                             System = 2;
                         }
-                        else if (Regex.IsMatch(obj.ToString(), @"<a\s+[^>]*href\s*=\s*(?:(?<quot>[""'])(?<url>.*?)\k<quot>|" +@"(?<url>[^\s>]+))[^>]*>(?<text>.*?)</a>"))
+                        else if (Regex.IsMatch(obj.ToString(), @"<a\s+[^>]*href\s*=\s*(?:(?<quot>[""'])(?<url>.*?)\k<quot>|" + @"(?<url>[^\s>]+))[^>]*>(?<text>.*?)</a>"))
                         {//この形はURL
                             DataString.Append(string.Format("<SDBR>URLのようです。,"));
                             System = 3;
@@ -246,14 +259,17 @@ namespace SkypeDBReader
 
                     string[] row = linedate.Split(',');//[,]で配列区切りにする
 
-                    dataGridView.Rows.Insert(0, row);//グリッドビューに配列で挿入
+
+                    row[2] = TimestampDifference(_nowTimestamp, row[2]);//UNIXtimestampをhh:mmかss秒の形式に置き換え
+
+                    dataGridView.Rows.Insert(1, row);//グリッドビューに配列で挿入
 
 
                     //-----------------------背景色を変える---ここから
                     if (Properties.Settings.Default.MyColor)//optionで自コメントに色設定がチェックついていたら
                     {
-                        
-                        if (Convert.ToString(dataGridView[2, Row].Value) == "2") dataGridView.Rows[Row].DefaultCellStyle.BackColor = Color.LightGray;
+
+                        if (Convert.ToString(dataGridView[3, Row].Value) == "2") dataGridView.Rows[Row].DefaultCellStyle.BackColor = Color.LightGray;
                     }
 
                     if (System == 1) dataGridView.Rows[Row].DefaultCellStyle.BackColor = Color.LightPink;//画像の時
@@ -261,9 +277,9 @@ namespace SkypeDBReader
                     if (System == 3) dataGridView.Rows[Row].DefaultCellStyle.BackColor = Color.LightGreen;//URLの時
 
                     //未読だったらstatus欄の値は3なので3だったら
-                    if (Convert.ToString(dataGridView[2, Row].Value) == "3") dataGridView.Rows[Row].DefaultCellStyle.BackColor = Color.NavajoWhite;
+                    if (Convert.ToString(dataGridView[3, Row].Value) == "3") dataGridView.Rows[Row].DefaultCellStyle.BackColor = Color.NavajoWhite;
 
-                    
+
                     //フィルター使用かつ文字強調がONの時
                     if (Properties.Settings.Default.FilterCheck && Properties.Settings.Default.FStringCheck)
                     {
@@ -292,6 +308,7 @@ namespace SkypeDBReader
             if (connection != null)
                 connection.Close();
             UnSelect();
+            DanySort();
         }
 
         private void copylog()//ログをSkypeのとこから手元にコピペ
@@ -387,8 +404,10 @@ namespace SkypeDBReader
 
         //-----------------------------ここまで
 
-        private void UnSelect()//選択を解除する
-        {
+        private void UnSelect()//選択を解除する,幅の調整
+        {            
+            dataGridView.Columns[2].Width = 35;//timestampの列の幅
+            dataGridView.Columns[0].Width = 70;//IDの列の幅（設定で変えれるべきか？)
             dataGridView.CurrentCell = null;
 
         }
@@ -413,6 +432,68 @@ namespace SkypeDBReader
             dataGridView.Rows[Row].DefaultCellStyle.BackColor = now;
         }
 
+        private void DanySort()//ソート機能の無効化
+        {
+            foreach (DataGridViewColumn Calumns in dataGridView.Columns)
+            {
+                Calumns.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+        }
+
+        private string TimestampDifference(uint now, string st)//UNIXTimestampをhh:mmかss秒の形式に置き換え
+        {
+            Int64 nowtime = Convert.ToInt64(now);//今のUNIXTimestamp
+            Int64 messetime = Convert.ToInt64(st.Substring(0, 10));//データのUnixTimestanp
+            Int64 defference = nowtime-messetime;//時差(秒)
+
+            string output;
+
+            if (defference >= 60)//一分以上ならhh:mm形式
+            {
+                DateTime UNIXBase=new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);//UNIXの定義時刻
+                DateTime time = UNIXBase.AddSeconds(messetime).ToLocalTime();//日付とかの入った形に置換
+                output = string.Format("{0}",time.ToShortTimeString());//hh:mm形式の部分だけ取り出し
+                return output;
+
+            }
+
+            //一分未満ならss秒形式
+            output = string.Format("{0}秒", defference);
+            return output;
+
+
+        }
+
+
+        private void DataGridViewClear()//内容初期化と、ヘッダの作成
+        {
+            dataGridView.Rows.Clear();//表示されているものをすべて消す
+            string[] header = new string[4]{//入れる文字の定義ヘッダから持ってくる
+                dataGridView.Columns[0].HeaderText, dataGridView.Columns[1].HeaderText,
+                dataGridView.Columns[2].HeaderText, dataGridView.Columns[3].HeaderText };
+            dataGridView.Rows.Insert(0, header);//0行目に追加
+            dataGridView.Rows[0].Frozen = true;//0行目を固定(スクロールしても常に表示)
+            dataGridView.Rows[0].ReadOnly = true;//編集不可
+            dataGridView.Columns[2].ReadOnly = true;//時間の列を編集不可
+            UnSelect();
+        }
+
+        private void dataGridView_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)//セルの設定
+        {   //時間のセルの罫線を消す。ヘッダの色をうっすい灰色にする
+            if (e.ColumnIndex == 2)
+            {
+                e.AdvancedBorderStyle.Left = DataGridViewAdvancedCellBorderStyle.None;
+            }
+            if (e.ColumnIndex == 1)
+            {
+                e.AdvancedBorderStyle.Right = DataGridViewAdvancedCellBorderStyle.None;
+            }
+            if (e.RowIndex == 0)
+            {
+                DataGridView header = (DataGridView)sender;
+                header[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.GhostWhite;
+            }
+        }
     }
 
 }
