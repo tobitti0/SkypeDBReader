@@ -25,6 +25,7 @@ namespace SkypeDBReader
             ChatID.Text = Properties.Settings.Default.ChatID;
             MessageRow.Text = Properties.Settings.Default.MessageRow;
             MyColor_Check.Checked = Properties.Settings.Default.MyColor;
+            TimeDisplayCheck.Checked = Properties.Settings.Default.TimeDisplay;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -33,6 +34,7 @@ namespace SkypeDBReader
             Properties.Settings.Default.ChatID = ChatID.Text;
             Properties.Settings.Default.MessageRow = MessageRow.Text;
             Properties.Settings.Default.MyColor = MyColor_Check.Checked;
+            Properties.Settings.Default.TimeDisplay = TimeDisplayCheck.Checked;
             Properties.Settings.Default.Save();
         }
 

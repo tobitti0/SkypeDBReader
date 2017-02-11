@@ -40,6 +40,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.MyColor_Check = new System.Windows.Forms.CheckBox();
+            this.TimeDisplayCheck = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label4
@@ -92,7 +93,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(343, 124);
+            this.button1.Location = new System.Drawing.Point(343, 164);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 21;
@@ -102,7 +103,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(424, 124);
+            this.button2.Location = new System.Drawing.Point(424, 164);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 21;
@@ -113,7 +114,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(144, 129);
+            this.label1.Location = new System.Drawing.Point(144, 169);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(193, 12);
             this.label1.TabIndex = 22;
@@ -140,11 +141,24 @@
             this.MyColor_Check.Text = "自分のチャットに色を付ける";
             this.MyColor_Check.UseVisualStyleBackColor = true;
             // 
+            // TimeDisplayCheck
+            // 
+            this.TimeDisplayCheck.AutoSize = true;
+            this.TimeDisplayCheck.Checked = true;
+            this.TimeDisplayCheck.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.TimeDisplayCheck.Location = new System.Drawing.Point(83, 118);
+            this.TimeDisplayCheck.Name = "TimeDisplayCheck";
+            this.TimeDisplayCheck.Size = new System.Drawing.Size(142, 16);
+            this.TimeDisplayCheck.TabIndex = 24;
+            this.TimeDisplayCheck.Text = "チャットの時間を表示する";
+            this.TimeDisplayCheck.UseVisualStyleBackColor = true;
+            // 
             // Option
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(511, 159);
+            this.ClientSize = new System.Drawing.Size(511, 195);
+            this.Controls.Add(this.TimeDisplayCheck);
             this.Controls.Add(this.MyColor_Check);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label1);
@@ -177,5 +191,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox MyColor_Check;
+        private System.Windows.Forms.CheckBox TimeDisplayCheck;
     }
 }

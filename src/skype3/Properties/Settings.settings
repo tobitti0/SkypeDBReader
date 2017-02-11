@@ -32,5 +32,8 @@
     <Setting Name="FilterString" Type="System.String" Scope="User">
       <Value Profile="(Default)">特定文字</Value>
     </Setting>
+    <Setting Name="TimeDisplay" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

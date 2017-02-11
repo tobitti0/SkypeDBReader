@@ -475,6 +475,7 @@ namespace SkypeDBReader
             dataGridView.Rows[0].Frozen = true;//0行目を固定(スクロールしても常に表示)
             dataGridView.Rows[0].ReadOnly = true;//編集不可
             dataGridView.Columns[2].ReadOnly = true;//時間の列を編集不可
+            dataGridView.Columns["timestamp"].Visible = Properties.Settings.Default.TimeDisplay;//timestampの列は設定に従って表示
             UnSelect();
         }
 
