@@ -40,10 +40,10 @@ namespace SkypeDBReader
             dataGridView.AllowUserToAddRows = false;//データを追加する必要がないので追加させない
             dataGridView.AllowUserToResizeColumns = false;
             dataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            DanySort();
-            DataGridViewClear();
+            DataGridViewClear();//初期設定
+            DanySort();//ソート禁止
+            _Update.Check(NewLink, toolTip1);//アップデート情報を取得および更新案内を設定
             //------------------------------ここまで
-            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -55,15 +55,13 @@ namespace SkypeDBReader
                 FSUP.StartPosition = FormStartPosition.CenterParent;
                 DialogResult dlgRet = FSUP.ShowDialog(this);
             }
-            updatecheck_BW();//バージョンチェック
-            
         }
-
 
         private System.IO.FileSystemWatcher watcher = null;//ファイル監視用
 
         private void button1_Click_1(object sender, EventArgs e)//ファイルを監視
         {
+            
             //いったん読み込まないと画面が寂しい
             copylog();
             readlog();
@@ -130,7 +128,6 @@ namespace SkypeDBReader
             copylog();//コピー
             readlog();//読み取り＆表示
         }
-
 
         public void readlog()//ログを開いて目的のものを抜き出してグリッドビューに表示
         {
@@ -501,101 +498,11 @@ namespace SkypeDBReader
             }
         }
 
-        private string VersionNet()//公開しているバージョンを記載したtxtからネットバージョンを得る
-        {
-            try
-            {
-                WebClient wc = new WebClient();
-                Stream st = wc.OpenRead("https://raw.githubusercontent.com/tobitti0/SkypeDBReader/master/src/version.txt");
-                StreamReader sr = new StreamReader(st);
-
-                // リソースからすべて読み取る
-                var VersionNet = new StringBuilder();
-                while (sr.Peek() >= 0)
-                {
-                    VersionNet.Append(string.Format("{0},", sr.ReadLine()));
-                }
-                string version = VersionNet.ToString();
-
-                // StreamとStreamReaderを閉じる
-                sr.Close();
-                st.Close();
-                return version;
-
-            }
-            catch (Exception)
-            {
-                // URLのファイルが見つからない等のエラーが発生
-                string version =  "null";
-
-                return version;
-
-            }
-        }
-
         private void NewLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)//NewLinkラベルがクリックされたとき
         {
             System.Diagnostics.Process.Start("https://github.com/tobitti0/SkypeDBReader/releases");//配布ページを開く
         }
 
-        private void updatecheck_BW()//バックグラウンド処理の呼び出し
-        {
-            BackgroundWorker bw = new BackgroundWorker();
-            bw.DoWork += new DoWorkEventHandler(bw_DoWork);
-            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_Completed);
-            // バックグラウンド操作の実行
-            bw.RunWorkerAsync();
-        }
-
-        private void bw_DoWork(object sender, DoWorkEventArgs e)//バックグラウンドの処理
-        {
-            string result = VersionNet();//ネットのファイルを読んで文字列に収める
-            e.Result = result;//compleredが受け取れるようにする
-
-        }
-
-        private void bw_Completed(object sender, RunWorkerCompletedEventArgs e)//バック処理が完了した時
-        {
-            //e.Result=>workのほうから受け取った値
-            string[] version = e.Result.ToString().Split(',');//[,]で配列区切りにする
-
-            if (e.Error != null)
-            {
-                // エラーが発生したらメッセ
-                MessageBox.Show("エラーが発生しました\r\n" + e.Error, "バックグラウンドエラー");
-            }
-
-            if (version[0].ToString() == "null")
-            {     //エラー
-                NewLink.Text = ("NetWorkError");
-            }
-            else if (version[0].ToString() == Application.ProductVersion)
-            {   //最新版
-                NewLink.Text = ("");
-            }
-            else
-            {//NewVersion
-                NewLink.Text = ("新しいバージョンがあります" + version[0]);
-                string message = null;
-                for (int count = 0; count < version.Length - 1; count++)
-                {//複数行あった場合開業してバルーンに表示する形式にする
-                    if (count != 0) { message += "\r\n"; };
-                    message += version[count];
-                }
-
-                //バルーンウィンドウにする
-                toolTip1.IsBalloon = true;
-
-                //タイトル
-                toolTip1.ToolTipTitle = "更新内容";
-                //アイコン
-                toolTip1.ToolTipIcon = ToolTipIcon.Info;
-                //対象ととメッセージ
-                toolTip1.SetToolTip(NewLink, "Version " + message);
-            }
-
-
-        }
     }
 
 }
