@@ -47,6 +47,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
+            this.CancelButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -110,7 +111,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(177, 129);
+            this.button1.Location = new System.Drawing.Point(174, 129);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 5;
@@ -150,16 +151,16 @@
             // 
             this.button3.Location = new System.Drawing.Point(177, 263);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.Size = new System.Drawing.Size(94, 23);
             this.button3.TabIndex = 5;
-            this.button3.Text = "保存";
+            this.button3.Text = "保存して起動";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(250, 297);
+            this.label8.Location = new System.Drawing.Point(23, 280);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(155, 12);
             this.label8.TabIndex = 8;
@@ -210,11 +211,22 @@
             this.label12.TabIndex = 13;
             this.label12.Text = "label12";
             // 
+            // CancelButton
+            // 
+            this.CancelButton.Location = new System.Drawing.Point(322, 295);
+            this.CancelButton.Name = "CancelButton";
+            this.CancelButton.Size = new System.Drawing.Size(83, 23);
+            this.CancelButton.TabIndex = 14;
+            this.CancelButton.Text = "保存せず終了";
+            this.CancelButton.UseVisualStyleBackColor = true;
+            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            // 
             // FirstSetUP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(417, 321);
+            this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
@@ -262,5 +274,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Button CancelButton;
     }
 }

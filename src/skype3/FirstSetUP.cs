@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -30,6 +31,7 @@ namespace SkypeDBReader
             button2.Enabled = true;
             button3.Enabled = true;
         }
+
         private Form2 _Form2 = null;//ウインド状況管理用
         private void button2_Click(object sender, EventArgs e)
         {
@@ -50,12 +52,11 @@ namespace SkypeDBReader
 
         private void button3_Click(object sender, EventArgs e)
         {
+            Properties.Settings.Default.FirstRun = false;
             Properties.Settings.Default.SkypeID = SkypeID.Text;
             Properties.Settings.Default.ChatID = ChatID.Text;
-            Properties.Settings.Default.FirstRun = false;
             Properties.Settings.Default.MessageRow = "11";
             Properties.Settings.Default.Save();
-
             Close();
 
         }
@@ -63,6 +64,25 @@ namespace SkypeDBReader
         private void FirstSetUP_Load(object sender, EventArgs e)
         {
             SkypeID.Select();
+        }
+
+        protected override CreateParams CreateParams//×ボタンの無効化
+        {
+            [SecurityPermission(SecurityAction.Demand,
+                Flags = SecurityPermissionFlag.UnmanagedCode)]
+            get
+            {
+                const int CS_NOCLOSE = 0x200;
+                CreateParams cp = base.CreateParams;
+                cp.ClassStyle = cp.ClassStyle | CS_NOCLOSE;
+
+                return cp;
+            }
+        }
+
+        private void CancelButton_Click(object sender, EventArgs e)//保存せずに終了する
+        {
+            Application.Exit();
         }
     }
 }
