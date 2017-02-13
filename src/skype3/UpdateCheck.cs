@@ -22,7 +22,7 @@ namespace SkypeDBReader
             bw.RunWorkerAsync(Tuple.Create<LinkLabel, ToolTip>(LinkLabel, ToolTip));
         }
 
-        private static string VersionNet()//公開しているバージョンを記載したtxtからネットバージョンを得る
+        private static string VersionNet()//ネットのtxtから最新バージョンと変更内容を得る
         {
             string version = null;
             try
@@ -56,16 +56,14 @@ namespace SkypeDBReader
         private static void bw_DoWork(object sender, DoWorkEventArgs e)//バックグラウンドの処理
         {
             string result = VersionNet();//ネットのファイルを読んで文字列に収める
-            //e.Result = result;//compleredが受け取れるようにする
             var tuple = (Tuple<LinkLabel, ToolTip>)e.Argument;
             var LinkLabel = tuple.Item1;
             var tooltip = tuple.Item2;
-            //ファイルを読み込みresultに入れる処理(省略)
             e.Result = Tuple.Create<LinkLabel,ToolTip, string>(LinkLabel, tooltip, result);//bw_Completedで受け取らせる
         }
 
         private static void bw_Completed(object sender, RunWorkerCompletedEventArgs e)//バック処理が完了した時
-        {//Control c
+        {
             var tuple = (Tuple<LinkLabel, ToolTip, string>)e.Result;
             var LinkLabel = tuple.Item1;
             var tooltip = tuple.Item2;
