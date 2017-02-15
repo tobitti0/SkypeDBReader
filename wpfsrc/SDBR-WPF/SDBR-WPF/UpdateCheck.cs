@@ -100,7 +100,7 @@ namespace SDBR_WPF
                 }
 
                 //メッセージ
-                //tooltip.Text=("Version " + message + "\r\n(クリックで配布ページへ移動します。)");
+                tooltip.Text=("Version " + message + "\r\n(クリックで配布ページへ移動します。)");
              }
 
         }

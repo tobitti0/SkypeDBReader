@@ -49,7 +49,7 @@
                                 <Hyperlink NavigateUri="http://gushwell.ifdef.jp/"  Name="hyperlink" RequestNavigate="hyperlink_RequestNavigate" ToolTipService.ShowDuration="1000000000" ToolTipService.Placement="top">
                                     <ToolTipService.ToolTip>
                                         
-                                        <TextBlock x:Name="VersionToolTip" Width="200" TextWrapping="Wrap"><Image Source="SystemIcons.Asterisk"/></TextBlock>
+                                        <TextBlock x:Name="VersionToolTip" TextWrapping="Wrap"></TextBlock>
                                     </ToolTipService.ToolTip>
                 <TextBlock Text="{Binding Text}" Name="VersionBox"/>
             </Hyperlink>
