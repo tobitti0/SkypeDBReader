@@ -1,125 +1,99 @@
 ﻿<Window x:Class="SDBR_WPF.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-   xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
-        Title="MainWindow" Height="350" Width="575">
+        Title="SkypeDBReader" Height="379" Width="664" Style="{DynamicResource VSLike}">
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static SystemCommands.MinimizeWindowCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed_1" />
+        <CommandBinding Command="{x:Static SystemCommands.RestoreWindowCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed_2" />
+        <CommandBinding Command="{x:Static SystemCommands.MaximizeWindowCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed_3" />
+        <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed_4" />
+    </Window.CommandBindings>
     <Window.Resources>
-        <!-- ToolTip Style -->
-        <Style TargetType="ToolTip">
-            <Setter Property="OverridesDefaultStyle" Value="true" />
-            <Setter Property="HasDropShadow" Value="True" />
-            <Setter Property="FontWeight" Value="Normal" />
-            <Setter Property="Foreground" Value="Black" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ToolTip">
-                        <ed:Callout Name="Border"
-                                Width="{TemplateBinding Width}"
-                                Height="{TemplateBinding Height}"
-                                MinWidth="10"
-                                MinHeight="30"
-                                Margin="0,0,0,15"
-                                AnchorPoint="0.5,1.2"
-                                Background="White"
-                                BorderBrush="Black"
-                                BorderThickness="1"
-                                CalloutStyle="RoundedRectangle"
-                                Fill="#FFF4F4F5"
-                                FontSize="14.667"
-                                Stroke="Black">
-                            <ContentPresenter Margin="10,10,10,10"
-                                          HorizontalAlignment="Left"
-                                          VerticalAlignment="Top" />
-                        </ed:Callout>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
     </Window.Resources>
-    <DockPanel>
-        <!-- メニュー -->
-        <Menu Name="menu1" DockPanel.Dock="Top" >
-            <MenuItem Header="ファイル"></MenuItem>
-            <MenuItem Header="編集"></MenuItem>
-        </Menu>
-        <!-- ステータスバー -->
-        <StatusBar DockPanel.Dock="Bottom">
-            <StatusBarItem Width="131" DockPanel.Dock="Right">
-                <TextBlock  VerticalAlignment="Top" >
-                                <Hyperlink NavigateUri="http://gushwell.ifdef.jp/"  Name="hyperlink" RequestNavigate="hyperlink_RequestNavigate" ToolTipService.ShowDuration="1000000000" ToolTipService.Placement="top">
-                                    <ToolTipService.ToolTip>
-                                        
-                                        <TextBlock x:Name="VersionToolTip" TextWrapping="Wrap"></TextBlock>
-                                    </ToolTipService.ToolTip>
-                <TextBlock Text="{Binding Text}" Name="VersionBox"/>
-            </Hyperlink>
-                </TextBlock>
-            </StatusBarItem>
-            <Separator DockPanel.Dock="Right" />
-            <StatusBarItem x:Name="FilterStatus" Width="121" DockPanel.Dock="Right"></StatusBarItem>
-            <Separator DockPanel.Dock="Right" />
-            <StatusBarItem x:Name="Log" Width="121" DockPanel.Dock="Right"></StatusBarItem>
-             <Separator DockPanel.Dock="Right" />
-            <StatusBarItem x:Name="LeftButtom"></StatusBarItem>
-        </StatusBar>
+    <Grid>
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="83*"/>
-                <RowDefinition Height="10*"/>
-            </Grid.RowDefinitions>
-            <DataGrid x:Name="dataGrid" Margin="10,0" AutoGenerateColumns="False" ScrollViewer.CanContentScroll="True"
-                      VirtualizingPanel.ScrollUnit="Pixel"  HeadersVisibility="Column" CanUserSortColumns="False" IsReadOnly="True">
-                <DataGrid.ItemContainerStyle>
-                    <Style TargetType="DataGridRow">
-                        <Style.Triggers>
-                            <!-- 背景を設定する -->
-                            <DataTrigger Binding="{Binding StatusNumber}" Value="1">
-                                <Setter Property="Background" Value="LightGray" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding StatusNumber}" Value="2">
-                                <Setter Property="Background" Value="NavajoWhite" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </DataGrid.ItemContainerStyle>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="名前" Width="60" Binding="{Binding Id}" />
-                    <DataGridTextColumn Header="内容" Width="*" Binding="{Binding Message}" >
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="TextWrapping" Value="Wrap" />
-                                <Setter Property="MaxHeight" Value="100"/>
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                        <DataGridTextColumn.EditingElementStyle>
-                            <Style TargetType="TextBox">
-                                <Setter Property="AcceptsReturn" Value="true" />
-                                <Setter Property="TextWrapping" Value="Wrap" />
-                                <Setter Property="MaxHeight" Value="100"/>
-                                <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
-                            </Style>
-                        </DataGridTextColumn.EditingElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="25:40" Width="38" Binding="{Binding Time}" >
-                        <DataGridTextColumn.ElementStyle>
-                            <Style TargetType="{x:Type TextBlock}" >
-                                <Setter Property="Margin" Value="2" />
-                                <Setter Property="TextAlignment" Value="Right" />
-                            </Style>
-                        </DataGridTextColumn.ElementStyle>
-                    </DataGridTextColumn>
-                    <DataGridTextColumn Header="status" Width="38" Binding="{Binding Status}" />
-                    
-                </DataGrid.Columns>
-            </DataGrid>
-            <Button x:Name="button" Content="読み込み" HorizontalAlignment="Left" Margin="10,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="button_Click"/>
-            <Button x:Name="MonitoringStartButton" Content="監視開始" HorizontalAlignment="Left" Margin="90,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="MonitoringStartButton_Click"/>
-            <Button x:Name="MonitoringEndButton" Content="監視終了" HorizontalAlignment="Left" Margin="170,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" IsEnabled="false" Click="MonitoringEndButton_Click"/>
 
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="83*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="23"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <!-- メニュー -->
+                    <Menu Name="menu1" Margin="10,0">
+                        <MenuItem Header="ファイル"></MenuItem>
+                        <MenuItem Header="編集"></MenuItem>
+                    </Menu>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <DataGrid x:Name="dataGrid" Margin="10,0" AutoGenerateColumns="False" ScrollViewer.CanContentScroll="True"
+                      VirtualizingPanel.ScrollUnit="Pixel"  HeadersVisibility="Column" CanUserSortColumns="False" IsReadOnly="True" GridLinesVisibility="Horizontal">
+                        <DataGrid.ItemContainerStyle>
+                            <Style TargetType="DataGridRow">
+                                <Style.Triggers>
+                                    <!-- 背景を設定する -->
+                                    <DataTrigger Binding="{Binding StatusNumber}" Value="1">
+                                        <Setter Property="Background" Value="LightGray" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding StatusNumber}" Value="2">
+                                        <Setter Property="Background" Value="NavajoWhite" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.ItemContainerStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="名前" Width="60" Binding="{Binding Id}" />
+                            <DataGridTextColumn Header="内容" Width="*" Binding="{Binding Message}" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                        <Setter Property="MaxHeight" Value="100"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                                <DataGridTextColumn.EditingElementStyle>
+                                    <Style TargetType="TextBox">
+                                        <Setter Property="AcceptsReturn" Value="true" />
+                                        <Setter Property="TextWrapping" Value="Wrap" />
+                                        <Setter Property="MaxHeight" Value="100"/>
+                                        <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+                                    </Style>
+                                </DataGridTextColumn.EditingElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="System" Width="60" Binding="{Binding System}" />
+                            <DataGridTextColumn Header="25:40" Width="38" Binding="{Binding Time}" >
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="{x:Type TextBlock}" >
+                                        <Setter Property="Margin" Value="2" />
+                                        <Setter Property="TextAlignment" Value="Right" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="status" Width="38" Binding="{Binding Status}" />
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid >
+                <Grid Grid.Row="2">
+                    <Button x:Name="MonitoringStartButton" Content="監視開始" HorizontalAlignment="Left" Margin="90,5,0,0" VerticalAlignment="Top" Width="75" Click="MonitoringStartButton_Click"/>
+                    <Button x:Name="MonitoringEndButton" Content="監視終了" HorizontalAlignment="Left" Margin="170,5,0,0" VerticalAlignment="Top" Width="75" IsEnabled="false" Click="MonitoringEndButton_Click"/>
+                    <Button x:Name="button" Content="読み込み" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="75" Click="button_Click" />
+                </Grid>
+
+                <Grid Grid.Row="3" Margin="0,3,0,0">
+
+                    <TextBlock x:Name="FilterStatus" Width="121" DockPanel.Dock="Right" Margin="331,0,202,0">フィルター</TextBlock>
+                    <TextBlock x:Name="Log" Width="121" DockPanel.Dock="Right" Margin="205,0,328,0">ログ</TextBlock>
+                    <TextBlock x:Name="LeftButtom" HorizontalAlignment="Left" Width="193" Margin="7,0,0,0">準備完了</TextBlock>
+                    <TextBlock Margin="527,0,5,0" TextDecorations="{x:Null}" ><Hyperlink NavigateUri="http://gushwell.ifdef.jp/"  x:Name="hyperlink" RequestNavigate="hyperlink_RequestNavigate" ToolTipService.ShowDuration="1000000000" ToolTipService.Placement="top"><ToolTipService.ToolTip>
+                                        <TextBlock x:Name="VersionToolTip" TextWrapping="Wrap"/>
+                                    </ToolTipService.ToolTip><InlineUIContainer Foreground="Red">
+                                        <TextBlock  x:Name="VersionBox">ssssss</TextBlock>
+                                    </InlineUIContainer></Hyperlink></TextBlock>
+                </Grid>
+            </Grid>
 
         </Grid>
-
-
-
-    </DockPanel>
+    </Grid>
 </Window>

@@ -4,6 +4,15 @@
              xmlns:local="clr-namespace:SDBR_WPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
-    </Application.Resources>
-</Application>
+
+            <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Generic/Generic.xaml"/>
+                <ResourceDictionary Source="/Generic/Controls/Controls.xaml"/>
+                <ResourceDictionary Source="/Generic/DarkColor.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+
+        </Application.Resources>
+    </Application>
+

@@ -9,17 +9,19 @@ using System.ComponentModel;
 namespace SDBR_WPF
 {
 
-    public class Person
+    public class DB
     {
         public string Id { get; private set; }
         public string Message { get; private set; }
+        public string System { get; private set; }
         public string Time { get; private set; }
         public string Status { get; private set; }
 
-        public Person(string id, string message, string time,string status)
+        public DB(string id, string message,string system, string time,string status)
         {
             this.Id = id;
             this.Message = message;
+            this.System = system;
             this.Time = time;
             this.Status = status;
         }

@@ -22,11 +22,11 @@ namespace SDBR_WPF
 {
     public partial class MainWindow : Window
     {
-        readonly List<Person> DB;
+        readonly List<DB> DB;
         public MainWindow()
         {
             InitializeComponent();
-            DB = new List<Person> { };
+            DB = new List<DB> { };
             _Update.Check(VersionBox, VersionToolTip);//アップデート情報を取得および更新案内を設定
 
         }
@@ -63,7 +63,7 @@ namespace SDBR_WPF
             watcher.EnableRaisingEvents = true;
 
             //状態を表示
-            LeftButtom.Content = "監視ちゅう(｀・ω・´)";
+            LeftButtom.Text = "監視ちゅう(｀・ω・´)";
 
             //開始ボタンを押せなくして終了ボタンを押せるように
             MonitoringEndButton.IsEnabled = true;
@@ -77,7 +77,7 @@ namespace SDBR_WPF
             watcher.Dispose();
             watcher = null;
             //状態を表示
-            LeftButtom.Content = "監視おわり( ˘ω˘)";
+            LeftButtom.Text = "監視おわり( ˘ω˘)";
             //UnSelect();
             //終了を押せなくして開始を押せるように
             MonitoringEndButton.IsEnabled = false;
@@ -100,6 +100,34 @@ namespace SDBR_WPF
         {
             System.Diagnostics.Process.Start(e.Uri.AbsoluteUri);
             e.Handled = true;
+        }
+
+
+
+
+        private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+        private void CommandBinding_Executed_1(object sender, ExecutedRoutedEventArgs e)
+        {
+            SystemCommands.MinimizeWindow(this);
+        }
+        private void CommandBinding_Executed_2(object sender, ExecutedRoutedEventArgs e)
+        {
+            SystemCommands.RestoreWindow(this);
+            //Restore.Visibility = System.Windows.Visibility.Collapsed;
+            //Maximize.Visibility = System.Windows.Visibility.Visible;
+        }
+        private void CommandBinding_Executed_3(object sender, ExecutedRoutedEventArgs e)
+        {
+            SystemCommands.MaximizeWindow(this);
+            //Maximize.Visibility = System.Windows.Visibility.Collapsed;
+            //Restore.Visibility = System.Windows.Visibility.Visible;
+        }
+        private void CommandBinding_Executed_4(object sender, ExecutedRoutedEventArgs e)
+        {
+            SystemCommands.CloseWindow(this);
         }
     }
 }

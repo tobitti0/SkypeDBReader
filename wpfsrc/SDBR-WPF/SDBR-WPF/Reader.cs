@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data.SQLite;
 using System.Linq;
 using System.Text;
@@ -17,9 +18,27 @@ namespace SDBR_WPF
     {
 
         
-        public static void readwiter(List<Person> list,StatusBarItem FilterStatus, DataGrid dataGrid, StatusBarItem Log)
-        {
 
+        public static void readwiter(List<DB> list, TextBlock FilterStatus, DataGrid dataGrid, TextBlock Log)
+        {
+            BackgroundWorker bw = new BackgroundWorker();
+            bw.DoWork += new DoWorkEventHandler(bw_DoWork);
+            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_Completed);
+            if (bw.IsBusy != true)
+            {
+                bw.RunWorkerAsync(Tuple.Create<List<DB>, TextBlock, DataGrid, TextBlock>(list, FilterStatus, dataGrid, Log));
+            }
+
+}
+
+        private static void bw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+            var tuple = (Tuple<List<DB>, TextBlock, DataGrid, TextBlock>)e.Argument;
+            var list = tuple.Item1;
+            var FilterStatus = tuple.Item2;
+            var dataGrid = tuple.Item3;
+            var Log = tuple.Item4;
 
             var dispatcher = Application.Current.Dispatcher;
             if (dispatcher.CheckAccess())
@@ -37,8 +56,25 @@ namespace SDBR_WPF
                 dispatcher.Invoke(() => scrool(dataGrid));
             }
         }
+        private static void bw_Completed(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if ((e.Cancelled == true))
+            {
 
-        private static void readlog(List<Person> list,StatusBarItem FilterStatus )//ログを開いて目的のものを抜き出してグリッドビューに表示
+            }
+
+            else if (!(e.Error == null))
+            {
+                MessageBox.Show("Error: " + e.Error.Message);
+            }
+
+            else
+            {
+
+            }
+        }
+
+        private static void readlog(List<DB> list, TextBlock FilterStatus )//ログを開いて目的のものを抜き出してグリッドビューに表示
         {
             //UNIX-Timestampで現在のtimestampを得る
             uint _nowTimestamp = (uint)((DateTime.UtcNow.Ticks - DateTime.Parse("1970-01-01 00:00:00").Ticks) / 10000000);
@@ -55,7 +91,7 @@ namespace SDBR_WPF
             if (Properties.Settings.Default.FilterCheck)//フィルターがONの時
             {
                 //情報を表示
-                FilterStatus.Content = "フィルター有効(｀・д・´)";
+                FilterStatus.Text = "フィルター有効(｀・д・´)";
 
                 if (Properties.Settings.Default.FSkypeCheck)//IDフィルターが有効の時
                     filter = ("author = '" + Properties.Settings.Default.FilterSkypeID + "' AND ");//検索条件を作成
@@ -67,7 +103,7 @@ namespace SDBR_WPF
                 //フィルターがOFFの時
                 filter = "";
                 //情報を表示
-                FilterStatus.Content = "フィルター無効( ˘ω˘)";
+                FilterStatus.Text = "フィルター無効( ˘ω˘)";
             }
             //------------------------------ここまで
 
@@ -112,13 +148,12 @@ namespace SDBR_WPF
                 return;
 
             var DataString = new StringBuilder();
-            int Row = 1;
 
 
             if (reader.HasRows) // コマンドの実行後、行データを持つとき
             {
                list.Clear();
-
+                int System = 0;
 
                 while (reader.Read())
                 {
@@ -129,18 +164,31 @@ namespace SDBR_WPF
                         if (obj == null)
                             DataString.Append("null,");
                         else if (obj.ToString() == "")
-                            DataString.Append(string.Format("<SDBR>削除されたようです。,"));
+                        {
+                            System = 1;
+                            DataString.Append(string.Format("<SDBR>削除されたようです。,{0},", System));
+
+                        }
                         else if (Regex.IsMatch(obj.ToString(), @"<URIObject\s+[^>]*type=""Picture.1""\s*uri\s*="))//この形は画像
                         {
-                            DataString.Append(string.Format("<SDBR>画像のようです。,"));
+                            System = 2;
+                            DataString.Append(string.Format("<SDBR>画像のようです。,{0},", System));
+
                         }
                         else if (Regex.IsMatch(obj.ToString(), @"<URIObject\s+[^>]*type=""File.1""\s*uri\s*="))//この形はファイル
                         {
-                            DataString.Append(string.Format("<SDBR>なにかのファイルのようです。,"));
+                            System = 3;
+                            DataString.Append(string.Format("<SDBR>なにかのファイルのようです。,{0},", System));
                         }
                         else if (Regex.IsMatch(obj.ToString(), @"<a\s+[^>]*href\s*=\s*(?:(?<quot>[""'])(?<url>.*?)\k<quot>|" + @"(?<url>[^\s>]+))[^>]*>(?<text>.*?)</a>"))
                         {//この形はURL
-                            DataString.Append(string.Format("<SDBR>URLのようです。,"));
+                            System = 4;
+                            DataString.Append(string.Format("<SDBR>URLのようです。,{0},", System));
+                        }
+                        else if (obj is string && j == 1)
+                        {
+                            System = 0;
+                            DataString.Append(string.Format("{0},{1},", reader.GetString(j), System));
                         }
                         else if (obj is string)
                             DataString.Append(string.Format("{0},", reader.GetString(j)));
@@ -169,9 +217,9 @@ namespace SDBR_WPF
                     string[] row = linedate.Split(',');//[,]で配列区切りにする
 
 
-                    row[2] = TimestampDifference(_nowTimestamp, row[2]);//UNIXtimestampをhh:mmかss秒の形式に置き換え
+                    row[3] = TimestampDifference(_nowTimestamp, row[3]);//UNIXtimestampをhh:mmかss秒の形式に置き換え
 
-                    list.Insert(0, new Person(row[0], row[1], row[2], row[3]));
+                    list.Insert(0, new DB(row[0], row[1], row[2], row[3], row[4]));
 
                     //-----------------------背景色を変える---ここから
                     //if (Properties.Settings.Default.MyColor)//optionで自コメントに色設定がチェックついていたら
@@ -214,11 +262,11 @@ namespace SDBR_WPF
                 connection.Close();
 
         }
-        private static void UpdateDispList(List<Person> list,DataGrid dataGrid,StatusBarItem Log)//Listをデータグリッドのアイテムにする
+        private static void UpdateDispList(List<DB> list,DataGrid dataGrid, TextBlock Log)//Listをデータグリッドのアイテムにする
         {
-            dataGrid.ItemsSource = new ReadOnlyCollection<Person>(list);
+            dataGrid.ItemsSource = new ReadOnlyCollection<DB>(list);
             DateTime dtNow = DateTime.Now;
-            Log.Content = ("最終更新"+dtNow.ToShortTimeString());
+            Log.Text = ("最終更新"+dtNow.ToShortTimeString());
         }
 
         private static string TimestampDifference(uint now, string st)//UNIXTimestampをhh:mmかss秒の形式に置き換え

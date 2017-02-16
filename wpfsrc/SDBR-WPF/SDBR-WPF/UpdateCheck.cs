@@ -84,6 +84,8 @@ namespace SDBR_WPF
             if (version[0].ToString() == "null")
             {     //エラー
                 LinkLabel.Text = ("NetWorkError");
+                //メッセージ
+                tooltip.Text = ("通信エラーが発生しました。");
             }
             else if (version[0].ToString() == nowversion)
             {   //最新版
