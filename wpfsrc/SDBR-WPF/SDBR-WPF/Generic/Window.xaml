@@ -50,12 +50,13 @@
 
                                 <Border  Background="{DynamicResource AccentBrushKey}" Height="23" VerticalAlignment="Bottom" >
                                     <Grid>
-                                        <Label Content="p" Style="{DynamicResource CaptionLabelStyleKey}" HorizontalAlignment="Right" FontSize="16"/>
+                                        <ResizeGrip x:Name="WindowResizeGrip" Visibility="Collapsed" IsTabStop="false" Style="{DynamicResource VSResizeGrip}"/>
                                     </Grid>
                                 </Border>
 
                                 <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                             </Grid>
+
                         </Grid>
 
                     </Border>
@@ -69,6 +70,9 @@
                             <Setter TargetName="border" Property="BorderThickness" Value="1" />
                             <Setter TargetName="Restore" Property="Visibility" Value="Collapsed"/>
                             <Setter TargetName="Maximize" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="ResizeMode" Value="CanResizeWithGrip">
+                            <Setter TargetName="WindowResizeGrip" Property="Visibility" Value="Visible"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -91,121 +95,50 @@
     </Style>
     <Style x:Key="CaptionButtonStyleKey" TargetType="{x:Type Button}">
         <Setter Property="OverridesDefaultStyle" Value="True" />
-        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />
         <Setter Property="FontFamily" Value="Marlett"/>
         <Setter Property="IsTabStop" Value="False"/>
         <Setter Property="HorizontalContentAlignment" Value="Center" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Margin" Value="2" />
-        <Setter Property="Padding" Value="1" />
+        <Setter Property="VerticalContentAlignment" Value="Bottom" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="10" />
         <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
+        <Setter Property="Width" Value="30"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border x:Name="border" Background="Transparent" SnapsToDevicePixels="True">
-                        <Border.Effect>
-                            <DropShadowEffect Opacity="0"/>
-                        </Border.Effect>
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup x:Name="CommonStates">
-                                <VisualState x:Name="Normal">
-                                    <Storyboard>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border">
-                                            <EasingDoubleKeyFrame KeyTime="0" Value="0.6"/>
-                                        </DoubleAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="MouseOver">
-                                    <Storyboard>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border">
-                                            <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                                        </DoubleAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Pressed">
-                                    <Storyboard>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border">
-                                            <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                                        </DoubleAnimationUsingKeyFrames>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" Storyboard.TargetName="border">
-                                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                                        </DoubleAnimationUsingKeyFrames>
-                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Color)" Storyboard.TargetName="border">
-                                            <EasingColorKeyFrame KeyTime="0" Value="White"/>
-                                        </ColorAnimationUsingKeyFrames>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" Storyboard.TargetName="border">
-                                            <EasingDoubleKeyFrame KeyTime="0" Value="0.6"/>
-                                        </DoubleAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Disabled"/>
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                        <ContentPresenter x:Name="contentPresenter" Focusable="False" Margin="{TemplateBinding Padding}"
-                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-    </Style>
-    <Style x:Key="CaptionLabelStyleKey" TargetType="{x:Type Label}">
-        <Setter Property="OverridesDefaultStyle" Value="True" />
-        <Setter Property="Foreground" Value="White" />
-        <Setter Property="FontFamily" Value="Marlett"/>
-        <Setter Property="IsTabStop" Value="False"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center" />
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Margin" Value="2" />
-        <Setter Property="Padding" Value="1" />
-        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Label}">
-                    <Border x:Name="border" Background="Transparent" SnapsToDevicePixels="True">
-                        <Border.Effect>
-                            <DropShadowEffect Opacity="0"/>
-                        </Border.Effect>
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup x:Name="CommonStates">
-                                <VisualState x:Name="Normal">
-                                    <Storyboard>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border">
-                                            <EasingDoubleKeyFrame KeyTime="0" Value="0.6"/>
-                                        </DoubleAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="MouseOver">
-                                    <Storyboard>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border">
-                                            <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                                        </DoubleAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Pressed">
-                                    <Storyboard>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="border">
-                                            <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                                        </DoubleAnimationUsingKeyFrames>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.ShadowDepth)" Storyboard.TargetName="border">
-                                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                                        </DoubleAnimationUsingKeyFrames>
-                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Color)" Storyboard.TargetName="border">
-                                            <EasingColorKeyFrame KeyTime="0" Value="White"/>
-                                        </ColorAnimationUsingKeyFrames>
-                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Effect).(DropShadowEffect.Opacity)" Storyboard.TargetName="border">
-                                            <EasingDoubleKeyFrame KeyTime="0" Value="0.6"/>
-                                        </DoubleAnimationUsingKeyFrames>
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Disabled"/>
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                        <ContentPresenter x:Name="contentPresenter" Focusable="False" Margin="{TemplateBinding Padding}"
-                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-                    </Border>
+                    <Grid >
+                        <Border x:Name="border" SnapsToDevicePixels="True" VerticalAlignment="Bottom">
+                            <TextBlock TextAlignment="Center" >
+                                <ContentPresenter x:Name="contentPresenter" Focusable="False" Margin="5,8,5,5"/>
+                                </TextBlock>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" 
+					 Value="True">
+                            <Setter Property="Background" TargetName="border"
+						Value="{DynamicResource ActiveBackgroundBrushKey}" />
+                            <Setter Property="BorderBrush" TargetName="border"
+						Value="{DynamicResource ActiveBorderBrushKey}" />
+                            <Setter Property="Foreground"
+						Value="{DynamicResource ActiveForegroundBrushKey}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed"
+					 Value="True">
+                            <Setter Property="Background" TargetName="border"
+						Value="{DynamicResource AccentBrushKey}" />
+                            <Setter Property="BorderBrush" TargetName="border"
+						Value="{DynamicResource ActiveBorderBrushKey}" />
+                            <Setter Property="Foreground" 
+						Value="{DynamicResource AccentForegroundBrushKey}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled"
+					 Value="False">
+                            <Setter Property="Opacity"
+						Value="0.6" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

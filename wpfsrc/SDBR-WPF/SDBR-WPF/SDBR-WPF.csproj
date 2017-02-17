@@ -123,61 +123,89 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Generic\Controls\DataGrid.xaml">
+    <Page Include="Generic\AccentColor\Blue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Generic\AccentColor\Orange.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Generic\AccentColor\Purple.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Generic\BaseColor\Dark.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Generic\BaseColor\Light.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Generic\ControlsStyle\DataGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Generic\Controls\Menu.xaml">
+    <Page Include="Generic\ControlsStyle\Menu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Generic\DarkColor.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Generic\ControlsStyle\shared.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Generic\Generic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Generic\Controls\Button.xaml">
+    <Page Include="Generic\ControlsStyle\Button.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Generic\Controls\CheckBox.xaml">
+    <Page Include="Generic\ControlsStyle\CheckBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Generic\Controls\FocusVisualStyle.xaml">
+    <Page Include="Generic\ControlsStyle\FocusVisualStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Generic\Controls\PasswordBox.xaml">
+    <Page Include="Generic\ControlsStyle\PasswordBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Generic\Controls\RadioButton.xaml">
+    <Page Include="Generic\ControlsStyle\RadioButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Generic\Controls\ScrollBar.xaml">
+    <Page Include="Generic\ControlsStyle\ScrollBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Generic\Controls\ToggleButton.xaml">
+    <Page Include="Generic\ControlsStyle\ToggleButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Generic\Controls\Tooltip.xaml">
+    <Page Include="Generic\ControlsStyle\Tooltip.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Generic\Controls\Controls.xaml">
+    <Page Include="Generic\ControlsStyle\Controls.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Generic\Controls\Icons.xaml">
+    <Page Include="Generic\ControlsStyle\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Generic\RealizeGrip.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Generic\SkypeDBStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Generic\Window.xaml">
       <SubType>Designer</SubType>

@@ -35,5 +35,19 @@ namespace SDBR_WPF
                 return 0;
             }
         }
+        public int SystemNumber
+        {
+            get
+            {
+                if (System == "1") return 1;
+
+                if (System == "2") return 2;
+
+                if (System == "3") return 3;
+
+                if (System == "4") return 4;
+                return 0;
+            }
+        }
     }
 }

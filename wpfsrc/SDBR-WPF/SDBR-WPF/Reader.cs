@@ -45,32 +45,44 @@ namespace SDBR_WPF
             {
                 copylog();
                 readlog(list, FilterStatus);
-                UpdateDispList(list, dataGrid, Log);
-                scrool(dataGrid);
             }
             else
             {
                 dispatcher.Invoke(() => copylog());
                 dispatcher.Invoke(() => readlog(list, FilterStatus));
-                dispatcher.Invoke(() => UpdateDispList(list, dataGrid, Log));
-                dispatcher.Invoke(() => scrool(dataGrid));
             }
-        }
+            e.Result = tuple;
+                }
         private static void bw_Completed(object sender, RunWorkerCompletedEventArgs e)
         {
+            var tuple = (Tuple<List<DB>, TextBlock, DataGrid, TextBlock>)e.Result;
+            var list = tuple.Item1;
+            var FilterStatus = tuple.Item2;
+            var dataGrid = tuple.Item3;
+            var Log = tuple.Item4;
+
             if ((e.Cancelled == true))
             {
-
+                MessageBox.Show(e.Error.ToString(), "Readerバックグラウンドエラー");
             }
 
             else if (!(e.Error == null))
             {
                 MessageBox.Show("Error: " + e.Error.Message);
             }
-
             else
             {
-
+                var dispatcher = Application.Current.Dispatcher;
+                if (dispatcher.CheckAccess())
+                {
+                    UpdateDispList(list, dataGrid, Log);
+                    scrool(dataGrid);
+                }
+                else
+                {
+                    dispatcher.Invoke(() => UpdateDispList(list, dataGrid, Log));
+                    dispatcher.Invoke(() => scrool(dataGrid));
+                }
             }
         }
 
@@ -165,24 +177,24 @@ namespace SDBR_WPF
                             DataString.Append("null,");
                         else if (obj.ToString() == "")
                         {
-                            System = 1;
+                            System = 0;
                             DataString.Append(string.Format("<SDBR>削除されたようです。,{0},", System));
 
                         }
                         else if (Regex.IsMatch(obj.ToString(), @"<URIObject\s+[^>]*type=""Picture.1""\s*uri\s*="))//この形は画像
                         {
-                            System = 2;
+                            System = 1;
                             DataString.Append(string.Format("<SDBR>画像のようです。,{0},", System));
 
                         }
                         else if (Regex.IsMatch(obj.ToString(), @"<URIObject\s+[^>]*type=""File.1""\s*uri\s*="))//この形はファイル
                         {
-                            System = 3;
+                            System = 2;
                             DataString.Append(string.Format("<SDBR>なにかのファイルのようです。,{0},", System));
                         }
                         else if (Regex.IsMatch(obj.ToString(), @"<a\s+[^>]*href\s*=\s*(?:(?<quot>[""'])(?<url>.*?)\k<quot>|" + @"(?<url>[^\s>]+))[^>]*>(?<text>.*?)</a>"))
                         {//この形はURL
-                            System = 4;
+                            System = 3;
                             DataString.Append(string.Format("<SDBR>URLのようです。,{0},", System));
                         }
                         else if (obj is string && j == 1)

@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Generic/ControlsStyle/Button.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Generic/ControlsStyle/CheckBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Generic/ControlsStyle/FocusVisualStyle.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Generic/ControlsStyle/PasswordBox.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Generic/ControlsStyle/RadioButton.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Generic/ControlsStyle/Scrollbar.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Generic/ControlsStyle/Tooltip.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Generic/ControlsStyle/Menu.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Generic/ControlsStyle/DataGrid.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

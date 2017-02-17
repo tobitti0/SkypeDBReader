@@ -7,9 +7,11 @@
 
             <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Generic/Generic.xaml"/>
-                <ResourceDictionary Source="/Generic/Controls/Controls.xaml"/>
-                <ResourceDictionary Source="/Generic/DarkColor.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Generic/Generic.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Generic/ControlsStyle/Controls.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Generic/BaseColor/Dark.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Generic/AccentColor/Purple.xaml"/>
+                
             </ResourceDictionary.MergedDictionaries>
             </ResourceDictionary>
 
