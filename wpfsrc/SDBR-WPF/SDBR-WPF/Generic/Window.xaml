@@ -16,7 +16,7 @@
         <Setter Property="BorderBrush"
 				Value="{DynamicResource AccentBrushKey}" />
         <Setter Property="BorderThickness"
-				Value="0" />
+				Value="1" />
         <Setter Property="Padding"
 				Value="0" />
         <Setter Property="SnapsToDevicePixels"

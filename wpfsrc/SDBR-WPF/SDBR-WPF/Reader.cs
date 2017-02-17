@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -29,7 +30,8 @@ namespace SDBR_WPF
                 bw.RunWorkerAsync(Tuple.Create<List<DB>, TextBlock, DataGrid, TextBlock>(list, FilterStatus, dataGrid, Log));
             }
 
-}
+
+        }
 
         private static void bw_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -209,9 +211,11 @@ namespace SDBR_WPF
                     }
 
 
-                    DataString.Replace("&lt;", "<");//Skypeに勝手に書き換えられるのを戻す1
-                    DataString.Replace("&gt;", ">");//Skypeに勝手に書き換えられるのを戻す2
+                    
                     string linedate = DataString.ToString();//stringに変換していれとく
+
+                    linedate=HttpUtility.HtmlDecode(linedate);//Skypeに勝手に[&○○;]に書き換えられたのを戻す
+
                     //データ置換用正規表現---ここから
                     Regex replace1 = new Regex(@"<quote\sauthor=""[^""]+""\sauthorname=""[^""]+""\sconversation=""[^""]+""\sguid=""[^""]+""\stimestamp=""[^""]+"">");
                     Regex replace2 = new Regex(@"\r\n<<<\s</legacyquote></quote>");
