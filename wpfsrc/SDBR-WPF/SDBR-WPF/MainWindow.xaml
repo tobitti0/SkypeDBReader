@@ -23,21 +23,15 @@
             <!-- メニュー -->
             <Menu Name="menu1" Margin="10,0">
                 <MenuItem Header="ファイル">
-                    <MenuItem Header="Sub Two (With an Icon)" InputGestureText="Ctrl+A">
-                        <MenuItem.Icon>
-                            <Ellipse Width="16" Height="16" Fill="LightBlue" />
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Header="終了">
+                    <MenuItem Header="読み込み"/>
+                    <Separator />
                         <MenuItem Header="終了"/>
                     </MenuItem>
-                    <MenuItem Header="終了"/>
-                    <MenuItem Header="終了"/>
+                    <MenuItem Header="フィルター"/>
+                <MenuItem Header="その他">
+                    <MenuItem Header="設定"/>
                     <Separator />
-                    <MenuItem Header="終了"/>
-                </MenuItem>
-                <MenuItem Header="編集"></MenuItem>
-                <MenuItem Header="スクロール" Name="Scroll">
+                    <MenuItem Header="About"/>
                 </MenuItem>
             </Menu>
         </Grid>
@@ -115,12 +109,12 @@
             <TextBlock x:Name="Log" Grid.Column="1"  Foreground="White"><Run Text="ログ"/></TextBlock>
             <TextBlock x:Name="FilterStatus" Grid.Column="2"  Foreground="White"><Run Text="フィルター"/></TextBlock>
             <TextBlock x:Name="LeftButtom"  Foreground="White" Margin="10,0,0,0"><Run Text="準備完了"/></TextBlock>
-            <TextBlock Margin="0,0,15,0" TextDecorations="{x:Null}" Grid.Column="3" ><Hyperlink NavigateUri="https://github.com/tobitti0/SkypeDBReader/releases"  x:Name="hyperlink" RequestNavigate="hyperlink_RequestNavigate" ToolTipService.ShowDuration="1000000000" ToolTipService.Placement="top"  >
+            <TextBlock Margin="0,0,15,0" TextDecorations="{x:Null}" Grid.Column="3" x:Name="VersionBoxNormal"><Hyperlink NavigateUri="https://github.com/tobitti0/SkypeDBReader/releases"  x:Name="hyperlink" RequestNavigate="hyperlink_RequestNavigate" ToolTipService.ShowDuration="1000000000" ToolTipService.Placement="top"  >
                 <ToolTipService.ToolTip >
                     <TextBlock x:Name="VersionToolTip"  TextWrapping="Wrap"/> 
                 </ToolTipService.ToolTip>
                 <InlineUIContainer Foreground="{DynamicResource ActiveLinkForegroundBrushKey}">
-                    <TextBlock  x:Name="VersionBox"><Run Text="ssssss"/></TextBlock>
+                    <TextBlock  x:Name="VersionBox"></TextBlock>
                 </InlineUIContainer>
             </Hyperlink>
             </TextBlock>

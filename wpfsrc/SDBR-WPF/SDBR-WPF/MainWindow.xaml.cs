@@ -27,13 +27,7 @@ namespace SDBR_WPF
         {
             InitializeComponent();
             DB = new List<DB> { };
-            _Update.Check(VersionBox, VersionToolTip);//アップデート情報を取得および更新案内を設定
-            for (int i = 0; i < 50; i++)
-            {
-                MenuItem newMI = new MenuItem();
-                newMI.Header = "Item " + i.ToString();
-                Scroll.Items.Add(newMI);
-            }
+            _Update.Check(VersionBoxNormal,VersionBox, VersionToolTip);//アップデート情報を取得および更新案内を設定
         }
 
 
