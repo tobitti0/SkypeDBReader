@@ -39,7 +39,7 @@
                             </Grid.RowDefinitions>
                             <Grid>
                                 <TextBlock Text="{TemplateBinding Title}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="6,3,12,3" FontSize="14.667" />
-                                <StackPanel Orientation="Horizontal" Margin="5" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                <StackPanel Orientation="Horizontal" Margin="0" HorizontalAlignment="Right" VerticalAlignment="Top">
                                     <Button Content="0" Style="{DynamicResource CaptionButtonStyleKey}" Command="{x:Static SystemCommands.MinimizeWindowCommand}" CommandParameter="{Binding ElementName=target}"/>
                                     <Button x:Name="Maximize" Content="1" Style="{DynamicResource CaptionButtonStyleKey}" Command="{x:Static SystemCommands.MaximizeWindowCommand}" CommandParameter="{Binding ElementName=target}" Visibility="Visible"/>
                                     <Button x:Name="Restore" Content="2" Style="{DynamicResource CaptionButtonStyleKey}" Command="{x:Static SystemCommands.RestoreWindowCommand}" CommandParameter="{Binding ElementName=target}" Visibility="Collapsed"/>
@@ -93,6 +93,94 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+    <Style TargetType="{x:Type Window}" x:Key="VSLikeSub">
+        <Setter Property="WindowChrome.WindowChrome">
+            <Setter.Value>
+                <WindowChrome CornerRadius="3" GlassFrameThickness="1" ResizeBorderThickness="8" UseAeroCaptionButtons="False" CaptionHeight="{DynamicResource CaptionHeight}" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Background"
+				Value="{DynamicResource ThemeBrushKey}" />
+        <Setter Property="Foreground"
+				Value="{DynamicResource ActiveForegroundBrushKey}" />
+        <Setter Property="BorderBrush"
+				Value="{DynamicResource AccentBrushKey}" />
+        <Setter Property="BorderThickness"
+				Value="1" />
+        <Setter Property="Padding"
+				Value="0" />
+        <Setter Property="SnapsToDevicePixels"
+				Value="True" />
+        <Setter Property="UseLayoutRounding"
+				Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Window">
+                    <Border Name="border"
+                        Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}"
+							SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+							UseLayoutRounding="{TemplateBinding UseLayoutRounding}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid>
+                                <TextBlock Text="{TemplateBinding Title}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="6,3,12,3" FontSize="14.667" />
+                                <StackPanel Orientation="Horizontal" Margin="0" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                    <Button Content="0" Style="{DynamicResource CaptionButtonStyleKey}" Command="{x:Static SystemCommands.MinimizeWindowCommand}" CommandParameter="{Binding ElementName=target}"/>
+                                    <Button x:Name="Maximize" Content="1" Style="{DynamicResource CaptionButtonStyleKey}" Command="{x:Static SystemCommands.MaximizeWindowCommand}" CommandParameter="{Binding ElementName=target}" Visibility="Visible"/>
+                                    <Button x:Name="Restore" Content="2" Style="{DynamicResource CaptionButtonStyleKey}" Command="{x:Static SystemCommands.RestoreWindowCommand}" CommandParameter="{Binding ElementName=target}" Visibility="Collapsed"/>
+                                    <Button Content="r" Style="{DynamicResource CaptionButtonStyleKey}" Command="{x:Static SystemCommands.CloseWindowCommand}" CommandParameter="{Binding ElementName=target}"/>
+                                </StackPanel>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                
+                                <ResizeGrip x:Name="WindowResizeGrip" Visibility="Collapsed" IsTabStop="false" Style="{DynamicResource VSResizeGrip}"/>
+
+                                <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                            </Grid>
+
+                        </Grid>
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="WindowState" Value="Maximized">
+                            <Setter TargetName="border" Property="BorderThickness" Value="8" />
+                            <Setter TargetName="Maximize" Property="Visibility" Value="Collapsed"/>
+                            <Setter TargetName="Restore" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="WindowState" Value="Normal">
+                            <Setter TargetName="border" Property="BorderThickness" Value="1" />
+                            <Setter TargetName="Restore" Property="Visibility" Value="Collapsed"/>
+                            <Setter TargetName="Maximize" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="ResizeMode" Value="CanResizeWithGrip">
+                            <Setter TargetName="WindowResizeGrip" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="WindowState"
+					 Value="Maximized">
+                <Setter Property="BorderThickness"
+						Value="0" />
+                <Setter Property="Padding"
+						Value="8" />
+            </Trigger>
+            <Trigger Property="IsActive"
+					 Value="False">
+                <Setter Property="BorderBrush"
+						Value="{DynamicResource BorderBrushKey}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <Style x:Key="CaptionButtonStyleKey" TargetType="{x:Type Button}">
         <Setter Property="OverridesDefaultStyle" Value="True" />
         <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}" />

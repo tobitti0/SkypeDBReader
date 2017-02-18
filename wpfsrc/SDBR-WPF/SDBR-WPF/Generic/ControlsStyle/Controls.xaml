@@ -11,6 +11,8 @@
         <ResourceDictionary Source="pack://application:,,,/Generic/ControlsStyle/Tooltip.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Generic/ControlsStyle/Menu.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Generic/ControlsStyle/DataGrid.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Generic/ControlsStyle/Label.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Generic/ControlsStyle/ComboBox.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>

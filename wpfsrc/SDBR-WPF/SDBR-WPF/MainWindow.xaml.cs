@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
+
 namespace SDBR_WPF
 {
     public partial class MainWindow : Window
@@ -115,18 +116,33 @@ namespace SDBR_WPF
         private void CommandBinding_Executed_2(object sender, ExecutedRoutedEventArgs e)
         {
             SystemCommands.RestoreWindow(this);
-            //Restore.Visibility = System.Windows.Visibility.Collapsed;
-            //Maximize.Visibility = System.Windows.Visibility.Visible;
         }
         private void CommandBinding_Executed_3(object sender, ExecutedRoutedEventArgs e)
         {
             SystemCommands.MaximizeWindow(this);
-            //Maximize.Visibility = System.Windows.Visibility.Collapsed;
-            //Restore.Visibility = System.Windows.Visibility.Visible;
         }
         private void CommandBinding_Executed_4(object sender, ExecutedRoutedEventArgs e)
         {
             SystemCommands.CloseWindow(this);
+        }
+
+        private void Menu_Option_Click(object sender, RoutedEventArgs e)
+        {
+            OptionStart();
+        }
+
+        //Window起動状態確認
+        static private Option _OptionWindow = null;
+        public void OptionStart()
+        {
+            if (_OptionWindow == null)
+            {
+                _OptionWindow = new Option();
+                _OptionWindow.Closed += (s, e) => _OptionWindow = null;
+                _OptionWindow.Owner = this;
+                _OptionWindow.Show();
+            }
+            _OptionWindow.Activate();
         }
     }
 }
