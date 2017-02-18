@@ -72,7 +72,9 @@ namespace SDBR_WPF
             var LinkLabel2 = tuple.Item2;
             var tooltip = tuple.Item3;
             var Result = tuple.Item4;
-            System.Diagnostics.FileVersionInfo ver =System.Diagnostics.FileVersionInfo.GetVersionInfo(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            var fullname = typeof(App).Assembly.Location;
+            var info = System.Diagnostics.FileVersionInfo.GetVersionInfo(fullname);
+            var ver = info.FileVersion;
             var nowversion = ver.ToString();
             ////e.Result = workのほうから受け取った値
             string[] version = Result.ToString().Split(',');//[,]で配列区切りにする
