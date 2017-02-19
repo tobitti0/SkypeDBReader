@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SDBR_WPF"
-        Title="SkypeDBReader" Height="379" Width="664" Style="{DynamicResource VSLike}" ResizeMode="CanResizeWithGrip">
+        Title="SkypeDBReader" Height="379" Width="664" Style="{DynamicResource VSLike}" ResizeMode="CanResizeWithGrip" Loaded="Window_Loaded" Activated="Window_Activated" >
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static SystemCommands.MinimizeWindowCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed_1" />
         <CommandBinding Command="{x:Static SystemCommands.RestoreWindowCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed_2" />
@@ -12,12 +12,12 @@
         <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed_4" />
     </Window.CommandBindings>
     <Grid>
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="83*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="23"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" MinHeight="23"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <!-- メニュー -->
@@ -25,9 +25,9 @@
                 <MenuItem Header="ファイル">
                     <MenuItem Header="読み込み"/>
                     <Separator />
-                        <MenuItem Header="終了"/>
-                    </MenuItem>
-                    <MenuItem Header="フィルター"/>
+                    <MenuItem Header="終了"/>
+                </MenuItem>
+                <MenuItem Header="フィルター"/>
                 <MenuItem Header="その他">
                     <MenuItem Header="設定" Click="Menu_Option_Click"/>
                     <Separator />
@@ -36,8 +36,9 @@
             </Menu>
         </Grid>
         <Grid Grid.Row="1">
+
             <DataGrid x:Name="dataGrid" Margin="10,0" AutoGenerateColumns="False" ScrollViewer.CanContentScroll="True"
-                      VirtualizingPanel.ScrollUnit="Pixel"  HeadersVisibility="Column" CanUserSortColumns="False" IsReadOnly="True" GridLinesVisibility="Horizontal">
+                      VirtualizingPanel.ScrollUnit="Pixel"  HeadersVisibility="Column" CanUserSortColumns="False" IsReadOnly="True" GridLinesVisibility="Horizontal"  >
                 <DataGrid.ItemContainerStyle>
                     <Style TargetType="DataGridRow">
                         <Style.Triggers>
@@ -78,7 +79,7 @@
                             </Style>
                         </DataGridTextColumn.EditingElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="System" Width="60" Binding="{Binding System}" />
+
                     <DataGridTextColumn Header="25:40" Width="38" Binding="{Binding Time}" >
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="{x:Type TextBlock}" >
@@ -88,14 +89,20 @@
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
                     <DataGridTextColumn Header="status" Width="38" Binding="{Binding Status}" />
+                    <DataGridTextColumn Header="System" Width="60" Binding="{Binding System}" />
 
                 </DataGrid.Columns>
             </DataGrid>
         </Grid >
         <Grid Grid.Row="2">
-            <Button x:Name="MonitoringStartButton" Content="監視開始" HorizontalAlignment="Left" Margin="90,5,0,0" VerticalAlignment="Top" Width="75" Click="MonitoringStartButton_Click"/>
-            <Button x:Name="MonitoringEndButton" Content="監視終了" HorizontalAlignment="Left" Margin="170,5,0,0" VerticalAlignment="Top" Width="75" IsEnabled="false" Click="MonitoringEndButton_Click"/>
-            <Button x:Name="button" Content="読み込み" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Top" Width="75" Click="button_Click" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="MonitoringStartButton" Grid.Column="1" Content="監視開始" HorizontalAlignment="Right" Margin="10,5,0,5" VerticalAlignment="Top" Width="Auto" Click="MonitoringStartButton_Click"/>
+            <Button x:Name="MonitoringEndButton" Grid.Column="2" Content="監視終了" HorizontalAlignment="Right" Margin="10,5,0,5" VerticalAlignment="Top" Width="Auto" IsEnabled="false" Click="MonitoringEndButton_Click"/>
+            <Button x:Name="button" Grid.Column="0" Content="読み込み" HorizontalAlignment="Left" Margin="10,5,0,5" VerticalAlignment="Top" Width="Auto" Click="button_Click" />
         </Grid>
 
         <Grid Grid.Row="3" Margin="0,3,0,0">
@@ -120,6 +127,6 @@
             </TextBlock>
 
         </Grid>
-        
+
     </Grid>
 </Window>

@@ -17,7 +17,7 @@ namespace SDBR_WPF
         public string Time { get; private set; }
         public string Status { get; private set; }
 
-        public DB(string id, string message,string system, string time,string status)
+        public DB(string id, string message, string time,string status, string system)
         {
             this.Id = id;
             this.Message = message;

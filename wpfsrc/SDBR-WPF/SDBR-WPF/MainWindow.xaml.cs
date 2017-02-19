@@ -29,7 +29,9 @@ namespace SDBR_WPF
             InitializeComponent();
             DB = new List<DB> { };
             _Update.Check(VersionBoxNormal,VersionBox, VersionToolTip);//アップデート情報を取得および更新案内を設定
+
         }
+
 
 
         FileSystemWatcher watcher = null;
@@ -92,6 +94,7 @@ namespace SDBR_WPF
         private void button_Click(object sender, RoutedEventArgs e)
         {
             ReadWriter.readwiter(DB, FilterStatus, dataGrid, Log);
+
         }
 
 
@@ -143,6 +146,17 @@ namespace SDBR_WPF
                 _OptionWindow.Show();
             }
             _OptionWindow.Activate();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {//設定の中からカラーを適用
+            ((App)Application.Current).ChangeBase(Properties.Settings.Default.BaseColor);
+            ((App)Application.Current).ChangeAccent(Properties.Settings.Default.AccentColor);
+        }
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            dataGrid.FontSize = Properties.Settings.Default.FontSize;
         }
     }
 }

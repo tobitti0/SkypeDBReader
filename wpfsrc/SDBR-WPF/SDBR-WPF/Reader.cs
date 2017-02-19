@@ -43,18 +43,27 @@ namespace SDBR_WPF
             var Log = tuple.Item4;
 
             var dispatcher = Application.Current.Dispatcher;
-            if (dispatcher.CheckAccess())
+            try
             {
-                copylog();
-                readlog(list, FilterStatus);
-            }
-            else
-            {
-                dispatcher.Invoke(() => copylog());
-                dispatcher.Invoke(() => readlog(list, FilterStatus));
-            }
-            e.Result = tuple;
+                if (dispatcher.CheckAccess())
+                {
+                    copylog();
+                    readlog(list, FilterStatus);
                 }
+                else
+                {
+                    dispatcher.Invoke(() => copylog());
+                    dispatcher.Invoke(() => readlog(list, FilterStatus));
+                }
+                e.Result = tuple;
+            }
+            catch (Exception ex)//エラー出たら
+            {
+                //エラーを見える形にしておく
+                MessageBox.Show(ex.Message, "コマンドエラー");
+            }
+
+        }
         private static void bw_Completed(object sender, RunWorkerCompletedEventArgs e)
         {
             var tuple = (Tuple<List<DB>, TextBlock, DataGrid, TextBlock>)e.Result;
@@ -84,6 +93,17 @@ namespace SDBR_WPF
                 {
                     dispatcher.Invoke(() => UpdateDispList(list, dataGrid, Log));
                     dispatcher.Invoke(() => scrool(dataGrid));
+                }
+                try
+                {
+                    UpdateDispList(list, dataGrid, Log);
+                    scrool(dataGrid);
+                }
+                catch (Exception ex)//エラー出たら
+                {
+                    //エラーを見える形にしておく
+                    MessageBox.Show(ex.Message, "コマンドエラー");
+
                 }
             }
         }
@@ -142,7 +162,6 @@ namespace SDBR_WPF
                 connection = new SQLiteConnection();
                 connection.ConnectionString = "Data Source=" + databaseFilePath + ";Version=3;";
                 connection.Open();
-
                 command = connection.CreateCommand();
                 command.CommandText = commandText;
                 reader = command.ExecuteReader();
@@ -161,8 +180,7 @@ namespace SDBR_WPF
             if (reader == null)
                 return;
 
-            var DataString = new StringBuilder();
-
+            string[] row = new string[5];
 
             if (reader.HasRows) // コマンドの実行後、行データを持つとき
             {
@@ -171,50 +189,53 @@ namespace SDBR_WPF
 
                 while (reader.Read())
                 {
-
                     for (int j = 0; j < reader.FieldCount; ++j) // 行データのフィールド数だけ繰り返す
                     {
                         object obj = reader.GetValue(j);
+
                         if (obj == null)
-                            DataString.Append("null,");
+                        {
+                            row[j] = "null";
+                        }
                         else if (obj.ToString() == "")
                         {
                             System = 0;
-                            DataString.Append(string.Format("<SDBR>削除されたようです。,{0},", System));
-
+                            row[j] = "<SDBR>削除されたようです。";
                         }
                         else if (Regex.IsMatch(obj.ToString(), @"<URIObject\s+[^>]*type=""Picture.1""\s*uri\s*="))//この形は画像
                         {
                             System = 1;
-                            DataString.Append(string.Format("<SDBR>画像のようです。,{0},", System));
+                            row[j] = "<SDBR>画像のようです。";
 
                         }
                         else if (Regex.IsMatch(obj.ToString(), @"<URIObject\s+[^>]*type=""File.1""\s*uri\s*="))//この形はファイル
                         {
                             System = 2;
-                            DataString.Append(string.Format("<SDBR>なにかのファイルのようです。,{0},", System));
+                            row[j] = "<SDBR>なにかのファイルのようです。";
                         }
                         else if (Regex.IsMatch(obj.ToString(), @"<a\s+[^>]*href\s*=\s*(?:(?<quot>[""'])(?<url>.*?)\k<quot>|" + @"(?<url>[^\s>]+))[^>]*>(?<text>.*?)</a>"))
                         {//この形はURL
                             System = 3;
-                            DataString.Append(string.Format("<SDBR>URLのようです。,{0},", System));
+                            row[j] = "<SDBR>URLのようです。";
                         }
                         else if (obj is string && j == 1)
                         {
                             System = 0;
-                            DataString.Append(string.Format("{0},{1},", reader.GetString(j), System));
+                            row[j] = reader.GetString(j);
                         }
                         else if (obj is string)
-                            DataString.Append(string.Format("{0},", reader.GetString(j)));
+                        {
+                            row[j] = reader.GetString(j);
+                        }
                         else
-                            DataString.Append(String.Format("{0},", obj));
+                        {
+                            row[j] = obj.ToString();
+                        }
+                        row[j + 1] = System.ToString();
+
                     }
 
-
-                    
-                    string linedate = DataString.ToString();//stringに変換していれとく
-
-                    linedate=HttpUtility.HtmlDecode(linedate);//Skypeに勝手に[&○○;]に書き換えられたのを戻す
+                    row[1]= HttpUtility.HtmlDecode(row[1]);//Skypeに勝手に[&○○;]に書き換えられたのを戻す
 
                     //データ置換用正規表現---ここから
                     Regex replace1 = new Regex(@"<quote\sauthor=""[^""]+""\sauthorname=""[^""]+""\sconversation=""[^""]+""\sguid=""[^""]+""\stimestamp=""[^""]+"">");
@@ -223,17 +244,15 @@ namespace SDBR_WPF
                     Regex replace4 = new Regex(@"<legacyquote>");
                     //-----------------------ここまで
                     ////Skypeデフォの引用のゴミを正規表現で削除---ここから
-                    linedate = replace1.Replace(linedate, "");
-                    linedate = replace2.Replace(linedate, "");
-                    linedate = replace3.Replace(linedate, "");
-                    linedate = replace4.Replace(linedate, "");
+                    row[1] = replace1.Replace(row[1], "");
+                    row[1] = replace2.Replace(row[1], "");
+                    row[1] = replace3.Replace(row[1], "");
+                    row[1] = replace4.Replace(row[1], "");
+
                     //--------------------------------------------ここまで
 
+                    row[2] = TimestampDifference(_nowTimestamp, row[2]);//UNIXtimestampをhh:mmかss秒の形式に置き換え
 
-                    string[] row = linedate.Split(',');//[,]で配列区切りにする
-
-
-                    row[3] = TimestampDifference(_nowTimestamp, row[3]);//UNIXtimestampをhh:mmかss秒の形式に置き換え
 
                     list.Insert(0, new DB(row[0], row[1], row[2], row[3], row[4]));
 
@@ -264,19 +283,13 @@ namespace SDBR_WPF
                     //        dataGridView.Rows[Row].DefaultCellStyle.BackColor = Color.Crimson;
                     //}
                     //-----------------------------------------ここまで
-
-                    DataString.Clear();//データを入れたのでクリア
-
                 }
-
                 if (reader != null)
                     reader.Close();
             }
-
             // データベース接続を閉じる
             if (connection != null)
                 connection.Close();
-
         }
         private static void UpdateDispList(List<DB> list,DataGrid dataGrid, TextBlock Log)//Listをデータグリッドのアイテムにする
         {

@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SDBR_WPF" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
-        mc:Ignorable="d" Style="{DynamicResource VSLikeSub}" Title="設定" Height="291.028" Width="457.356">
-    
+        mc:Ignorable="d" Style="{DynamicResource VSLikeSub}" Title="設定" Height="350.695" Width="457.356" Loaded="Window_Loaded">
+
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static SystemCommands.MinimizeWindowCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed_1" />
         <CommandBinding Command="{x:Static SystemCommands.RestoreWindowCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed_2" />
@@ -14,29 +14,47 @@
         <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed_4" />
     </Window.CommandBindings>
     <Grid>
-        <Button x:Name="button" Content="適応" Margin="0,0,90,10" HorizontalAlignment="Right" Width="75" Height="22" VerticalAlignment="Bottom"/>
-        <Button x:Name="button1" Content="閉じる" Margin="0,0,10,10" HorizontalAlignment="Right" Width="75" Height="22" VerticalAlignment="Bottom"/>
-        <Label x:Name="Label" Content="Skype ID" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="SkypeIDBox" HorizontalAlignment="Left" Height="22" Margin="63,9,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="label" Content="会話ID" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="ChatIDBox" HorizontalAlignment="Left" Height="23" Margin="63,36,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="253"/>
-        <TextBox x:Name="TextRowBox" HorizontalAlignment="Left" Height="23" Margin="63,64,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="50"/>
-        <Label x:Name="label1" Content="取得件数" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="MyColorBox" Content="自分のチャットに色を付ける" HorizontalAlignment="Left" Margin="10,113,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label2" Content="&lt;その他設定&gt;" HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="TImeBox" Content="チャットの時間を表示する" HorizontalAlignment="Left" Margin="200,113,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label3" Content="&lt;配色テーマ設定&gt;" HorizontalAlignment="Left" Margin="10,133,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="64,154,0,0" VerticalAlignment="Top" Width="90">
-            <ComboBoxItem>濃色</ComboBoxItem>
-            <ComboBoxItem>単色</ComboBoxItem>
-        </ComboBox>
-        <ComboBox x:Name="comboBox1" HorizontalAlignment="Left" Margin="264,154,0,0" VerticalAlignment="Top" Width="88">
-            <ComboBoxItem>青</ComboBoxItem>
-            <ComboBoxItem>オレンジ</ComboBoxItem>
-            <ComboBoxItem>紫</ComboBoxItem>
-        </ComboBox>
-        <Label x:Name="label4" Content="基本カラー" HorizontalAlignment="Left" Margin="10,156,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="label5" Content="アクセントカラー" HorizontalAlignment="Left" Margin="189,156,0,0" VerticalAlignment="Top"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="125*"/>
+            <RowDefinition Height="55*"/>
+            <RowDefinition Height="73*"/>
+            <RowDefinition Height="41*"/>
+        </Grid.RowDefinitions>
+        <Grid Height="125" VerticalAlignment="Top">
+            <Label x:Name="Label" Content="Skype ID" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="SkypeIDBox" HorizontalAlignment="Left" Height="22" Margin="76,9,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+            <Label x:Name="label" Content="会話ID" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="ChatIDBox" Height="23" Margin="76,36,10,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top"/>
+            <TextBox x:Name="MessageRowBox" HorizontalAlignment="Left" Height="23" Margin="76,64,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="50"/>
+            <Label x:Name="label1" Content="取得件数" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top" />
+            <Label x:Name="label6" Content="フォントサイズ" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" />
+            <TextBox x:Name="FontSizeBox" HorizontalAlignment="Left" Height="22" Margin="76,92,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="50"/>
 
+            <Label x:Name="label7" Content="初期値12" HorizontalAlignment="Left" Margin="131,93,0,0" VerticalAlignment="Top"/>
+        </Grid>
+        <Grid Grid.Row="1" Height="52" VerticalAlignment="Top">
+            <CheckBox x:Name="MyColorBox" Content="自分のチャットに色を付ける" HorizontalAlignment="Left" Margin="10,23,0,0" VerticalAlignment="Top" IsThreeState="False" Grid.Row="1"/>
+            <Label x:Name="label2" Content="&lt;その他設定&gt;" HorizontalAlignment="Left" Margin="10,2,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+            <CheckBox x:Name="TimeDisplayBox" Content="チャットの時間を表示する" HorizontalAlignment="Left" Margin="200,23,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+        </Grid>
+        <Grid Grid.Row="2" Grid.RowSpan="2">
+            <Label x:Name="label3" Content="&lt;配色テーマ設定&gt;" HorizontalAlignment="Left" Margin="10,1.333,0,0" VerticalAlignment="Top" Grid.Row="2"/>
+            <ComboBox x:Name="BaseComboBox" HorizontalAlignment="Left" Margin="64,22.333,0,0" VerticalAlignment="Top" Width="90" SelectionChanged="BaseComboBox_SelectionChanged" Grid.Row="2">
+                <ComboBoxItem>淡色</ComboBoxItem>
+                <ComboBoxItem>濃色</ComboBoxItem>
+            </ComboBox>
+            <ComboBox x:Name="AccentComboBox" HorizontalAlignment="Left" Margin="264,22.333,0,0" VerticalAlignment="Top" Width="88" SelectionChanged="AccentComboBox_SelectionChanged" Grid.Row="2">
+                <ComboBoxItem>青</ComboBoxItem>
+                <ComboBoxItem>オレンジ</ComboBoxItem>
+                <ComboBoxItem>紫</ComboBoxItem>
+            </ComboBox>
+
+            <Label x:Name="label4" Content="基本カラー" HorizontalAlignment="Left" Margin="10,24.333,0,0" VerticalAlignment="Top" Grid.Row="2"/>
+            <Label x:Name="label5" Content="アクセントカラー" HorizontalAlignment="Left" Margin="189,24.333,0,0" VerticalAlignment="Top" Grid.Row="2"/>
+        </Grid>
+        <Grid Grid.Row="3">
+            <Button x:Name="ApplicationButton" Content="適用" Margin="0,0,90,10" HorizontalAlignment="Right" Width="75" Height="22" VerticalAlignment="Bottom" Click="ApplicationButton_Click"/>
+            <Button x:Name="CloseButton" Content="閉じる" Margin="0,0,10,10" HorizontalAlignment="Right" Width="75" Height="22" VerticalAlignment="Bottom" Click="CloseButton_Click"/>
+        </Grid>
     </Grid>
 </Window>
