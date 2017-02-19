@@ -17,9 +17,6 @@ namespace SDBR_WPF
 {
     public static class ReadWriter
     {
-
-        
-
         public static void readwiter(List<DB> list, TextBlock FilterStatus, DataGrid dataGrid, TextBlock Log)
         {
             BackgroundWorker bw = new BackgroundWorker();
@@ -29,8 +26,6 @@ namespace SDBR_WPF
             {
                 bw.RunWorkerAsync(Tuple.Create<List<DB>, TextBlock, DataGrid, TextBlock>(list, FilterStatus, dataGrid, Log));
             }
-
-
         }
 
         private static void bw_DoWork(object sender, DoWorkEventArgs e)
@@ -43,8 +38,7 @@ namespace SDBR_WPF
             var Log = tuple.Item4;
 
             var dispatcher = Application.Current.Dispatcher;
-            try
-            {
+
                 if (dispatcher.CheckAccess())
                 {
                     copylog();
@@ -56,12 +50,6 @@ namespace SDBR_WPF
                     dispatcher.Invoke(() => readlog(list, FilterStatus));
                 }
                 e.Result = tuple;
-            }
-            catch (Exception ex)//エラー出たら
-            {
-                //エラーを見える形にしておく
-                MessageBox.Show(ex.Message, "コマンドエラー");
-            }
 
         }
         private static void bw_Completed(object sender, RunWorkerCompletedEventArgs e)
@@ -93,17 +81,6 @@ namespace SDBR_WPF
                 {
                     dispatcher.Invoke(() => UpdateDispList(list, dataGrid, Log));
                     dispatcher.Invoke(() => scrool(dataGrid));
-                }
-                try
-                {
-                    UpdateDispList(list, dataGrid, Log);
-                    scrool(dataGrid);
-                }
-                catch (Exception ex)//エラー出たら
-                {
-                    //エラーを見える形にしておく
-                    MessageBox.Show(ex.Message, "コマンドエラー");
-
                 }
             }
         }
@@ -248,11 +225,9 @@ namespace SDBR_WPF
                     row[1] = replace2.Replace(row[1], "");
                     row[1] = replace3.Replace(row[1], "");
                     row[1] = replace4.Replace(row[1], "");
-
                     //--------------------------------------------ここまで
 
                     row[2] = TimestampDifference(_nowTimestamp, row[2]);//UNIXtimestampをhh:mmかss秒の形式に置き換え
-
 
                     list.Insert(0, new DB(row[0], row[1], row[2], row[3], row[4]));
 

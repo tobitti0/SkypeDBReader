@@ -80,7 +80,7 @@
                         </DataGridTextColumn.EditingElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Header="25:40" Width="38" Binding="{Binding Time}" >
+                    <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Time}" >
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="{x:Type TextBlock}" >
                                 <Setter Property="Margin" Value="2" />
@@ -88,8 +88,8 @@
                             </Style>
                         </DataGridTextColumn.ElementStyle>
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="status" Width="38" Binding="{Binding Status}" />
-                    <DataGridTextColumn Header="System" Width="60" Binding="{Binding System}" />
+                    <DataGridTextColumn Header="status" Width="38" Binding="{Binding Status}" Visibility="Collapsed" />
+                    <DataGridTextColumn Header="System" Width="60" Binding="{Binding System}" Visibility="Collapsed" />
 
                 </DataGrid.Columns>
             </DataGrid>

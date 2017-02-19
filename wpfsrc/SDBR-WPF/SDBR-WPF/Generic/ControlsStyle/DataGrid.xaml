@@ -28,7 +28,8 @@
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="Margin" Value="3"/>
                     <Setter Property="Background" Value="{DynamicResource BackgroundBrushKey}"/>
-                    <Setter Property="BorderBrush" Value="{DynamicResource BackgroundBrushKey}"/>
+                    <Setter Property="BorderBrush" Value="{DynamicResource BorderBrushKey}"/>
+                    <Setter Property="SeparatorBrush" Value="{DynamicResource BorderBrushKey}"/>
                     <Setter Property="Foreground" Value="{DynamicResource ActiveForegroundBrushKey}"/>
                 </Style>
             </Setter.Value>
