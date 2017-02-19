@@ -11,8 +11,8 @@
     <Setting Name="MessageRow" Type="System.String" Scope="User">
       <Value Profile="(Default)">11</Value>
     </Setting>
-    <Setting Name="FristRun" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+    <Setting Name="FirstRun" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="MyColor" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>

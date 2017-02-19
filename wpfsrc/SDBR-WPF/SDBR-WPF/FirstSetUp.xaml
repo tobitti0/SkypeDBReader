@@ -1,0 +1,32 @@
+﻿<Window x:Class="SDBR_WPF.FirstSetUp"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SDBR_WPF"
+        mc:Ignorable="d" Style="{DynamicResource VSLikeSub}"
+        Title="FirstSetUp" Height="335.551" Width="468.203">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="label" Content="初期セットアップ" HorizontalAlignment="Left" Margin="154,0,0,0" VerticalAlignment="Top" Height="16" Width="76"/>
+        <Label x:Name="label1" xml:space="preserve" HorizontalAlignment="Left" Grid.Row="1" Width="415" Margin="10,0,0,0">起動ありがとうございます。&#10;初めての起動か、アプリケーションの階層が変わったため設定がリセットされました。&#10;下記の手順に従い設定してください。</Label>
+        <Label x:Name="label2" Content="1.まずSkypeIDを右に入力してください。" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="2" VerticalAlignment="Top" RenderTransformOrigin="0.143,-0.229" Height="16" Width="184"/>
+        <TextBox x:Name="SkypeID" HorizontalAlignment="Left" Margin="199,9,0,0" Grid.Row="2" TextWrapping="Wrap" Width="120" Height="23" VerticalAlignment="Top"/>
+        <Label x:Name="label3" Content="2.『保存』ボタンを押してください。" HorizontalAlignment="Left" Margin="10,40,0,0" Grid.Row="2" VerticalAlignment="Top" Height="16" Width="153"/>
+        <Button x:Name="button" Content="保存" HorizontalAlignment="Left" Margin="168,37,0,0" Grid.Row="2" VerticalAlignment="Top" Width="75" Height="22" Click="button_Click"/>
+        <Label x:Name="label4" xml:space="preserve" HorizontalAlignment="Left" Grid.Row="3" Width="Auto" Margin="10,0,0,46" Height="Auto" Content="3.会話IDを下に入力してください。&#xA;(『会話ID調査』ボタンで調査できます。)"/>
+        <TextBox x:Name="ChatID" HorizontalAlignment="Left" Height="23" Margin="10,40,0,0" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="356" IsEnabled="False"/>
+        <Button x:Name="button1" Content="会話ID調査" HorizontalAlignment="Left" Margin="371,40,0,0" Grid.Row="3" VerticalAlignment="Top" Width="75" IsEnabled="False"/>
+        <Label x:Name="label5" xml:space="preserve" HorizontalAlignment="Left" Grid.Row="4" Width="Auto" Margin="10,0,0,0" Height="38" VerticalAlignment="Top">4.『保存して起動』ボタンを押してください。&#10;後から設定で変更が可能です。</Label>
+        <Button x:Name="button2" Content="保存して起動" HorizontalAlignment="Left" Margin="158,39,0,0" Grid.Row="4" Width="83" Height="22" VerticalAlignment="Top" IsEnabled="False" Click="button2_Click"/>
+        <Button x:Name="button3" Content="保存せず終了" HorizontalAlignment="Left" Margin="246,40,0,0" Grid.Row="4" VerticalAlignment="Top" Width="86" Click="button3_Click"/>
+        <Label x:Name="label6" Content="保存されたSkyoeID" HorizontalAlignment="Left" Margin="233,17,0,0" Grid.Row="3" VerticalAlignment="Top"/>
+        <Label x:Name="Label_SkypeID" Content="" HorizontalAlignment="Left" Margin="333,17,0,0" Grid.Row="3" VerticalAlignment="Top"/>
+    </Grid>
+</Window>

@@ -61,13 +61,13 @@ namespace SDBR_WPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool FristRun {
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool FirstRun {
             get {
-                return ((bool)(this["FristRun"]));
+                return ((bool)(this["FirstRun"]));
             }
             set {
-                this["FristRun"] = value;
+                this["FirstRun"] = value;
             }
         }
         

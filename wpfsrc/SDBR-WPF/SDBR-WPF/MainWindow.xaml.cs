@@ -29,11 +29,8 @@ namespace SDBR_WPF
             InitializeComponent();
             DB = new List<DB> { };
             _Update.Check(VersionBoxNormal,VersionBox, VersionToolTip);//アップデート情報を取得および更新案内を設定
-
         }
-
-
-
+        
         FileSystemWatcher watcher = null;
         private void MonitoringStartButton_Click(object sender, EventArgs e)
         {
@@ -94,20 +91,14 @@ namespace SDBR_WPF
         private void button_Click(object sender, RoutedEventArgs e)
         {
             ReadWriter.readwiter(DB, FilterStatus, dataGrid, Log);
-
         }
-
-
-
+        
         private void hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
             System.Diagnostics.Process.Start(e.Uri.AbsoluteUri);
             e.Handled = true;
         }
-
-
-
-
+        
         private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
@@ -152,11 +143,38 @@ namespace SDBR_WPF
         {//設定の中からカラーを適用
             ((App)Application.Current).ChangeBase(Properties.Settings.Default.BaseColor);
             ((App)Application.Current).ChangeAccent(Properties.Settings.Default.AccentColor);
+
+            if (Properties.Settings.Default.FirstRun == true)//初回起動の時の処理
+            {
+                FirstSetUp FSUP = new FirstSetUp();
+                FSUP.Owner = this;
+                FSUP.ShowDialog();
+            }
         }
 
         private void Window_Activated(object sender, EventArgs e)
         {
             dataGrid.FontSize = Properties.Settings.Default.FontSize;
+            
+        }
+
+
+        static private Filter _FilterWindow = null;
+        public void FilterStart()
+        {
+            if (_FilterWindow == null)
+            {
+                _FilterWindow = new Filter();
+                _FilterWindow.Closed += (s, e) => _FilterWindow = null;
+                _FilterWindow.Owner = this;
+                _FilterWindow.Show();
+            }
+            _FilterWindow.Activate();
+        }
+
+        private void Menu_Filter_Click(object sender, RoutedEventArgs e)
+        {
+            FilterStart();
         }
     }
 }

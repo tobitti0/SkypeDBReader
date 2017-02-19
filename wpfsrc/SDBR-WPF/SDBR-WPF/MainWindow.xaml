@@ -27,7 +27,7 @@
                     <Separator />
                     <MenuItem Header="終了"/>
                 </MenuItem>
-                <MenuItem Header="フィルター"/>
+                <MenuItem Header="フィルター" Click="Menu_Filter_Click"/>
                 <MenuItem Header="その他">
                     <MenuItem Header="設定" Click="Menu_Option_Click"/>
                     <Separator />

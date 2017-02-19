@@ -131,9 +131,6 @@
                             <Grid>
                                 <TextBlock Text="{TemplateBinding Title}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="6,3,12,3" FontSize="14.667" />
                                 <StackPanel Orientation="Horizontal" Margin="0" HorizontalAlignment="Right" VerticalAlignment="Top">
-                                    <Button Content="0" Style="{DynamicResource CaptionButtonStyleKey}" Command="{x:Static SystemCommands.MinimizeWindowCommand}" CommandParameter="{Binding ElementName=target}"/>
-                                    <Button x:Name="Maximize" Content="1" Style="{DynamicResource CaptionButtonStyleKey}" Command="{x:Static SystemCommands.MaximizeWindowCommand}" CommandParameter="{Binding ElementName=target}" Visibility="Visible"/>
-                                    <Button x:Name="Restore" Content="2" Style="{DynamicResource CaptionButtonStyleKey}" Command="{x:Static SystemCommands.RestoreWindowCommand}" CommandParameter="{Binding ElementName=target}" Visibility="Collapsed"/>
                                     <Button Content="r" Style="{DynamicResource CaptionButtonStyleKey}" Command="{x:Static SystemCommands.CloseWindowCommand}" CommandParameter="{Binding ElementName=target}"/>
                                 </StackPanel>
                             </Grid>
@@ -150,13 +147,9 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="WindowState" Value="Maximized">
                             <Setter TargetName="border" Property="BorderThickness" Value="8" />
-                            <Setter TargetName="Maximize" Property="Visibility" Value="Collapsed"/>
-                            <Setter TargetName="Restore" Property="Visibility" Value="Visible"/>
                         </Trigger>
                         <Trigger Property="WindowState" Value="Normal">
                             <Setter TargetName="border" Property="BorderThickness" Value="1" />
-                            <Setter TargetName="Restore" Property="Visibility" Value="Collapsed"/>
-                            <Setter TargetName="Maximize" Property="Visibility" Value="Visible"/>
                         </Trigger>
                         <Trigger Property="ResizeMode" Value="CanResizeWithGrip">
                             <Setter TargetName="WindowResizeGrip" Property="Visibility" Value="Visible"/>

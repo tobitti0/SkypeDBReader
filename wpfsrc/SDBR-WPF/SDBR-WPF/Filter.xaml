@@ -1,0 +1,30 @@
+﻿<Window x:Class="SDBR_WPF.Filter"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SDBR_WPF" WindowStartupLocation="CenterOwner" Style="{DynamicResource VSLikeSub}"
+        mc:Ignorable="d"
+        Title="Filter" Height="206.515" Width="412.5" Loaded="Window_Loaded">
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed_4" />
+    </Window.CommandBindings>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="94*"/>
+            <RowDefinition Height="31*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="25*"/>
+            <ColumnDefinition Width="377*"/>
+        </Grid.ColumnDefinitions>
+        <CheckBox x:Name="FilterCheck" Content="フィルター機能を有効にする" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="15" Width="146" Click="FilterCheck_Checked"/>
+        <CheckBox x:Name="FSkypeCheck" Content="SkypeID" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Grid.Column="1" Height="15" Width="71" IsEnabled="False"/>
+        <TextBox x:Name="FilterSkypeID" Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="116,35,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
+        <CheckBox x:Name="FStringCheck" Content="特定文字に反応" Grid.Column="1" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" Height="16" Width="101" IsEnabled="False"/>
+        <TextBox x:Name="FilterString" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="116,68,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
+        <Button x:Name="button" Content="閉じる" Grid.Column="1" HorizontalAlignment="Left" Margin="291,0,0,10" Grid.Row="1" Width="76" Click="button_Click" Height="22" VerticalAlignment="Bottom"/>
+        <Button x:Name="button1" Content="適用" Grid.Column="1" HorizontalAlignment="Left" Margin="210,0,0,10" Grid.Row="1" Width="76" Click="button1_Click" Height="22" VerticalAlignment="Bottom"/>
+
+    </Grid>
+</Window>

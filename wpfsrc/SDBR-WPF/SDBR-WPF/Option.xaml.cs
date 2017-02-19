@@ -43,18 +43,6 @@ namespace SDBR_WPF
         {
             e.CanExecute = true;
         }
-        private void CommandBinding_Executed_1(object sender, ExecutedRoutedEventArgs e)
-        {
-            SystemCommands.MinimizeWindow(this);
-        }
-        private void CommandBinding_Executed_2(object sender, ExecutedRoutedEventArgs e)
-        {
-            SystemCommands.RestoreWindow(this);
-        }
-        private void CommandBinding_Executed_3(object sender, ExecutedRoutedEventArgs e)
-        {
-            SystemCommands.MaximizeWindow(this);
-        }
         private void CommandBinding_Executed_4(object sender, ExecutedRoutedEventArgs e)
         {
             SystemCommands.CloseWindow(this);
