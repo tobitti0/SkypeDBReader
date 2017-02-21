@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Icon="SDBR.ico"
-        xmlns:local="clr-namespace:SkypeDBReader"
+        xmlns:local="clr-namespace:SkypeDBReader" WindowStartupLocation="CenterOwner"
         mc:Ignorable="d" Style="{DynamicResource VSLikeSub}" ResizeMode="NoResize"
         Title="IdCheck" Height="274.103" Width="677.786" Closed="Window_Closed">
     <Window.CommandBindings>
