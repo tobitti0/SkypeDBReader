@@ -1,7 +1,7 @@
-﻿<Application x:Class="SDBR_WPF.App"
+﻿<Application x:Class="SkypeDBReader.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:SDBR_WPF"
+             xmlns:local="clr-namespace:SkypeDBReader"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
 
@@ -11,6 +11,7 @@
                 <ResourceDictionary Source="pack://application:,,,/Generic/ControlsStyle/Controls.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/Generic/BaseColor/Dark.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/Generic/AccentColor/Orange.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Generic/Loading.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             </ResourceDictionary>
 

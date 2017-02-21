@@ -13,121 +13,37 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Threading;
 
-namespace SDBR_WPF
+namespace SkypeDBReader
 {
-    public static class ReadWriter
+    public class ReadWriter
     {
-        public static void readwiter(List<DB> list, TextBlock FilterStatus, DataGrid dataGrid, TextBlock Log)
+        public static void readwiter(List<DB> list)
         {
-            BackgroundWorker bw = new BackgroundWorker();
-            bw.DoWork += new DoWorkEventHandler(bw_DoWork);
-            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_Completed);
-            if (bw.IsBusy != true)
-            {
-                bw.RunWorkerAsync(Tuple.Create<List<DB>, TextBlock, DataGrid, TextBlock>(list, FilterStatus, dataGrid, Log));
-            }
+            copylog();
+            readlog(MainCommand(), list, 5);
         }
 
-        private static void bw_DoWork(object sender, DoWorkEventArgs e)
+        public static void Subreader(List<DB> list)
         {
-            BackgroundWorker worker = sender as BackgroundWorker;
-            var tuple = (Tuple<List<DB>, TextBlock, DataGrid, TextBlock>)e.Argument;
-            var list = tuple.Item1;
-            var FilterStatus = tuple.Item2;
-            var dataGrid = tuple.Item3;
-            var Log = tuple.Item4;
-
-            var dispatcher = Application.Current.Dispatcher;
-
-                if (dispatcher.CheckAccess())
-                {
-                    copylog();
-                    readlog(list, FilterStatus);
-                }
-                else
-                {
-                    dispatcher.Invoke(() => copylog());
-                    dispatcher.Invoke(() => readlog(list, FilterStatus));
-                }
-                e.Result = tuple;
-
-        }
-        private static void bw_Completed(object sender, RunWorkerCompletedEventArgs e)
-        {
-            var tuple = (Tuple<List<DB>, TextBlock, DataGrid, TextBlock>)e.Result;
-            var list = tuple.Item1;
-            var FilterStatus = tuple.Item2;
-            var dataGrid = tuple.Item3;
-            var Log = tuple.Item4;
-
-            if ((e.Cancelled == true))
-            {
-                MessageBox.Show(e.Error.ToString(), "Readerバックグラウンドエラー");
-            }
-
-            else if (!(e.Error == null))
-            {
-                MessageBox.Show("Error: " + e.Error.Message);
-            }
-            else
-            {
-                var dispatcher = Application.Current.Dispatcher;
-                if (dispatcher.CheckAccess())
-                {
-                    UpdateDispList(list, dataGrid, Log);
-                    scrool(dataGrid);
-                }
-                else
-                {
-                    dispatcher.Invoke(() => UpdateDispList(list, dataGrid, Log));
-                    dispatcher.Invoke(() => scrool(dataGrid));
-                }
-            }
+            copylog();
+            readlog(Subcommand(), list, 6);
         }
 
-        private static void readlog(List<DB> list, TextBlock FilterStatus )//ログを開いて目的のものを抜き出してグリッドビューに表示
+
+        /// <summary>
+        /// DBから読み込みデータを格納する
+        /// </summary>
+        /// <param name="commandText">SQLコマンド文</param>
+        /// <param name="list">データの格納先</param>
+        private static void readlog(string CommandText,List<DB> list,int num)//ログを開いて目的のものを抜き出してグリッドビューに表示
         {
             //UNIX-Timestampで現在のtimestampを得る
             uint _nowTimestamp = (uint)((DateTime.UtcNow.Ticks - DateTime.Parse("1970-01-01 00:00:00").Ticks) / 10000000);
 
-            //目当ての会話IDを設定から持ってくる
-            string target = Properties.Settings.Default.ChatID; ;
-
-            //データの取り出し件数を設定から持ってくる
-            string line = Properties.Settings.Default.MessageRow;
-
-            //------------フィルターの処理---ここから
-            string filter = null;
-
-            if (Properties.Settings.Default.FilterCheck)//フィルターがONの時
-            {
-                //情報を表示
-                FilterStatus.Text = "フィルター有効(｀・д・´)";
-
-                if (Properties.Settings.Default.FSkypeCheck)//IDフィルターが有効の時
-                    filter = ("author = '" + Properties.Settings.Default.FilterSkypeID + "' AND ");//検索条件を作成
-                else
-                    filter = "";//無効だったら検索条件は作らない
-            }
-            else
-            {
-                //フィルターがOFFの時
-                filter = "";
-                //情報を表示
-                FilterStatus.Text = "フィルター無効( ˘ω˘)";
-            }
-            //------------------------------ここまで
+            string commandText = CommandText;
 
             //データベースファイル名
             string databaseFilePath = "main.db";
-
-            //データベースから抽出するためのSQL文
-            string commandText =
-                "SELECT from_dispname,body_xml,timestamp__ms,chatmsg_status FROM Messages WHERE " + filter + "(chatname = '" + target + "' OR dialog_partner = '" + target + "') ORDER BY id DESC limit " + line + ";";
-            //from_dispname =ID[送信者]
-            //body_xml      =massage[本文]
-            //timestamp__ms =timestamp[時間]
-            //chatmsg_status=status[メッセステータス（1=不明,2=自分メッセ,3=未読,4=既読）]
 
             SQLiteConnection connection = null;
             SQLiteCommand command = null;
@@ -157,7 +73,9 @@ namespace SDBR_WPF
             if (reader == null)
                 return;
 
-            string[] row = new string[5];
+            string[] row = null;
+
+                row = new string[num];
 
             if (reader.HasRows) // コマンドの実行後、行データを持つとき
             {
@@ -169,7 +87,6 @@ namespace SDBR_WPF
                     for (int j = 0; j < reader.FieldCount; ++j) // 行データのフィールド数だけ繰り返す
                     {
                         object obj = reader.GetValue(j);
-
                         if (obj == null)
                         {
                             row[j] = "null";
@@ -228,36 +145,16 @@ namespace SDBR_WPF
                     //--------------------------------------------ここまで
 
                     row[2] = TimestampDifference(_nowTimestamp, row[2]);//UNIXtimestampをhh:mmかss秒の形式に置き換え
-
-                    list.Insert(0, new DB(row[0], row[1], row[2], row[3], row[4]));
-
-                    //-----------------------背景色を変える---ここから
-                    //if (Properties.Settings.Default.MyColor)//optionで自コメントに色設定がチェックついていたら
-                    //{
-
-                    //    if (Convert.ToString(dataGrid[3, Row].Value) == "2") dataGridView.Rows[Row].DefaultCellStyle.BackColor = Color.LightGray;
-                    //}
-
-                    //if (System == 1) dataGridView.Rows[Row].DefaultCellStyle.BackColor = Color.LightPink;//画像の時
-                    //if (System == 2) dataGridView.Rows[Row].DefaultCellStyle.BackColor = Color.Thistle;//ファイルの時
-                    //if (System == 3) dataGridView.Rows[Row].DefaultCellStyle.BackColor = Color.LightGreen;//URLの時
-
-                    ////未読だったらstatus欄の値は3なので3だったら
-                    //if (Convert.ToString(dataGridView[3, Row].Value) == "3") dataGridView.Rows[Row].DefaultCellStyle.BackColor = Color.NavajoWhite;
-
-
-                    ////フィルター使用かつ文字強調がONの時
-                    //if (Properties.Settings.Default.FilterCheck && Properties.Settings.Default.FStringCheck)
-                    //{
-                    //    CompareInfo ci = CultureInfo.CurrentCulture.CompareInfo;
-                    //    string temp = Convert.ToString(dataGridView[1, Row].Value);//内容の取り出し
-                    //    string temp2 = Properties.Settings.Default.FilterString;//調べたい文字の取り出し
-
-                    //    //比較する
-                    //    if (temp.IndexOf(temp2, StringComparison.OrdinalIgnoreCase) >= 0 || ci.IndexOf(temp, temp2, CompareOptions.IgnoreWidth | CompareOptions.IgnoreKanaType) >= 0)
-                    //        dataGridView.Rows[Row].DefaultCellStyle.BackColor = Color.Crimson;
-                    //}
-                    //-----------------------------------------ここまで
+                    if (row.Length == 5)
+                    {
+                        //MessageBox.Show(row.Length.ToString());
+                        list.Insert(0, new DB(row[0], row[1], row[2], row[3], row[4], "null"));
+                    }
+                    else
+                    {
+                        //MessageBox.Show(row[1]);
+                        list.Add(new DB(row[0], row[1], row[2], "null", "null", row[4]));
+                    }
                 }
                 if (reader != null)
                     reader.Close();
@@ -266,11 +163,60 @@ namespace SDBR_WPF
             if (connection != null)
                 connection.Close();
         }
-        private static void UpdateDispList(List<DB> list,DataGrid dataGrid, TextBlock Log)//Listをデータグリッドのアイテムにする
+
+        private static string MainCommand()//メイン画面で利用するコマンド文を生成する
+        {
+            //目当ての会話IDを設定から持ってくる
+            string target = Properties.Settings.Default.ChatID; ;
+
+            //データの取り出し件数を設定から持ってくる
+            string line = Properties.Settings.Default.MessageRow;
+
+            //------------フィルターの処理---ここから
+            string filter = null;
+
+            if (Properties.Settings.Default.FilterCheck)//フィルターがONの時
+            {
+                //情報を表示
+                //FilterStatus.Text = "フィルター有効(｀・д・´)";
+
+                if (Properties.Settings.Default.FSkypeCheck)//IDフィルターが有効の時
+                    filter = ("author = '" + Properties.Settings.Default.FilterSkypeID + "' AND ");//検索条件を作成
+                else
+                    filter = "";//無効だったら検索条件は作らない
+            }
+            else
+            {
+                //フィルターがOFFの時
+                filter = "";
+                //情報を表示
+                //FilterStatus.Text = "フィルター無効( ˘ω˘)";
+            }
+            //------------------------------ここまで
+            
+            //データベースから抽出するためのSQL文
+            string commandText =
+                "SELECT from_dispname,body_xml,timestamp__ms,chatmsg_status FROM Messages WHERE " + filter + "(chatname = '" + target + "' OR dialog_partner = '" + target + "') ORDER BY id DESC limit " + line + ";";
+            //from_dispname =ID[送信者]
+            //body_xml      =massage[本文]
+            //timestamp__ms =timestamp[時間]
+            //chatmsg_status=status[メッセステータス（1=不明,2=自分メッセ,3=未読,4=既読）]
+            return commandText;
+        }
+
+        private static string Subcommand()//ID調査画面で利用するコマンド文を生成する
+        {
+            string commandText = "SELECT from_dispname,body_xml,timestamp__ms,chatmsg_status,chatname From Messages GROUP BY chatname ORDER BY id DESC limit 7;";
+
+            return commandText;
+        }
+        
+        public static void UpdateDispList(List<DB> list,DataGrid dataGrid, TextBlock Log)//Listをデータグリッドのアイテムにする
         {
             dataGrid.ItemsSource = new ReadOnlyCollection<DB>(list);
-            DateTime dtNow = DateTime.Now;
-            Log.Text = ("最終更新"+dtNow.ToShortTimeString());
+            //DateTime dtNow = DateTime.Now;
+            //Log.Text = ("最終更新"+dtNow.ToShortTimeString());
+            //scrool(dataGrid);
         }
 
         private static string TimestampDifference(uint now, string st)//UNIXTimestampをhh:mmかss秒の形式に置き換え
@@ -294,6 +240,7 @@ namespace SDBR_WPF
             output = string.Format("{0}秒", defference);
             return output;
         }
+
         private static void copylog()//ログをSkypeのとこから手元にコピペ
         {
             string skypeID = Properties.Settings.Default.SkypeID;//DB探すのにIDいる&設定から持ってくる

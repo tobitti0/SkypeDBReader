@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SDBR_WPF.Properties {
+namespace SkypeDBReader.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -25,7 +25,7 @@ namespace SDBR_WPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("tobitti1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("SkypeID")]
         public string SkypeID {
             get {
                 return ((string)(this["SkypeID"]));
@@ -37,7 +37,7 @@ namespace SDBR_WPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("19:6385c875730e47e885eede411c0f0f9b@thread.skype")]
+        [global::System.Configuration.DefaultSettingValueAttribute("ChatID")]
         public string ChatID {
             get {
                 return ((string)(this["ChatID"]));
@@ -157,7 +157,7 @@ namespace SDBR_WPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int BaseColor {
             get {
                 return ((int)(this["BaseColor"]));

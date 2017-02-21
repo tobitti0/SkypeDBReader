@@ -3,10 +3,10 @@
   <Profiles />
   <Settings>
     <Setting Name="SkypeID" Type="System.String" Scope="User">
-      <Value Profile="(Default)">tobitti1</Value>
+      <Value Profile="(Default)">SkypeID</Value>
     </Setting>
     <Setting Name="ChatID" Type="System.String" Scope="User">
-      <Value Profile="(Default)">19:6385c875730e47e885eede411c0f0f9b@thread.skype</Value>
+      <Value Profile="(Default)">ChatID</Value>
     </Setting>
     <Setting Name="MessageRow" Type="System.String" Scope="User">
       <Value Profile="(Default)">11</Value>
@@ -36,7 +36,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="BaseColor" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">1</Value>
+      <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="AccentColor" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>

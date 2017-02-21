@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 
-namespace SDBR_WPF
+namespace SkypeDBReader
 {
 
     public class DB
@@ -16,15 +17,19 @@ namespace SDBR_WPF
         public string System { get; private set; }
         public string Time { get; private set; }
         public string Status { get; private set; }
+        public string ChatID { get; private set; }
 
-        public DB(string id, string message, string time,string status, string system)
+        public DB(string id, string message, string time,string status, string system,string chatid)
         {
             this.Id = id;
             this.Message = message;
             this.System = system;
             this.Time = time;
             this.Status = status;
+            this.ChatID = chatid;
+
         }
+
         public int StatusNumber
         {
             get
@@ -49,5 +54,36 @@ namespace SDBR_WPF
                 return 0;
             }
         }
+        //-----------------------背景色を変える---ここから
+        ////フィルター使用かつ文字強調がONの時
+        //if (Properties.Settings.Default.FilterCheck && Properties.Settings.Default.FStringCheck)
+        //{
+        //    CompareInfo ci = CultureInfo.CurrentCulture.CompareInfo;
+        //    string temp = Convert.ToString(dataGridView[1, Row].Value);//内容の取り出し
+        //    string temp2 = Properties.Settings.Default.FilterString;//調べたい文字の取り出し
+
+        //    //比較する
+        //    if (temp.IndexOf(temp2, StringComparison.OrdinalIgnoreCase) >= 0 || ci.IndexOf(temp, temp2, CompareOptions.IgnoreWidth | CompareOptions.IgnoreKanaType) >= 0)
+        //        dataGridView.Rows[Row].DefaultCellStyle.BackColor = Color.Crimson;
+        //}
+        public int FilterNumber
+        {
+            get
+            {
+                if (Properties.Settings.Default.FilterCheck && Properties.Settings.Default.FStringCheck)
+                {
+                    CompareInfo ci = CultureInfo.CurrentCulture.CompareInfo;
+                    string temp2 = Properties.Settings.Default.FilterString;//調べたい文字の取り出し
+                    //比較する
+
+                    if (Message.IndexOf(temp2, StringComparison.OrdinalIgnoreCase) >= 0 || ci.IndexOf(Message, temp2, CompareOptions.IgnoreWidth | CompareOptions.IgnoreKanaType) >= 0)
+                    {
+                        return 1;
+                    }
+                }
+                return 0;
+            }
+        }
+        //-----------------------------------------ここまで
     }
 }

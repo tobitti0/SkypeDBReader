@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace SDBR_WPF
+namespace SkypeDBReader
 {
     /// <summary>
     /// Option.xaml の相互作用ロジック
@@ -33,11 +33,6 @@ namespace SDBR_WPF
         {
             ((App)Application.Current).ChangeAccent(AccentComboBox.SelectedIndex);
         }
-
-
-
-
-
 
         private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
@@ -106,6 +101,23 @@ namespace SDBR_WPF
             }
 
             e.Handled = !yes_parse;
+        }
+
+        private void IdCheck_Click(object sender, RoutedEventArgs e)
+        {
+            IdCheckStart();
+        }
+        static private IdCheck _IdCheckWindow = null;
+        public void IdCheckStart()
+        {
+            if (_IdCheckWindow == null)
+            {
+                _IdCheckWindow = new IdCheck();
+                _IdCheckWindow.Closed += (s, e) => _IdCheckWindow = null;
+                _IdCheckWindow.Owner = this;
+                _IdCheckWindow.Show();
+            }
+            _IdCheckWindow.Activate();
         }
     }
 }

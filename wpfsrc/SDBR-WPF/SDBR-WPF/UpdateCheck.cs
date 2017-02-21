@@ -10,7 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 
-namespace SDBR_WPF
+namespace SkypeDBReader
 {
     public static class _Update
     {

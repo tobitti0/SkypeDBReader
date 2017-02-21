@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace SDBR_WPF
+namespace SkypeDBReader
 {
     public partial class App : Application
     {

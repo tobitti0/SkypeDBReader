@@ -1,9 +1,9 @@
-﻿<Window x:Class="SDBR_WPF.MainWindow"
+﻿<Window x:Class="SkypeDBReader.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SDBR_WPF"
+        xmlns:local="clr-namespace:SkypeDBReader"
         Title="SkypeDBReader" Height="379" Width="664" Style="{DynamicResource VSLike}" ResizeMode="CanResizeWithGrip" Loaded="Window_Loaded" Activated="Window_Activated" >
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static SystemCommands.MinimizeWindowCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed_1" />

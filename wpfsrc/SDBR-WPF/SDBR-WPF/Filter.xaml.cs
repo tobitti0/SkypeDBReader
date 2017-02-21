@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace SDBR_WPF
+namespace SkypeDBReader
 {
     /// <summary>
     /// Filter.xaml の相互作用ロジック
@@ -24,6 +24,7 @@ namespace SDBR_WPF
             InitializeComponent();
         }
 
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             FilterSkypeID.Text = Properties.Settings.Default.FilterSkypeID;
@@ -31,6 +32,10 @@ namespace SDBR_WPF
             FilterCheck.IsChecked = Properties.Settings.Default.FilterCheck;
             FSkypeCheck.IsChecked = Properties.Settings.Default.FSkypeCheck;
             FStringCheck.IsChecked = Properties.Settings.Default.FStringCheck;
+            FSkypeCheck.IsEnabled = (bool)FilterCheck.IsChecked;
+            FilterSkypeID.IsEnabled = (bool)FilterCheck.IsChecked;
+            FStringCheck.IsEnabled = (bool)FilterCheck.IsChecked;
+            FilterString.IsEnabled = (bool)FilterCheck.IsChecked;
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)

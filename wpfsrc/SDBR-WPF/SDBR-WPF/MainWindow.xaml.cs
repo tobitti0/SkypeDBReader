@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
@@ -19,7 +20,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 
 
-namespace SDBR_WPF
+namespace SkypeDBReader
 {
     public partial class MainWindow : Window
     {
@@ -29,12 +30,26 @@ namespace SDBR_WPF
             InitializeComponent();
             DB = new List<DB> { };
             _Update.Check(VersionBoxNormal,VersionBox, VersionToolTip);//アップデート情報を取得および更新案内を設定
+
+            if(Properties.Settings.Default.FirstRun==true) ContentRendered += (s, e) => { FirstSetUpStart(); };
+
+            bw = new BackgroundWorker();
+
+            bw.WorkerSupportsCancellation = false;
+
+            bw.WorkerReportsProgress = false;
+
+            bw.DoWork += new DoWorkEventHandler(bw_DoWork);
+
+            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
+
         }
-        
+
         FileSystemWatcher watcher = null;
         private void MonitoringStartButton_Click(object sender, EventArgs e)
         {
-            ReadWriter.readwiter(DB, FilterStatus, dataGrid, Log);
+            BWread();
+
             //DB探すのにIDいる&設定から持ってくる
             string skypeID = Properties.Settings.Default.SkypeID;
 
@@ -85,12 +100,12 @@ namespace SDBR_WPF
 
         private void watcher_Changed(System.Object source, System.IO.FileSystemEventArgs e)//ファイルの変更があった時
         {
-            ReadWriter.readwiter(DB, FilterStatus, dataGrid, Log);
+            BWread();
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            ReadWriter.readwiter(DB, FilterStatus, dataGrid, Log);
+            BWread();
         }
         
         private void hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
@@ -138,18 +153,24 @@ namespace SDBR_WPF
             }
             _OptionWindow.Activate();
         }
+        static private FirstSetUp _FirstSetUpWindow = null;
+        public void FirstSetUpStart()
+        {
+            if (_FirstSetUpWindow == null)
+            {
+                _FirstSetUpWindow = new FirstSetUp();
+                _FirstSetUpWindow.Closed += (s, e) => _FirstSetUpWindow = null;
+                _FirstSetUpWindow.Owner = this;
+                _FirstSetUpWindow.Show();
+            }
+            _FirstSetUpWindow.Activate();
+        }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {//設定の中からカラーを適用
             ((App)Application.Current).ChangeBase(Properties.Settings.Default.BaseColor);
             ((App)Application.Current).ChangeAccent(Properties.Settings.Default.AccentColor);
 
-            if (Properties.Settings.Default.FirstRun == true)//初回起動の時の処理
-            {
-                FirstSetUp FSUP = new FirstSetUp();
-                FSUP.Owner = this;
-                FSUP.ShowDialog();
-            }
         }
 
         private void Window_Activated(object sender, EventArgs e)
@@ -175,6 +196,40 @@ namespace SDBR_WPF
         private void Menu_Filter_Click(object sender, RoutedEventArgs e)
         {
             FilterStart();
+        }
+
+        BackgroundWorker bw;
+        private void BWread()
+        {
+            //LoadingAnimation.Visibility = Visibility.Visible;
+            if (bw.IsBusy != true)
+            {
+                bw.RunWorkerAsync();
+            }
+        }
+
+
+        void bw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker bw = sender as BackgroundWorker;
+            ReadWriter.readwiter(DB);
+        }
+
+        void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (Properties.Settings.Default.FilterCheck)//フィルターがONの時
+            {
+                //情報を表示
+                FilterStatus.Text = "フィルター有効(｀・д・´)";
+            }
+            else
+            {
+                FilterStatus.Text = "フィルター無効( ˘ω˘)";
+            }
+
+            ReadWriter.UpdateDispList(DB, dataGrid, Log);
+
+            //LoadingAnimation.Visibility = Visibility.Hidden;
         }
     }
 }
