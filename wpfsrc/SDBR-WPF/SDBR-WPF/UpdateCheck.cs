@@ -30,7 +30,7 @@ namespace SkypeDBReader
             try
             {
                 WebClient wc = new WebClient();
-                Stream st = wc.OpenRead("https://raw.githubusercontent.com/tobitti0/SkypeDBReader/master/src/version.txt");
+                Stream st = wc.OpenRead("https://raw.githubusercontent.com/tobitti0/SkypeDBReader/master/wpfsrc/SDBR-WPF/version.txt");
                 StreamReader sr = new StreamReader(st);
 
                 // URLからすべて読み取る
