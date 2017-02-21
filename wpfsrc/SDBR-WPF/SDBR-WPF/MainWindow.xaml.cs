@@ -176,7 +176,13 @@ namespace SkypeDBReader
         private void Window_Activated(object sender, EventArgs e)
         {
             dataGrid.FontSize = Properties.Settings.Default.FontSize;
-            
+            if (Properties.Settings.Default.TimeDisplay)
+            {
+                dataGrid.Columns[2].Visibility = Visibility.Visible;
+            }else
+            {
+                dataGrid.Columns[2].Visibility = Visibility.Hidden;
+            }
         }
 
         private void Menu_Filter_Click(object sender, RoutedEventArgs e)

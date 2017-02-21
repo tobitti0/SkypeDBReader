@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
+using System.Windows.Data;
+using System.Windows;
 
 namespace SkypeDBReader
 {
@@ -18,6 +20,7 @@ namespace SkypeDBReader
         public string Time { get; private set; }
         public string Status { get; private set; }
         public string ChatID { get; private set; }
+        
 
         public DB(string id, string message, string time,string status, string system,string chatid)
         {
@@ -34,8 +37,10 @@ namespace SkypeDBReader
         {
             get
             {
-                if (Status == "2") return 1;
-
+                if (Properties.Settings.Default.MyColor)
+                {
+                    if (Status == "2") return 1;
+                }
                 if (Status == "3") return 2;
                 return 0;
             }
@@ -54,18 +59,6 @@ namespace SkypeDBReader
                 return 0;
             }
         }
-        //-----------------------背景色を変える---ここから
-        ////フィルター使用かつ文字強調がONの時
-        //if (Properties.Settings.Default.FilterCheck && Properties.Settings.Default.FStringCheck)
-        //{
-        //    CompareInfo ci = CultureInfo.CurrentCulture.CompareInfo;
-        //    string temp = Convert.ToString(dataGridView[1, Row].Value);//内容の取り出し
-        //    string temp2 = Properties.Settings.Default.FilterString;//調べたい文字の取り出し
-
-        //    //比較する
-        //    if (temp.IndexOf(temp2, StringComparison.OrdinalIgnoreCase) >= 0 || ci.IndexOf(temp, temp2, CompareOptions.IgnoreWidth | CompareOptions.IgnoreKanaType) >= 0)
-        //        dataGridView.Rows[Row].DefaultCellStyle.BackColor = Color.Crimson;
-        //}
         public int FilterNumber
         {
             get
@@ -84,6 +77,6 @@ namespace SkypeDBReader
                 return 0;
             }
         }
-        //-----------------------------------------ここまで
-    }
+         //-----------------------------------------ここまで
+        }
 }
