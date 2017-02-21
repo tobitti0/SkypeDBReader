@@ -53,22 +53,10 @@ namespace SkypeDBReader
             this.Owner.IsEnabled = true;
         }
 
-        static private IdCheck _IdCheckWindow = null;
-        public void IdCheckStart()
-        {
-            if (_IdCheckWindow == null)
-            {
-                _IdCheckWindow = new IdCheck();
-                _IdCheckWindow.Closed += (s, e) => _IdCheckWindow = null;
-                _IdCheckWindow.Owner = this;
-                _IdCheckWindow.Show();
-            }
-            _IdCheckWindow.Activate();
-        }
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            IdCheckStart();
+            WindowControl.IdCheckStart(this);
         }
     }
 }

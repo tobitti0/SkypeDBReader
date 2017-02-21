@@ -105,20 +105,9 @@ namespace SkypeDBReader
 
         private void IdCheck_Click(object sender, RoutedEventArgs e)
         {
-            IdCheckStart();
+            WindowControl.IdCheckStart(this);
         }
-        static private IdCheck _IdCheckWindow = null;
-        public void IdCheckStart()
-        {
-            if (_IdCheckWindow == null)
-            {
-                _IdCheckWindow = new IdCheck();
-                _IdCheckWindow.Closed += (s, e) => _IdCheckWindow = null;
-                _IdCheckWindow.Owner = this;
-                _IdCheckWindow.Show();
-            }
-            _IdCheckWindow.Activate();
-        }
+
     }
 }
 

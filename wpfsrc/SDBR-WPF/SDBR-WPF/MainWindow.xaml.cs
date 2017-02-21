@@ -25,13 +25,14 @@ namespace SkypeDBReader
     public partial class MainWindow : Window
     {
         readonly List<DB> DB;
+        BackgroundWorker bw;
         public MainWindow()
         {
             InitializeComponent();
             DB = new List<DB> { };
             _Update.Check(VersionBoxNormal,VersionBox, VersionToolTip);//アップデート情報を取得および更新案内を設定
 
-            if(Properties.Settings.Default.FirstRun==true) ContentRendered += (s, e) => { FirstSetUpStart(); };
+            if(Properties.Settings.Default.FirstRun==true) ContentRendered += (s, e) => { WindowControl.FirstSetUpStart(this); };
 
             bw = new BackgroundWorker();
 
@@ -141,37 +142,31 @@ namespace SkypeDBReader
 
         private void Menu_Option_Click(object sender, RoutedEventArgs e)
         {
-            OptionStart();
+            WindowControl.OptionStart(this);
+        }
+        private void Menu_Close_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+        private void Menu_Read_Click(object sender, RoutedEventArgs e)
+        {
+            BWread();
+        }
+        private void Menu_About_Click(object sender, RoutedEventArgs e)
+        {
+            WindowControl.AboutStart(this);
         }
 
-        //Window起動状態確認
-        static private Option _OptionWindow = null;
-        public void OptionStart()
-        {
-            if (_OptionWindow == null)
-            {
-                _OptionWindow = new Option();
-                _OptionWindow.Closed += (s, e) => _OptionWindow = null;
-                _OptionWindow.Owner = this;
-                _OptionWindow.Show();
-            }
-            _OptionWindow.Activate();
-        }
-        static private FirstSetUp _FirstSetUpWindow = null;
-        public void FirstSetUpStart()
-        {
-            if (_FirstSetUpWindow == null)
-            {
-                _FirstSetUpWindow = new FirstSetUp();
-                _FirstSetUpWindow.Closed += (s, e) => _FirstSetUpWindow = null;
-                _FirstSetUpWindow.Owner = this;
-                _FirstSetUpWindow.Show();
-            }
-            _FirstSetUpWindow.Activate();
-        }
+
+
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
-        {//設定の中からカラーを適用
+        {
+            Left = Properties.Settings.Default.MainWindow_Left;
+            Top = Properties.Settings.Default.MainWindow_Top;
+            Width = Properties.Settings.Default.MainWindow_Width;
+            Height = Properties.Settings.Default.MainWindow_Height;
+            //設定の中からカラーを適用
             ((App)Application.Current).ChangeBase(Properties.Settings.Default.BaseColor);
             ((App)Application.Current).ChangeAccent(Properties.Settings.Default.AccentColor);
 
@@ -183,26 +178,13 @@ namespace SkypeDBReader
             
         }
 
-
-        static private Filter _FilterWindow = null;
-        public void FilterStart()
-        {
-            if (_FilterWindow == null)
-            {
-                _FilterWindow = new Filter();
-                _FilterWindow.Closed += (s, e) => _FilterWindow = null;
-                _FilterWindow.Owner = this;
-                _FilterWindow.Show();
-            }
-            _FilterWindow.Activate();
-        }
-
         private void Menu_Filter_Click(object sender, RoutedEventArgs e)
         {
-            FilterStart();
+            WindowControl.FilterStart(this);
         }
 
-        BackgroundWorker bw;
+
+
         private void BWread()
         {
             LoadingAnimation.Visibility = Visibility.Visible;
@@ -235,6 +217,20 @@ namespace SkypeDBReader
             ReadWriter.scrool(dataGrid);
 
             LoadingAnimation.Visibility = Visibility.Hidden;
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            if (WindowState == WindowState.Normal)
+            {
+                // ウィンドウの値を Settings に格納
+                Properties.Settings.Default.MainWindow_Left = Left;
+                Properties.Settings.Default.MainWindow_Top = Top;
+                Properties.Settings.Default.MainWindow_Width = Width;
+                Properties.Settings.Default.MainWindow_Height = Height;
+                // ファイルに保存
+                Properties.Settings.Default.Save();
+            }
         }
     }
 }
