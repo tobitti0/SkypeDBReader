@@ -93,7 +93,6 @@ namespace SkypeDBReader
             watcher = null;
             //状態を表示
             LeftButtom.Text = "監視おわり( ˘ω˘)";
-            //UnSelect();
             //終了を押せなくして開始を押せるように
             MonitoringEndButton.IsEnabled = false;
             MonitoringStartButton.IsEnabled = true;
@@ -157,9 +156,7 @@ namespace SkypeDBReader
             WindowControl.AboutStart(this);
         }
 
-
-
-
+        
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             dataGrid.Columns[0].Width = Properties.Settings.Default.DataGridNameWidth;
@@ -176,13 +173,16 @@ namespace SkypeDBReader
         private void Window_Activated(object sender, EventArgs e)
         {
             dataGrid.FontSize = Properties.Settings.Default.FontSize;
+            Visibility VisibleStatus;
+
             if (Properties.Settings.Default.TimeDisplay)
             {
-                dataGrid.Columns[2].Visibility = Visibility.Visible;
+                VisibleStatus = Visibility.Visible;
             }else
             {
-                dataGrid.Columns[2].Visibility = Visibility.Hidden;
+                VisibleStatus = Visibility.Hidden;
             }
+            dataGrid.Columns[2].Visibility = VisibleStatus;
         }
 
         private void Menu_Filter_Click(object sender, RoutedEventArgs e)
@@ -195,6 +195,7 @@ namespace SkypeDBReader
         private void BWread()
         {
             LoadingAnimation.Visibility = Visibility.Visible;
+
             if (bw.IsBusy != true)
             {
                 bw.RunWorkerAsync();
@@ -236,7 +237,6 @@ namespace SkypeDBReader
                 Properties.Settings.Default.MainWindow_Top = Top;
                 Properties.Settings.Default.MainWindow_Width = Width;
                 Properties.Settings.Default.MainWindow_Height = Height;
-                // ファイルに保存
                 Properties.Settings.Default.Save();
             }
         }

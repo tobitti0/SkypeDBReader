@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Icon="SDBR.ico"
         xmlns:local="clr-namespace:SkypeDBReader"
-        Title="SkypeDBReader" Height="379" Width="664" Style="{DynamicResource VSLike}" ResizeMode="CanResizeWithGrip" Loaded="Window_Loaded" Activated="Window_Activated" Closed="Window_Closed" >
+        Title="SkypeDBReader" Height="379" Width="664" Style="{DynamicResource VSLike}" 
+        ResizeMode="CanResizeWithGrip" Loaded="Window_Loaded" Activated="Window_Activated" Closed="Window_Closed" >
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static SystemCommands.MinimizeWindowCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed_1" />
         <CommandBinding Command="{x:Static SystemCommands.RestoreWindowCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed_2" />
