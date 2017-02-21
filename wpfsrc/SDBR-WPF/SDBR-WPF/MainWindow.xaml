@@ -59,6 +59,9 @@
                             <DataTrigger Binding="{Binding SystemNumber}" Value="3">
                                 <Setter Property="Background" Value="LightGreen" />
                             </DataTrigger>
+                            <DataTrigger Binding="{Binding FilterNumber}" Value="1">
+                                <Setter Property="Background" Value="Crimson" />
+                            </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </DataGrid.ItemContainerStyle>
@@ -118,7 +121,7 @@
             <TextBlock x:Name="Log" Grid.Column="1"  Foreground="White"><Run Text="ログ"/></TextBlock>
             <TextBlock x:Name="FilterStatus" Grid.Column="2"  Foreground="White"><Run Text="フィルター"/></TextBlock>
             <TextBlock x:Name="LeftButtom"  Foreground="White" Margin="10,0,0,0"><Run Text="準備完了"/></TextBlock>
-            <TextBlock Margin="0,0,15,0" TextDecorations="{x:Null}" Grid.Column="3" x:Name="VersionBoxNormal"><Hyperlink NavigateUri="https://github.com/tobitti0/SkypeDBReader/releases"  x:Name="hyperlink" RequestNavigate="hyperlink_RequestNavigate" ToolTipService.ShowDuration="1000000000" ToolTipService.Placement="top"  >
+            <TextBlock Margin="0,0,15,0" TextDecorations="{x:Null}" Grid.Column="3" x:Name="VersionBoxNormal" Foreground="White"><Hyperlink NavigateUri="https://github.com/tobitti0/SkypeDBReader/releases"  x:Name="hyperlink" RequestNavigate="hyperlink_RequestNavigate" ToolTipService.ShowDuration="1000000000" ToolTipService.Placement="top"  >
                 <ToolTipService.ToolTip >
                     <TextBlock x:Name="VersionToolTip"  TextWrapping="Wrap"/> 
                 </ToolTipService.ToolTip>
