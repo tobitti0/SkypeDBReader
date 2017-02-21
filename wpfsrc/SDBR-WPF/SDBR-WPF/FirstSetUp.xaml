@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:local="clr-namespace:SkypeDBReader"
         mc:Ignorable="d" Style="{DynamicResource VSLikeSub}"
-        Title="FirstSetUp" Height="335.551" Width="468.203" Icon="SDBR.ico">
+        Title="FirstSetUp" Height="335.551" Width="468.203" Icon="SDBR.ico" Closed="Window_Closed">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

@@ -40,12 +40,15 @@ namespace SkypeDBReader
         }
         private void CommandBinding_Executed_4(object sender, ExecutedRoutedEventArgs e)
         {
+
             SystemCommands.CloseWindow(this);
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
+
             this.Close();
+
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -108,6 +111,10 @@ namespace SkypeDBReader
             WindowControl.IdCheckStart(this);
         }
 
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Owner.Activate();
+        }
     }
 }
 

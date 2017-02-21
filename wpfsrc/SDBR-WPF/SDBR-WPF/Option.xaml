@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Icon="SDBR.ico"
         xmlns:local="clr-namespace:SkypeDBReader" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
-        mc:Ignorable="d" Style="{DynamicResource VSLikeSub}" Title="設定" Height="350.695" Width="457.356" Loaded="Window_Loaded">
+        mc:Ignorable="d" Style="{DynamicResource VSLikeSub}" Title="設定" Height="350.695" Width="457.356" Loaded="Window_Loaded" Closed="Window_Closed">
 
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed_4" />

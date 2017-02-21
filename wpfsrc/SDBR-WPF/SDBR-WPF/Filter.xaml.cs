@@ -68,5 +68,10 @@ namespace SkypeDBReader
         {
             SystemCommands.CloseWindow(this);
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Owner.Activate();
+        }
     }
 }

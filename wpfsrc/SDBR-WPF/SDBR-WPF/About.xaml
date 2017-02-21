@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SDBR_WPF" ResizeMode="NoResize"
         mc:Ignorable="d" Style="{DynamicResource VSLikeSub}" WindowStartupLocation="CenterOwner" Icon="SDBR.ico"
-        Title="About" Height="196.321" Width="299.121">
+        Title="About" Height="196.321" Width="299.121" Closed="Window_Closed">
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed_4" />
     </Window.CommandBindings>

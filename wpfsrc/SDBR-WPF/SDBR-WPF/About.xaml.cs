@@ -55,5 +55,10 @@ namespace SkypeDBReader
             System.Diagnostics.Process.Start(e.Uri.AbsoluteUri);
             e.Handled = true;
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Owner.Activate();
+        }
     }
 }

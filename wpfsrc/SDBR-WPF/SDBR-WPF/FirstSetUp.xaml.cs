@@ -50,6 +50,7 @@ namespace SkypeDBReader
             Properties.Settings.Default.MessageRow = "11";
             Properties.Settings.Default.Save();
             Close();
+            Owner.Activate();
             this.Owner.IsEnabled = true;
         }
 
@@ -57,6 +58,11 @@ namespace SkypeDBReader
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             WindowControl.IdCheckStart(this);
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Owner.Activate();
         }
     }
 }

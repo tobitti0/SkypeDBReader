@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Icon="SDBR.ico"
         xmlns:local="clr-namespace:SkypeDBReader"
         mc:Ignorable="d" Style="{DynamicResource VSLikeSub}" ResizeMode="NoResize"
-        Title="IdCheck" Height="274.103" Width="677.786">
+        Title="IdCheck" Height="274.103" Width="677.786" Closed="Window_Closed">
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed_4" />
     </Window.CommandBindings>
