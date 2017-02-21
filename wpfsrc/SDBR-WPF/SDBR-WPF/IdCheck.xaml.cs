@@ -28,11 +28,6 @@ namespace SkypeDBReader
             SubDB = new List<DB> { };
         }
 
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            ReadWriter.Subreader(SubDB);
-        }
-
         private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
@@ -43,7 +38,7 @@ namespace SkypeDBReader
         }
 
         BackgroundWorker bw;
-        private void button1_Click(object sender, RoutedEventArgs e)
+        private void button_Click(object sender, RoutedEventArgs e)
         {
             LoadingAnimation.Visibility = Visibility.Visible;
 

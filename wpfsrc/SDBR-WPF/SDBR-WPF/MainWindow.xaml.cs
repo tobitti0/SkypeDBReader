@@ -100,7 +100,11 @@ namespace SkypeDBReader
 
         private void watcher_Changed(System.Object source, System.IO.FileSystemEventArgs e)//ファイルの変更があった時
         {
-            BWread();
+            Dispatcher.BeginInvoke((Action)(() =>
+            {
+                BWread();
+            }));
+            
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -201,7 +205,7 @@ namespace SkypeDBReader
         BackgroundWorker bw;
         private void BWread()
         {
-            //LoadingAnimation.Visibility = Visibility.Visible;
+            LoadingAnimation.Visibility = Visibility.Visible;
             if (bw.IsBusy != true)
             {
                 bw.RunWorkerAsync();
@@ -228,8 +232,9 @@ namespace SkypeDBReader
             }
 
             ReadWriter.UpdateDispList(DB, dataGrid, Log);
+            ReadWriter.scrool(dataGrid);
 
-            //LoadingAnimation.Visibility = Visibility.Hidden;
+            LoadingAnimation.Visibility = Visibility.Hidden;
         }
     }
 }

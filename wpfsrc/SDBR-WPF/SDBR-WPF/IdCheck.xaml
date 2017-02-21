@@ -48,8 +48,6 @@
         </DataGrid>
         <Button x:Name="button" Content="読み込み" HorizontalAlignment="Left" Margin="299,10,0,0" VerticalAlignment="Top" Width="75" Height="22" Grid.Row="1" Click="button_Click"/>
         <TextBlock x:Name="Log" HorizontalAlignment="Left" Margin="379,13,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="125"/>
-        <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="33,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="button1_Click"/>
-        <Button x:Name="button2" Content="Button" HorizontalAlignment="Left" Margin="553,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75"/>
         <Control x:Name="LoadingAnimation" Style="{StaticResource LoadingAnimationStyle}" Grid.RowSpan="2" Visibility="Hidden" />
     </Grid>
 </Window>

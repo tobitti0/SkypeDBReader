@@ -214,8 +214,8 @@ namespace SkypeDBReader
         public static void UpdateDispList(List<DB> list,DataGrid dataGrid, TextBlock Log)//Listをデータグリッドのアイテムにする
         {
             dataGrid.ItemsSource = new ReadOnlyCollection<DB>(list);
-            //DateTime dtNow = DateTime.Now;
-            //Log.Text = ("最終更新"+dtNow.ToShortTimeString());
+            DateTime dtNow = DateTime.Now;
+            Log.Text = ("最終更新"+dtNow.ToShortTimeString());
             //scrool(dataGrid);
         }
 
@@ -258,7 +258,7 @@ namespace SkypeDBReader
             }
         }
 
-        private static void scrool(DataGrid dataGrid)
+        public static void scrool(DataGrid dataGrid)
         {
             dataGrid.ScrollIntoView(dataGrid.Items.GetItemAt(dataGrid.Items.Count - 1));
 
