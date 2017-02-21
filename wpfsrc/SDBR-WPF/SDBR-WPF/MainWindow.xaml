@@ -80,7 +80,7 @@
                         </DataGridTextColumn.EditingElementStyle>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Time}" >
+                    <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Time}" CanUserResize="False" >
                         <DataGridTextColumn.ElementStyle>
                             <Style TargetType="{x:Type TextBlock}" >
                                 <Setter Property="Margin" Value="2" />

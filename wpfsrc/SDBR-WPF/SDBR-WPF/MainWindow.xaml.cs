@@ -162,6 +162,7 @@ namespace SkypeDBReader
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            dataGrid.Columns[0].Width = Properties.Settings.Default.DataGridNameWidth;
             Left = Properties.Settings.Default.MainWindow_Left;
             Top = Properties.Settings.Default.MainWindow_Top;
             Width = Properties.Settings.Default.MainWindow_Width;
@@ -224,6 +225,7 @@ namespace SkypeDBReader
             if (WindowState == WindowState.Normal)
             {
                 // ウィンドウの値を Settings に格納
+                Properties.Settings.Default.DataGridNameWidth =Convert.ToInt16( dataGrid.Columns[0].Width.ToString());
                 Properties.Settings.Default.MainWindow_Left = Left;
                 Properties.Settings.Default.MainWindow_Top = Top;
                 Properties.Settings.Default.MainWindow_Width = Width;
@@ -232,5 +234,6 @@ namespace SkypeDBReader
                 Properties.Settings.Default.Save();
             }
         }
+
     }
 }

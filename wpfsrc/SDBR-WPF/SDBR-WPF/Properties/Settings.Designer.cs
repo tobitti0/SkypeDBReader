@@ -238,5 +238,17 @@ namespace SkypeDBReader.Properties {
                 this["MainWindow_Left"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        public int DataGridNameWidth {
+            get {
+                return ((int)(this["DataGridNameWidth"]));
+            }
+            set {
+                this["DataGridNameWidth"] = value;
+            }
+        }
     }
 }

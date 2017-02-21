@@ -287,7 +287,7 @@
                                 <Ellipse Width="39.5" Height="39.5" Canvas.Left="8.75" Canvas.Top="8" Visibility="Hidden"/>
                             </Canvas>
                         </Border>
-                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="12">Loading...</TextBlock>
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="12" Foreground="Black">Loading...</TextBlock>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
