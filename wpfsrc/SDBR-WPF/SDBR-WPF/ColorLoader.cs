@@ -12,7 +12,10 @@ namespace SkypeDBReader
         private ResourceDictionary Base;
         private ResourceDictionary Accent;
 
-
+        /// <summary>
+        /// ベースカラーを変更する。
+        /// </summary>
+        /// <param name="num">0,Light、1,Dark</param>
         public void ChangeBase(int num)
         {
             if (Base == null)
@@ -27,6 +30,11 @@ namespace SkypeDBReader
               "pack://application:,,,/Generic/BaseColor/{0}.xaml", ColorBase[num]);
             Base.Source = new Uri(themeUri);
         }
+
+        /// <summary>
+        /// アクセントカラーを変更する
+        /// </summary>
+        /// <param name="num">0,青、1,オレンジ、2,紫</param>
         public void ChangeAccent(int num)
         {
             if (Accent == null)

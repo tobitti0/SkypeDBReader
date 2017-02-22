@@ -59,6 +59,7 @@ namespace SkypeDBReader
                 return 0;
             }
         }
+
         public int FilterNumber
         {
             get
@@ -77,6 +78,5 @@ namespace SkypeDBReader
                 return 0;
             }
         }
-         //-----------------------------------------ここまで
-        }
+    }
 }

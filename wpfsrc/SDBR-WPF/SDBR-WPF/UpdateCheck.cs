@@ -14,7 +14,11 @@ namespace SkypeDBReader
 {
     public static class _Update
     {
-        ///<summary>アップデートを既定のURLから確認し指定したLinkLabelとToolTipの情報を更新する</summary>
+        ///<summary>
+        ///アップデートを既定のURLから確認し指定したTextBllockに
+        ///更新がなければ通常文字で
+        ///更新があればLinkLabellとToolTipの情報を更新する
+        /// </summary>
         public static void Check(TextBlock LinkLabel,TextBlock LinkLabel2, TextBlock ToolTip)//バックグラウンド処理の呼び出し
         {
             BackgroundWorker bw = new BackgroundWorker();

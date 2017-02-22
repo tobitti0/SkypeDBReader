@@ -192,7 +192,6 @@ namespace SkypeDBReader
                 //情報を表示
                 //FilterStatus.Text = "フィルター無効( ˘ω˘)";
             }
-            //------------------------------ここまで
             
             //データベースから抽出するためのSQL文
             string commandText =
@@ -241,6 +240,8 @@ namespace SkypeDBReader
             return output;
         }
 
+
+
         private static void copylog()//ログをSkypeのとこから手元にコピペ
         {
             string skypeID = Properties.Settings.Default.SkypeID;//DB探すのにIDいる&設定から持ってくる
@@ -257,6 +258,7 @@ namespace SkypeDBReader
                 MessageBox.Show(ex.Message, "ファイル参照エラー");
             }
         }
+
 
         public static void scrool(DataGrid dataGrid)
         {
