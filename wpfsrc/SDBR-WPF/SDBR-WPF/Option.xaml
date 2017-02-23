@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Icon="SDBR.ico"
         xmlns:local="clr-namespace:SkypeDBReader" ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
-        mc:Ignorable="d" Style="{DynamicResource VSLikeSub}" Title="設定" Height="350.695" Width="457.356" Loaded="Window_Loaded" Closed="Window_Closed">
+        mc:Ignorable="d" Style="{DynamicResource VSLikeSub}" Title="設定" Height="284.568" Width="443.982" Loaded="Window_Loaded" Closed="Window_Closed" AllowsTransparency="True" WindowStyle="None">
 
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed_4" />
@@ -28,7 +28,7 @@
             <TextBox x:Name="FontSizeBox" HorizontalAlignment="Left" Height="22" Margin="76,92,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="50"/>
 
             <Label x:Name="label7" Content="初期値12" HorizontalAlignment="Left" Margin="131,93,0,0" VerticalAlignment="Top"/>
-            <Button x:Name="IdCheck" Content="会話ID調査" HorizontalAlignment="Left" Margin="359,36,0,0" VerticalAlignment="Top" Width="80" Click="IdCheck_Click"/>
+            <Button x:Name="IdCheck" Content="会話ID調査" Margin="352,36,10,0" VerticalAlignment="Top" Click="IdCheck_Click"/>
         </Grid>
         <Grid Grid.Row="1" Height="55" VerticalAlignment="Top">
             <CheckBox x:Name="MyColorBox" Content="自分のチャットに色を付ける" HorizontalAlignment="Left" Margin="10,23,0,0" VerticalAlignment="Top" IsThreeState="False" Grid.Row="1"/>

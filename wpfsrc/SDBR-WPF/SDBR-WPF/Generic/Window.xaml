@@ -53,7 +53,7 @@
                                         <ResizeGrip x:Name="WindowResizeGrip" Visibility="Collapsed" IsTabStop="false" Style="{DynamicResource VSResizeGrip}"/>
                                     </Grid>
                                 </Border>
-
+                                
                                 <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                             </Grid>
 
@@ -135,19 +135,12 @@
                                 </StackPanel>
                             </Grid>
                             <Grid Grid.Row="1">
-                                
                                 <ResizeGrip x:Name="WindowResizeGrip" Visibility="Collapsed" IsTabStop="false" Style="{DynamicResource VSResizeGrip}"/>
-
                                 <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                             </Grid>
-
                         </Grid>
-
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="WindowState" Value="Maximized">
-                            <Setter TargetName="border" Property="BorderThickness" Value="8" />
-                        </Trigger>
                         <Trigger Property="WindowState" Value="Normal">
                             <Setter TargetName="border" Property="BorderThickness" Value="1" />
                         </Trigger>
