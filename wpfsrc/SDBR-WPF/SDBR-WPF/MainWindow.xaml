@@ -62,6 +62,7 @@
                             </DataTrigger>
                             <DataTrigger Binding="{Binding FilterNumber}" Value="1">
                                 <Setter Property="Background" Value="Crimson" />
+                                <Setter Property="Foreground" Value="White" />
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
