@@ -25,9 +25,9 @@
         <TextBox x:Name="FilterString" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="116,68,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
         <Button x:Name="button" Content="閉じる" Grid.Column="1" Margin="0,0,74,9" Grid.Row="1" Click="button_Click" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="76"/>
         <Button x:Name="button1" Content="適用" Grid.Column="1" Margin="0,0,155,9" Grid.Row="1" Width="76" Click="button1_Click" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
-        <ListBox x:Name="Filter_List" Grid.Column="1" HorizontalAlignment="Left" Height="57" Margin="10,95,0,0" VerticalAlignment="Top" Width="264"/>
-        <Button Content="追加" Grid.Column="1" HorizontalAlignment="Left" Margin="119,157,0,0" VerticalAlignment="Top" Width="75" Height="22"/>
-        <Button Content="削除" Grid.Column="1" HorizontalAlignment="Left" Margin="199,157,0,0" VerticalAlignment="Top" Width="75" Height="22"/>
+        <ListBox ItemsSource="{Binding Collection}" x:Name="Filter_List" Grid.Column="1" HorizontalAlignment="Left" Height="57" Margin="10,95,0,0" VerticalAlignment="Top" Width="264"/>
+        <Button Content="追加" Grid.Column="1" HorizontalAlignment="Left" Margin="119,157,0,0" VerticalAlignment="Top" Width="75" Height="22" Click="Button_Click_1"/>
+        <Button Content="削除" Grid.Column="1" HorizontalAlignment="Left" Margin="199,157,0,0" VerticalAlignment="Top" Width="75" Height="22" Click="Button_Click_2"/>
         <TextBox x:Name="Add_Field" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="10,157,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="104"/>
 
     </Grid>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,16 @@ using System.Windows.Shapes;
 
 namespace SkypeDBReader
 {
+    public class MainViewModel
+    {
+        public ObservableCollection<string> Collection { get; set; }
+        public MainViewModel()
+        {
+            Collection = new ObservableCollection<string>();
+        }
+
+    }
+
     /// <summary>
     /// Filter.xaml の相互作用ロジック
     /// </summary>
@@ -22,6 +33,9 @@ namespace SkypeDBReader
         public Filter()
         {
             InitializeComponent();
+            MainViewModel viewModel = new MainViewModel();
+
+            this.DataContext = viewModel;
         }
 
 
@@ -72,6 +86,25 @@ namespace SkypeDBReader
         private void Window_Closed(object sender, EventArgs e)
         {
             Owner.Activate();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            MainViewModel viewModel = DataContext as MainViewModel;
+
+            viewModel.Collection.Add(Add_Field.Text);
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+
+            MainViewModel viewModel = DataContext as MainViewModel;
+            if (Filter_List.SelectedItem != null)
+            {
+                string target = Filter_List.SelectedItem.ToString();
+
+                viewModel.Collection.Remove(target);
+            }
         }
     }
 }
