@@ -92,7 +92,6 @@ namespace SkypeDBReader
         {
             FilterList viewModel = DataContext as FilterList;
 
-            int listnum=viewModel.Collection.Count;
             if (viewModel.Collection.Contains(Add_Field.Text) == false)
             {
                 viewModel.Collection.Add(Add_Field.Text);
