@@ -15,10 +15,10 @@ using System.Windows.Shapes;
 
 namespace SkypeDBReader
 {
-    public class MainViewModel
+    public class FilterList
     {
         public ObservableCollection<string> Collection { get; set; }
-        public MainViewModel()
+        public FilterList()
         {
             Collection = new ObservableCollection<string>();
         }
@@ -33,7 +33,7 @@ namespace SkypeDBReader
         public Filter()
         {
             InitializeComponent();
-            MainViewModel viewModel = new MainViewModel();
+            FilterList viewModel = new FilterList();
 
             this.DataContext = viewModel;
         }
@@ -90,15 +90,24 @@ namespace SkypeDBReader
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            MainViewModel viewModel = DataContext as MainViewModel;
+            FilterList viewModel = DataContext as FilterList;
 
-            viewModel.Collection.Add(Add_Field.Text);
+            int listnum=viewModel.Collection.Count;
+            if (viewModel.Collection.Contains(Add_Field.Text) == false)
+            {
+                viewModel.Collection.Add(Add_Field.Text);
+            }
+            else
+            {
+                MessageBox.Show("既に登録されています");
+            }
+
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
 
-            MainViewModel viewModel = DataContext as MainViewModel;
+            FilterList viewModel = DataContext as FilterList;
             if (Filter_List.SelectedItem != null)
             {
                 string target = Filter_List.SelectedItem.ToString();
