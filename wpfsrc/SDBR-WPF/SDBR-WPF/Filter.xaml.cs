@@ -15,14 +15,24 @@ using System.Windows.Shapes;
 
 namespace SkypeDBReader
 {
-    public class FilterList
+    public class FilterList : IEquatable<FilterList>
     {
-        public ObservableCollection<string> Collection { get; set; }
-        public FilterList()
+        //public ObservableCollection<string> Collection { get; set; }
+        public string Collection { get; private set; }
+        public FilterList(string collection)
         {
-            Collection = new ObservableCollection<string>();
+            Collection = collection;
         }
-
+        public override int GetHashCode()
+        {
+            return this.Collection.GetHashCode();
+        }
+        public bool Equals(FilterList other)
+        {
+            if (other == null)
+                return false;
+            return (this.Collection == other.Collection);
+        }
     }
 
     /// <summary>
@@ -30,12 +40,14 @@ namespace SkypeDBReader
     /// </summary>
     public partial class Filter : Window
     {
+        readonly List<FilterList> viewModel;
+
         public Filter()
         {
             InitializeComponent();
-            FilterList viewModel = new FilterList();
 
-            this.DataContext = viewModel;
+            viewModel = new List<FilterList> { };
+
         }
 
 
@@ -90,28 +102,25 @@ namespace SkypeDBReader
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            FilterList viewModel = DataContext as FilterList;
-
-            if (viewModel.Collection.Contains(Add_Field.Text) == false)
+            if (viewModel.Contains(new FilterList(Add_Field.Text)) == false)
             {
-                viewModel.Collection.Add(Add_Field.Text);
+                viewModel.Add(new FilterList(Add_Field.Text));
             }
             else
             {
                 MessageBox.Show("既に登録されています");
             }
-
+            FilterList.ItemsSource = new ReadOnlyCollection<FilterList>(viewModel);
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-
-            FilterList viewModel = DataContext as FilterList;
-            if (Filter_List.SelectedItem != null)
+            if (FilterList.SelectedItem != null)
             {
-                string target = Filter_List.SelectedItem.ToString();
+                int target = FilterList.SelectedIndex;
+                viewModel.RemoveAt(target);
+                FilterList.ItemsSource = new ReadOnlyCollection<FilterList>(viewModel);
 
-                viewModel.Collection.Remove(target);
             }
         }
     }
