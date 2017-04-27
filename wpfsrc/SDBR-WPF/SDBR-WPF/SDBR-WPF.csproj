@@ -96,6 +96,7 @@
     <Compile Include="Filter.xaml.cs">
       <DependentUpon>Filter.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FilterList.cs" />
     <Compile Include="FirstSetUp.xaml.cs">
       <DependentUpon>FirstSetUp.xaml</DependentUpon>
     </Compile>
@@ -115,6 +116,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="UpdateCheck.cs" />
     <Compile Include="WindowControl.cs" />
   </ItemGroup>

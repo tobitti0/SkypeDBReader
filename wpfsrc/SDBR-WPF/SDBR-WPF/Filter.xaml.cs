@@ -15,26 +15,6 @@ using System.Windows.Shapes;
 
 namespace SkypeDBReader
 {
-    public class FilterList : IEquatable<FilterList>
-    {
-        //public ObservableCollection<string> Collection { get; set; }
-        public string Collection { get; private set; }
-        public FilterList(string collection)
-        {
-            Collection = collection;
-        }
-        public override int GetHashCode()
-        {
-            return this.Collection.GetHashCode();
-        }
-        public bool Equals(FilterList other)
-        {
-            if (other == null)
-                return false;
-            return (this.Collection == other.Collection);
-        }
-    }
-
     /// <summary>
     /// Filter.xaml の相互作用ロジック
     /// </summary>
@@ -71,6 +51,7 @@ namespace SkypeDBReader
             Properties.Settings.Default.FilterCheck = (bool)FilterCheck.IsChecked;
             Properties.Settings.Default.FSkypeCheck = (bool)FSkypeCheck.IsChecked;
             Properties.Settings.Default.FStringCheck = (bool)FStringCheck.IsChecked;
+            Properties.Settings.Default.FList = viewModel;
             Properties.Settings.Default.Save();
         }
 
@@ -102,9 +83,11 @@ namespace SkypeDBReader
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            if (viewModel.Contains(new FilterList(Add_Field.Text)) == false)
+            FilterList Fwords = new FilterList();
+            Fwords.Collection = Add_Field.Text;
+            if (viewModel.Contains(Fwords) == false)
             {
-                viewModel.Add(new FilterList(Add_Field.Text));
+                viewModel.Add(Fwords);
             }
             else
             {

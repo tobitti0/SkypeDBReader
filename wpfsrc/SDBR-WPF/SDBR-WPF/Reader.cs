@@ -262,7 +262,10 @@ namespace SkypeDBReader
 
         public static void scrool(DataGrid dataGrid)
         {
-            dataGrid.ScrollIntoView(dataGrid.Items.GetItemAt(dataGrid.Items.Count - 1));
+            if (dataGrid.Items.Count != 0)
+            {
+                dataGrid.ScrollIntoView(dataGrid.Items.GetItemAt(dataGrid.Items.Count - 1));
+            }
 
         }
 
