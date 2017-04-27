@@ -35,16 +35,17 @@ namespace SkypeDBReader
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             FilterSkypeID.Text = Properties.Settings.Default.FilterSkypeID;
-            FilterString.Text = Properties.Settings.Default.FilterString;
             FilterCheck.IsChecked = Properties.Settings.Default.FilterCheck;
             FSkypeCheck.IsChecked = Properties.Settings.Default.FSkypeCheck;
             FStringCheck.IsChecked = Properties.Settings.Default.FStringCheck;
             FSkypeCheck.IsEnabled = (bool)FilterCheck.IsChecked;
             FilterSkypeID.IsEnabled = (bool)FilterCheck.IsChecked;
             FStringCheck.IsEnabled = (bool)FilterCheck.IsChecked;
-            FilterString.IsEnabled = (bool)FilterCheck.IsChecked;
-            viewModel = Properties.Settings.Default.FList;
-            FilterList.ItemsSource = new ReadOnlyCollection<FilterList>(viewModel);
+            if (Properties.Settings.Default.FList != null)
+            {
+                viewModel = Properties.Settings.Default.FList;
+                FilterList.ItemsSource = new ReadOnlyCollection<FilterList>(viewModel);
+            }
             Properties.Settings.Default.Save();
 
         }
@@ -52,7 +53,6 @@ namespace SkypeDBReader
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.FilterSkypeID = FilterSkypeID.Text;
-            Properties.Settings.Default.FilterString = FilterString.Text;
             Properties.Settings.Default.FilterCheck = (bool)FilterCheck.IsChecked;
             Properties.Settings.Default.FSkypeCheck = (bool)FSkypeCheck.IsChecked;
             Properties.Settings.Default.FStringCheck = (bool)FStringCheck.IsChecked;
@@ -70,7 +70,6 @@ namespace SkypeDBReader
             FSkypeCheck.IsEnabled = (bool)FilterCheck.IsChecked;
             FilterSkypeID.IsEnabled = (bool)FilterCheck.IsChecked;
             FStringCheck.IsEnabled = (bool)FilterCheck.IsChecked;
-            FilterString.IsEnabled = (bool)FilterCheck.IsChecked;
         }
         private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
