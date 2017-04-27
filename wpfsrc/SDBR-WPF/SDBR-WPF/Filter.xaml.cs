@@ -20,13 +20,14 @@ namespace SkypeDBReader
     /// </summary>
     public partial class Filter : Window
     {
-        readonly List<FilterList> viewModel;
+        List<FilterList> viewModel;
 
         public Filter()
         {
             InitializeComponent();
 
-            viewModel = new List<FilterList> { };
+            viewModel = new List<FilterList> {  };
+
 
         }
 
@@ -42,6 +43,10 @@ namespace SkypeDBReader
             FilterSkypeID.IsEnabled = (bool)FilterCheck.IsChecked;
             FStringCheck.IsEnabled = (bool)FilterCheck.IsChecked;
             FilterString.IsEnabled = (bool)FilterCheck.IsChecked;
+            viewModel = Properties.Settings.Default.FList;
+            FilterList.ItemsSource = new ReadOnlyCollection<FilterList>(viewModel);
+            Properties.Settings.Default.Save();
+
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
@@ -81,22 +86,33 @@ namespace SkypeDBReader
             Owner.Activate();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void FilterAdd_Click(object sender, RoutedEventArgs e)
         {
             FilterList Fwords = new FilterList();
+
             Fwords.Collection = Add_Field.Text;
-            if (viewModel.Contains(Fwords) == false)
+            if(Add_Field.Text != "")
             {
-                viewModel.Add(Fwords);
+                if (viewModel.Contains(Fwords) == false)
+                {
+                    viewModel.Add(Fwords);
+                    Add_Field.Text = "";
+                }
+                else
+                {
+                    MessageBox.Show("既に登録されています");
+                }
             }
             else
             {
-                MessageBox.Show("既に登録されています");
+                MessageBox.Show("何も入力されていません。");
+
             }
+
             FilterList.ItemsSource = new ReadOnlyCollection<FilterList>(viewModel);
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void FilterRemove_Click(object sender, RoutedEventArgs e)
         {
             if (FilterList.SelectedItem != null)
             {
@@ -105,6 +121,11 @@ namespace SkypeDBReader
                 FilterList.ItemsSource = new ReadOnlyCollection<FilterList>(viewModel);
 
             }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.Save();
         }
     }
 }
