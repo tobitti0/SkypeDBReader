@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SkypeDBReader" WindowStartupLocation="CenterOwner" Style="{DynamicResource VSLikeSub}" Icon="SDBR.ico"
         mc:Ignorable="d"
-        Title="Filter" Loaded="Window_Loaded" Closed="Window_Closed" Height="157.164" Width="306" ResizeMode="NoResize" AllowsTransparency="True" WindowStyle="None">
+        Title="Filter" Loaded="Window_Loaded" Closed="Window_Closed" Height="309.529" Width="306" ResizeMode="NoResize" AllowsTransparency="True" WindowStyle="None">
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" CanExecute="CommandBinding_CanExecute" Executed="CommandBinding_Executed_4" />
     </Window.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="94*"/>
-            <RowDefinition Height="31*"/>
+            <RowDefinition Height="121*"/>
+            <RowDefinition Height="20*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="25*"/>
@@ -22,9 +22,33 @@
         <CheckBox x:Name="FSkypeCheck" Content="SkypeID" HorizontalAlignment="Left" Margin="10,37,0,0" VerticalAlignment="Top" Grid.Column="1" Height="15" Width="71" IsEnabled="False"/>
         <TextBox x:Name="FilterSkypeID" Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="116,35,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
         <CheckBox x:Name="FStringCheck" Content="特定文字に反応" Grid.Column="1" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" Height="16" Width="101" IsEnabled="False"/>
-        <TextBox x:Name="FilterString" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="116,68,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
-        <Button x:Name="button" Content="閉じる" Grid.Column="1" Margin="0,0,10,10" Grid.Row="1" Click="button_Click" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="76"/>
-        <Button x:Name="button1" Content="適用" Grid.Column="1" Margin="0,0,91,10" Grid.Row="1" Width="76" Click="button1_Click" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+        <Button x:Name="button" Content="閉じる" Grid.Column="1" Margin="0,0,74,9" Grid.Row="1" Click="button_Click" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="76"/>
+        <Button x:Name="button1" Content="適用" Grid.Column="1" Margin="0,0,155,9" Grid.Row="1" Width="76" Click="button1_Click" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+        <Button x:Name="FilterAdd" Content="追加" Grid.Column="1" HorizontalAlignment="Left" Margin="119,0,0,4" Width="75" Click="FilterAdd_Click" Height="22" VerticalAlignment="Bottom"/>
+        <Button x:Name="FilterRemove" Content="削除" Grid.Column="1" HorizontalAlignment="Left" Margin="199,0,0,4" Width="75" Click="FilterRemove_Click" Height="22" VerticalAlignment="Bottom"/>
+        <TextBox x:Name="Add_Field" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,4" TextWrapping="Wrap" Width="104" Height="22" VerticalAlignment="Bottom"/>
+        <DataGrid x:Name="FilterList" Grid.Column="1" HorizontalAlignment="Left" Margin="11,97,0,32" Width="263" AutoGenerateColumns="False" ScrollViewer.CanContentScroll="True"
+                      VirtualizingPanel.ScrollUnit="Pixel"  HeadersVisibility="None" CanUserSortColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="内容" Width="*" Binding="{Binding Collection}" >
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                            <Setter Property="MaxHeight" Value="100"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    <DataGridTextColumn.EditingElementStyle>
+                        <Style TargetType="TextBox">
+                            <Setter Property="AcceptsReturn" Value="true" />
+                            <Setter Property="TextWrapping" Value="Wrap" />
+                            <Setter Property="MaxHeight" Value="100"/>
+                            <Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+                        </Style>
+                    </DataGridTextColumn.EditingElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
 
     </Grid>
 </Window>

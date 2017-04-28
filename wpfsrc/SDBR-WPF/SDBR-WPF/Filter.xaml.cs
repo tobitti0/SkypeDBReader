@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,32 +20,43 @@ namespace SkypeDBReader
     /// </summary>
     public partial class Filter : Window
     {
+        List<FilterList> viewModel;
+
         public Filter()
         {
             InitializeComponent();
+
+            viewModel = new List<FilterList> {  };
+
+
         }
 
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             FilterSkypeID.Text = Properties.Settings.Default.FilterSkypeID;
-            FilterString.Text = Properties.Settings.Default.FilterString;
             FilterCheck.IsChecked = Properties.Settings.Default.FilterCheck;
             FSkypeCheck.IsChecked = Properties.Settings.Default.FSkypeCheck;
             FStringCheck.IsChecked = Properties.Settings.Default.FStringCheck;
             FSkypeCheck.IsEnabled = (bool)FilterCheck.IsChecked;
             FilterSkypeID.IsEnabled = (bool)FilterCheck.IsChecked;
             FStringCheck.IsEnabled = (bool)FilterCheck.IsChecked;
-            FilterString.IsEnabled = (bool)FilterCheck.IsChecked;
+            if (Properties.Settings.Default.FList != null)
+            {
+                viewModel = Properties.Settings.Default.FList;
+                FilterList.ItemsSource = new ReadOnlyCollection<FilterList>(viewModel);
+            }
+            Properties.Settings.Default.Save();
+
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.FilterSkypeID = FilterSkypeID.Text;
-            Properties.Settings.Default.FilterString = FilterString.Text;
             Properties.Settings.Default.FilterCheck = (bool)FilterCheck.IsChecked;
             Properties.Settings.Default.FSkypeCheck = (bool)FSkypeCheck.IsChecked;
             Properties.Settings.Default.FStringCheck = (bool)FStringCheck.IsChecked;
+            Properties.Settings.Default.FList = viewModel;
             Properties.Settings.Default.Save();
         }
 
@@ -58,7 +70,6 @@ namespace SkypeDBReader
             FSkypeCheck.IsEnabled = (bool)FilterCheck.IsChecked;
             FilterSkypeID.IsEnabled = (bool)FilterCheck.IsChecked;
             FStringCheck.IsEnabled = (bool)FilterCheck.IsChecked;
-            FilterString.IsEnabled = (bool)FilterCheck.IsChecked;
         }
         private void CommandBinding_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
@@ -72,6 +83,48 @@ namespace SkypeDBReader
         private void Window_Closed(object sender, EventArgs e)
         {
             Owner.Activate();
+        }
+
+        private void FilterAdd_Click(object sender, RoutedEventArgs e)
+        {
+            FilterList Fwords = new FilterList();
+
+            Fwords.Collection = Add_Field.Text;
+            if(Add_Field.Text != "")
+            {
+                if (viewModel.Contains(Fwords) == false)
+                {
+                    viewModel.Add(Fwords);
+                    Add_Field.Text = "";
+                }
+                else
+                {
+                    MessageBox.Show("既に登録されています","Error");
+                }
+            }
+            else
+            {
+                MessageBox.Show("何も入力されていません。","Error");
+
+            }
+
+            FilterList.ItemsSource = new ReadOnlyCollection<FilterList>(viewModel);
+        }
+
+        private void FilterRemove_Click(object sender, RoutedEventArgs e)
+        {
+            if (FilterList.SelectedItem != null)
+            {
+                int target = FilterList.SelectedIndex;
+                viewModel.RemoveAt(target);
+                FilterList.ItemsSource = new ReadOnlyCollection<FilterList>(viewModel);
+
+            }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Properties.Settings.Default.Save();
         }
     }
 }

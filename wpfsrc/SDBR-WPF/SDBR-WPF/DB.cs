@@ -64,15 +64,25 @@ namespace SkypeDBReader
         {
             get
             {
+                List<FilterList> TargetString = new List<FilterList> { };
+                TargetString = Properties.Settings.Default.FList;
+                Properties.Settings.Default.Save();
+                int ListNum = TargetString.Count;
+
                 if (Properties.Settings.Default.FilterCheck && Properties.Settings.Default.FStringCheck)
                 {
                     CompareInfo ci = CultureInfo.CurrentCulture.CompareInfo;
-                    string temp2 = Properties.Settings.Default.FilterString;//調べたい文字の取り出し
-                    //比較する
 
-                    if (Message.IndexOf(temp2, StringComparison.OrdinalIgnoreCase) >= 0 || ci.IndexOf(Message, temp2, CompareOptions.IgnoreWidth | CompareOptions.IgnoreKanaType) >= 0)
+                    for (int i = 0; i < ListNum; i++)
                     {
-                        return 1;
+                        //string temp2 = Properties.Settings.Default.FilterString;//調べたい文字の取り出し
+                        //比較する
+                        string temp2 = Properties.Settings.Default.FList[i].Collection;
+
+                        if (Message.IndexOf(temp2, StringComparison.OrdinalIgnoreCase) >= 0 || ci.IndexOf(Message, temp2, CompareOptions.IgnoreWidth | CompareOptions.IgnoreKanaType) >= 0)
+                        {
+                            return 1;
+                        }
                     }
                 }
                 return 0;
