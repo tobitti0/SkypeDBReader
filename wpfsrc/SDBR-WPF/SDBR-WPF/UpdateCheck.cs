@@ -100,7 +100,7 @@ namespace SkypeDBReader
                 LinkLabel.Text = ("最新版です");
             }
             else
-            {//NewVersion
+            {
                 LinkLabel2.Text = ("新しいバージョンがあります");
                 string message = null;
                 for (int count = 0; count < version.Length - 1; count++)
@@ -111,6 +111,7 @@ namespace SkypeDBReader
 
                 //メッセージ
                 tooltip.Text=("Version " + message + "\r\n(クリックで配布ページへ移動します。)");
+                
              }
 
         }

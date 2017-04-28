@@ -28,7 +28,7 @@
         <Button x:Name="FilterRemove" Content="削除" Grid.Column="1" HorizontalAlignment="Left" Margin="199,0,0,4" Width="75" Click="FilterRemove_Click" Height="22" VerticalAlignment="Bottom"/>
         <TextBox x:Name="Add_Field" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,4" TextWrapping="Wrap" Width="104" Height="22" VerticalAlignment="Bottom"/>
         <DataGrid x:Name="FilterList" Grid.Column="1" HorizontalAlignment="Left" Margin="11,97,0,32" Width="263" AutoGenerateColumns="False" ScrollViewer.CanContentScroll="True"
-                      VirtualizingPanel.ScrollUnit="Pixel"  HeadersVisibility="None" CanUserSortColumns="False" IsReadOnly="True">
+                      VirtualizingPanel.ScrollUnit="Pixel"  HeadersVisibility="None" CanUserSortColumns="False" IsReadOnly="True" SelectionMode="Single">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="内容" Width="*" Binding="{Binding Collection}" >
                     <DataGridTextColumn.ElementStyle>

@@ -67,7 +67,15 @@ namespace SkypeDBReader
                 List<FilterList> TargetString = new List<FilterList> { };
                 TargetString = Properties.Settings.Default.FList;
                 Properties.Settings.Default.Save();
-                int ListNum = TargetString.Count;
+                int ListNum = 0;
+                if (TargetString == null)
+                {
+                    ListNum = 0;
+                }
+                else
+                {
+                    ListNum = TargetString.Count;
+                }
 
                 if (Properties.Settings.Default.FilterCheck && Properties.Settings.Default.FStringCheck)
                 {
