@@ -99,12 +99,12 @@ namespace SkypeDBReader
                 }
                 else
                 {
-                    MessageBox.Show("既に登録されています");
+                    MessageBox.Show("既に登録されています","Error");
                 }
             }
             else
             {
-                MessageBox.Show("何も入力されていません。");
+                MessageBox.Show("何も入力されていません。","Error");
 
             }
 
